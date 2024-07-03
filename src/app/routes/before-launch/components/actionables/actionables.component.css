@@ -1,0 +1,124 @@
+.actionables {
+  width: calc(410px - 3rem);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+h2 {
+  font: clamp(1.625rem, 1.207rem + 0.869vw, 2.25rem) "Bangers";
+  max-width: 95%;
+  margin: 0 auto;
+  color: white;
+  text-align: center;
+}
+
+.countdown {
+  margin: 0 auto;
+  border-radius: 1rem;
+  width: 90%;
+  background-color: #1F1F1F;
+  display: flex;
+  padding: 2rem;
+  gap: 2rem;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  box-shadow: 0 1rem 3rem rgba(151, 71, 255, 0.32);
+}
+
+.countdown div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.countdown h3 {
+  font: 2.25rem 'Poppins'
+}
+
+.countdown div p {
+  font: 1rem 'Poppins'
+}
+
+form {
+  width: 90%;
+  margin: 0 auto;
+  background-color: white;
+  border-radius: 1rem;
+  padding: 1rem;
+  font-family: 'Poppins';
+  text-align: center;
+}
+
+form h3 {
+  font-size: clamp(1.25rem, 1.083rem + 0.348vw, 1.5rem);
+  font-weight: 500;
+}
+
+form p {
+  font-size: clamp(0.92rem, 0.867rem + 0.111vw, 1rem);
+  color: rgba(102, 102, 102, 0.8)
+}
+
+input {
+  display: block;
+  width: 100%;
+  margin-top: 2rem;
+  height: 2.5rem;
+  border-radius: 0.5rem;
+  border: 1px solid rgba(102, 102, 102, 0.35);
+  padding-left: 1rem;
+  font: 1rem 'Poppins'
+}
+
+form button {
+  margin-top: 0.75rem;
+  width: 100%;
+  height: 2.5rem;
+  border-radius: 1.25rem;
+  color: white;
+  background-color: rgba(17, 17, 17, 0.25);
+  border: transparent;
+  font: 1rem 'Poppins'
+}
+
+.ng-valid button {
+  background-color: rgb(17, 17, 17);
+  cursor: pointer;
+}
+
+app-socials {
+  width: clamp(18.75rem, 12.57rem + 12.858vw, 28rem);
+  margin: 0 auto;
+}
+
+@media only screen and (max-width: 768px) {
+  .actionables {
+    max-width: 95%;
+    gap: 2rem;
+  }
+
+  input {
+    font-size: 0.875rem;
+  }
+
+  form h3 {
+    font-size: 18px;
+  }
+
+  .countdown {
+    gap: 1rem;
+  }
+}
+
+@media only screen and (max-height: 768px) {
+  .actionables .countdown {
+    padding: 1rem
+  }
+
+  form input {
+    margin-top: 1rem;
+  }
+}

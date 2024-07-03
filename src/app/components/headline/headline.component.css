@@ -1,0 +1,41 @@
+.headline {
+  margin: 3.5rem auto 0 auto;
+  max-width: 1280px;
+  width: 100%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.headline button {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 0.5rem 1rem;
+  background-color: white;
+  font: 36px 'Alfa Slab One';
+  border-radius: 1.25rem;
+  margin-left: 1rem;
+  position: absolute;
+  left: 0;
+  cursor: pointer;
+
+}
+
+.headline button img {
+  width: 1.5rem;
+  object-fit: contain;
+}
+
+.headline h2 {
+  font: clamp(2.25rem, 2.025rem + 1.125vw, 3.375rem) 'Alfa Slab One';
+  color: white;
+  margin: auto 0;
+}
+
+@media only screen and (max-width: 768px) {
+  .headline button {
+    display: none;
+  }
+}

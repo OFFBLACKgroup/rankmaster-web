@@ -1,0 +1,89 @@
+<div class="actionables">
+  <h2>Try to guess the average rank of each tier list item!</h2>
+  <div class="countdown">
+    @if (lessThan24) {
+      <div>
+        <h3>
+          @if (remainingHours == -1) {
+            <mat-progress-spinner mode="indeterminate" diameter="48"></mat-progress-spinner>
+          } @else {
+            <span @fadeIn>
+              {{ remainingHours }}
+            </span>
+          }
+        </h3>
+        <p>{{ remainingHours == 1 ? 'Hour' : 'Hours' }}</p>
+      </div>
+      <div>
+        <h3>
+          @if (remainingMinutes == -1) {
+            <mat-progress-spinner mode="indeterminate" diameter="48"></mat-progress-spinner>
+          } @else {
+            <span @fadeIn>
+              {{ remainingMinutes }}
+            </span>
+          }
+        </h3>
+        <p>{{ remainingMinutes == 1 ? 'Minute' : 'Minutes' }}</p>
+      </div>
+      <div>
+        <h3>
+          @if (remainingSeconds == -1) {
+            <mat-progress-spinner mode="indeterminate" diameter="48"></mat-progress-spinner>
+          } @else {
+            <span @fadeIn>
+              {{ remainingSeconds }}
+            </span>
+          }
+        </h3>
+        <p>{{ remainingSeconds == 1 ? 'Second' : 'Seconds' }}</p>
+      </div>
+    } @else {
+      <div>
+        <h3>
+          @if (remainingDays == -1) {
+            <mat-progress-spinner mode="indeterminate" diameter="48"></mat-progress-spinner>
+          } @else {
+            <span @fadeIn>
+              {{ remainingDays }}
+            </span>
+          }
+        </h3>
+        <p>{{ remainingDays == 1 ? 'Day' : 'Days' }}</p>
+      </div>
+      <div>
+        <h3>
+          @if (remainingHours == -1) {
+            <mat-progress-spinner mode="indeterminate" diameter="48"></mat-progress-spinner>
+          } @else {
+            <span @fadeIn>
+              {{ remainingHours }}
+            </span>
+          }
+        </h3>
+        <p>{{ remainingHours == 1 ? 'Hour' : 'Hours' }}</p>
+      </div>
+      <div>
+        <h3>
+          @if (remainingMinutes == -1) {
+            <mat-progress-spinner mode="indeterminate" diameter="48"></mat-progress-spinner>
+          } @else {
+            <span @fadeIn>
+              {{ remainingMinutes }}
+            </span>
+          }
+        </h3>
+        <p>{{ remainingMinutes == 1 ? 'Minute' : 'Minutes' }}</p>
+      </div>
+    }
+  </div>
+  <form>
+    <h3>Get notified on launch!</h3>
+    <p>Be the first to try out RankMaster</p>
+    <input id="email" #email="ngModel" required type="email" name="email" [(ngModel)]="emailValue" email placeholder="Enter your email address">
+    <button (click)="sendEmail($event, !email.invalid)" class="ng-valid">Continue</button>
+  </form>
+  <div class="socials-container">
+    <app-socials></app-socials>
+  </div>
+</div>

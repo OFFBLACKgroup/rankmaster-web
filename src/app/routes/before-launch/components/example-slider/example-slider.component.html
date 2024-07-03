@@ -1,0 +1,30 @@
+<div class="example-slider">
+  <ul class="slider">
+    <li [@slideAnimation]="slideStates[0]">
+      <img src="../assets/example 1.png" alt="">
+    </li>
+    <li [@slideAnimation]="slideStates[1]">
+      <img src="assets/example 2.png" alt="Example 2">
+    </li>
+    <li [@slideAnimation]="slideStates[2]">
+      <img  src="assets/example 3.png" alt="Example 3">
+    </li>
+  </ul>
+  <ul class="slider-indicator">
+    <li (click)="selectItem(0)">
+      @if (selectedNo == 0) {
+        <div @fadeInOut class="dot"></div>
+      }
+    </li>
+    <li (click)="selectItem(1)">
+      @if (selectedNo == 1) {
+        <div @fadeInOut class="dot"></div>
+      }
+    </li>
+    <li (click)="selectItem(2)">
+      @if (selectedNo == 2) {
+        <div @fadeInOut class="dot"></div>
+      }
+    </li>
+  </ul>
+</div>

@@ -1,0 +1,284 @@
+main {
+  width: 40rem;
+  margin: 2.5rem auto;
+  background-color: #242424;
+  border-radius: 2rem;
+  padding: 1rem 0;
+  overflow: hidden;
+}
+
+@media only screen and (max-width: 464px) {
+  main {
+    padding-bottom: 0;
+    overflow: hidden;
+  }
+}
+
+ul.top-three {
+  width: clamp(17.5rem, 12.321rem + 25.893vw, 24.75rem);
+  height: clamp(12.25rem, 8.857rem + 16.964vw, 17rem);
+  list-style: none;
+  margin: auto;
+  display: flex;
+}
+
+li.second-place, li.third-place {
+  height: clamp(5.75rem, 3.964rem + 8.929vw, 8.25rem);
+  width: clamp(5.625rem, 3.929rem + 8.482vw, 8rem);
+  align-self: flex-end;
+  background-color: #181D35;
+  position: relative;
+}
+
+li.second-place {
+  border-radius: 1rem 0 0 1rem;
+}
+
+li.third-place {
+  border-radius: 0 1rem 1rem 0;
+}
+
+li.first-place {
+  height: clamp(8.25rem, 6.107rem + 10.714vw, 11.25rem);
+  width: clamp(6.25rem, 4.464rem + 8.929vw, 8.75rem);
+  align-self: flex-end;
+  background-color: #2C3688;
+  border-radius: 2rem 2rem 0 0;
+  position: relative;
+}
+
+.second-place .profile-picture, .third-place .profile-picture {
+  position: absolute;
+  width: clamp(3.5rem, 2.429rem + 5.357vw, 5rem);
+  height: clamp(3.5rem, 2.429rem + 5.357vw, 5rem);
+  border-radius: 50%;
+  top: calc(clamp(3.5rem, 2.429rem + 5.357vw, 5rem) * -0.6);
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.second-place .profile-picture {
+  border: clamp(0.125rem, 0.08rem + 0.223vw, 0.188rem) solid #009BD6;
+}
+
+.third-place .profile-picture {
+  border: clamp(0.125rem, 0.08rem + 0.223vw, 0.188rem) solid #00D95F;
+}
+
+.first-place .profile-picture {
+  position: absolute;
+  width: clamp(4.5rem, 3.429rem + 5.357vw, 6rem);
+  height: clamp(4.5rem, 3.429rem + 5.357vw, 6rem);
+  border-radius: 50%;
+  top: calc(clamp(4.5rem, 3.429rem + 5.357vw, 6rem) * -0.6);
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: white;
+  border: clamp(0.125rem, 0.08rem + 0.223vw, 0.188rem) solid #FFAA00;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.profile-picture img:first-child {
+  width: 90%;
+  height: 90%;
+  object-fit: contain;
+}
+
+.profile-picture img:last-child {
+  position: absolute;
+  height: clamp(1.125rem, 0.857rem + 1.339vw, 1.5rem);
+  object-fit: contain;
+  top: calc(0% - clamp(0.125rem, 0.08rem + 0.223vw, 0.188rem) - clamp(1.125rem, 0.857rem + 1.339vw, 1.5rem) - clamp(0.5rem, 0.321rem + 0.893vw, 0.75rem));
+}
+
+.profile-picture .rank-indicator {
+  position: absolute;
+  height: clamp(0.875rem, 0.607rem + 1.339vw, 1.25rem);
+  width: clamp(0.875rem, 0.607rem + 1.339vw, 1.25rem);
+  bottom: calc(0% - clamp(0.125rem, 0.08rem + 0.223vw, 0.188rem) / 2 - clamp(0.875rem, 0.607rem + 1.339vw, 1.25rem) / 2);
+  left: 50%;
+  transform: translateX(-50%) rotate(45deg);
+  border-radius: clamp(0.25rem, 0.161rem + 0.446vw, 0.375rem);
+}
+
+.first-place .rank-indicator {
+  background-color: #FFAA00;
+}
+
+.second-place .rank-indicator {
+  background-color: #009BD6;
+}
+
+.third-place .rank-indicator {
+  background-color: #00D95F
+}
+
+.rank-indicator h4 {
+  font: clamp(0.5rem, 0.321rem + 0.893vw, 0.75rem) 'Poppins';
+  color: white;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+li {
+  padding-top: calc(clamp(3.5rem, 2.429rem + 5.357vw, 5rem) / 2 + clamp(0.875rem, 0.607rem + 1.339vw, 1.25rem) / 2); 
+}
+
+li.second-place h3, li.third-place h3 {
+  font: clamp(0.875rem, 0.607rem + 1.339vw, 1.25rem) 'Poppins';
+  color: white;
+  text-align: center;
+  font-weight: 300;
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 0 2px;
+}
+
+li.second-place > h4, li.third-place > h4 {
+  font: clamp(0.75rem, 0.482rem + 1.339vw, 1.125rem) 'Alfa Slab One';
+  text-align: center;
+  margin: 0;
+}
+
+li.second-place > h4 {
+  color: #009BD6;
+}
+
+li.third-place > h4 {
+  color: #00D95F;
+}
+
+li span {
+  font: clamp(0.625rem, 0.446rem + 0.893vw, 0.875rem) 'Alfa Slab One';
+  color: #AEABAB;
+  display: block;
+  text-align: center;
+}
+
+li.first-place h3 {
+  margin-top: 1rem;
+  font: clamp(1.125rem, 0.768rem + 1.786vw, 1.625rem) 'Poppins';
+  font-weight: 300;
+  color: white;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 0 2px;
+  text-align: center;
+  margin-bottom: 0;
+}
+
+li.first-place > h4 {
+  font: clamp(1rem, 0.643rem + 1.786vw, 1.5rem) 'Alfa Slab One';
+  color: #FFAA00;
+  text-align: center;
+  margin: 0;
+}
+
+
+@media only screen and (max-width: 768px) {
+  main {
+    width: clamp(19rem, 4rem + 75vw, 40rem)
+  }
+}
+
+/* Leaderboard */
+
+ul.leaderboard {
+  width: 29rem;
+  margin: 1rem auto 0 auto;
+  padding: 1rem 0;
+  background-color: #33343D;
+  border-radius: 3rem;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+@media only screen and (max-width: 768px) {
+  ul.leaderboard {
+    width: calc(clamp(19rem, 4rem + 75vw, 40rem) * 0.95)
+  }
+}
+
+@media only screen and (max-width: 464px) {
+  ul.leaderboard {
+    width: clamp(19rem, 4rem + 75vw, 40rem) !important;
+    border-radius: 3rem 3rem 0 0;
+  }
+}
+
+.leaderboard li {
+  width: 25rem;
+  border-bottom: 1.5px solid #5F5959;
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 0;
+}
+
+@media only screen and (max-width: 768px) {
+  ul.leaderboard li {
+    width: 86%;
+  }
+}
+
+.leaderboard li:last-child {
+  border-bottom: transparent
+}
+
+.leaderboard li h3:first-child {
+  font: clamp(2rem, 1.286rem + 3.571vw, 3rem) 'Poppins';
+  width: 12%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: white;
+  margin: 0;
+}
+
+.leaderboard li .img-container {
+  width: clamp(2.5rem, 1.607rem + 4.464vw, 3.75rem);
+  height: clamp(2.5rem, 1.607rem + 4.464vw, 3.75rem);
+  border-radius: 50%;
+  margin-left: 1rem;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.leaderboard .img-container img {
+  width: 90%;
+  height: 90%;
+  object-fit: contain;
+}
+
+.leaderboard li h3:nth-of-type(2) {
+  font: clamp(1rem, 0.643rem + 1.786vw, 1.5rem) 'Poppins';
+  font-weight: 300;
+  color: white;
+  margin: 0;
+  margin-left: 1.5rem;
+  max-width: 48%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.leaderboard li h4 {
+  font: clamp(0.875rem, 0.607rem + 1.339vw, 1.25rem) 'Alfa Slab One';
+  color: white;
+  margin-left: auto;
+}
+
+.leaderboard h4 span {
+  text-align: end;
+}

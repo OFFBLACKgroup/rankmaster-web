@@ -1,0 +1,63 @@
+main {
+  margin: 2rem auto 0 auto;
+  width: 100%;
+  max-width: 1280px;
+  display: flex;
+  justify-content: center;
+}
+
+main ul {
+  list-style: none;
+  display: flex;
+  column-gap: 44px;
+  row-gap: 1rem;
+  width: max-content;
+  flex-wrap: wrap;
+  max-width: 628px;
+  justify-content: center;
+}
+
+ul li {
+  height: 228px;
+  width: 180px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+li img {
+  height: 180px;
+  width: 100%;
+  background-color: #242424;
+  border: 2px solid white;
+  border-radius: 0.5rem;
+  padding: 0.75rem 1.25rem 1.75rem 1.25rem;
+  cursor: pointer;
+}
+
+h3 {
+  font: 26px "Alfa Slab One";
+  padding: 0 1.25rem;
+  width: max-content;
+  background-color: white;
+  border: 2px solid black;
+  border-radius: 1rem;
+  transform: translateY(-50%);
+  position: relative;
+  z-index: 10;
+  cursor: pointer;
+}
+
+h3 span {
+  position: absolute;
+  width: max-content;
+  left: 50%;
+  top: calc(100% + 2px);
+  transform: translateX(-50%);
+  background-color: #6F8FAF;
+  font: 1.125rem 'Alfa Slab One';
+  z-index: -1;
+  padding: 0 1rem;
+  border-radius: 0 0 0.5rem 0.5rem;
+  cursor: pointer;
+}

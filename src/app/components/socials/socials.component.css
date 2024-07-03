@@ -1,0 +1,54 @@
+.socials {
+  width: 100%;
+}
+
+.socials h3 {
+  color: white;
+  font: 1rem 'Poppins';
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.socials ul {
+  list-style: none;
+  height: 3rem;
+  width: 60%;
+  display: flex;
+  justify-content: space-between;
+  margin: 1.5rem auto 0 auto;
+}
+
+.socials li {
+  height: 100%;
+  width: 3rem;
+}
+
+.socials img {
+  height: 100%;
+}
+
+.tiktok-logo {
+  border-radius: 0.6rem;
+}
+
+.youtube-logo {
+  border-radius: 0.6rem;
+  background-color: black;
+  padding: 15%;
+}
+
+@media only screen and (max-width: 768px) {
+  .socials {
+    margin-bottom: 2rem;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .socials h3 {
+    margin-top: 0.75rem;
+  }
+
+  .socials ul {
+    margin-top: 0.75rem;
+  }
+}
