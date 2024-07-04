@@ -1,10 +1,20 @@
 <section class="tier-list-header">
   <div class="tier-list-info">
     <p>Next up:</p>
-    <h3>S</h3>
+    <h3>Tokyo Revengers</h3>
   </div>
   <img src="../../assets/tokyo revengers.png" alt="">
 </section>
-<section class="tier-list-body">
-
-</section>
+<ul class="tier-list-body">
+  @for (tierListRow of tiers; track tierListRow; let index = $index) {
+    <li class="tier-list-row">
+      <div class="tier-list-rank" [style.backgroundColor]="backgroundColors[index]">
+        <span>{{tierListRow}}</span>
+      </div>
+      <ul class="tier-list-items">
+        <li class="tier-list-item"></li>
+        <li class="tier-list-item filler"></li>
+      </ul>
+    </li>
+  }
+</ul>
