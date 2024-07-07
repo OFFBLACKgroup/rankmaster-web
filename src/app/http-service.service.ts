@@ -13,4 +13,8 @@ export class HttpService {
       console.log('Updated config:', config);
     });
   }
+
+  testFetch() {
+    return this.http.get('https://www.api.rankmaster.click/testDownload')
+  }
 }
