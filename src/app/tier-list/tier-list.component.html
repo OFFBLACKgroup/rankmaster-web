@@ -3,27 +3,25 @@
     <p>Next up:</p>
     <h3>Tokyo Revengers</h3>
   </div>
-    <img src="../../assets/tokyo revengers.png" alt="" cdkDrag [cdkDragData]="nextUp">
+  <ul>
+    <li class="tier-list-item NOTICE_ME" cdkDrag [cdkDragData]="nextUp">
+      <img src="../../assets/tokyo revengers.png" alt="">
+    </li>
+  </ul>
 </section>
 <ul class="tier-list-body">
   @for (tierListRow of tiers; track tierListRow; let index = $index) {
-    <li class="tier-list-row" id="row" cdkDropList cdkDropListOrientation="horizontal" [cdkDropListSortPredicate]="sortPredicate" [cdkDropListData]="tierData" (cdkDropListDropped)="drop($event)">
+    <li class="tier-list-row">
       <div class="tier-list-rank" [style.backgroundColor]="backgroundColors[index]">
         <span>{{tierListRow}}</span>
       </div>
-      <ul class="tier-list-items">
+      <ul class="tier-list-items" id="row" cdkDropList cdkDropListOrientation="horizontal" [cdkDropListSortPredicate]="sortPredicate" [cdkDropListData]="tierData" (cdkDropListDropped)="drop($event)">
         @for (item of tierData; track $index; let index = $index) {
-          @if (item == '') {
-            <li cdkDrag class="tier-list-item">
-              <img src="" alt="">
-            </li>
-          } @else {
-            <li cdkDrag class="tier-list-item">
-              <img class="added" [src]="tierData[index]" alt="">
-            </li>
-          }
+          <li class="tier-list-item">
+            <img cdkDrag class="added" [src]="tierData[index]" alt="">
+          </li>
         }
-        <li cdkDrag cdkDragDisabled class="tier-list-item filler">
+        <li class="tier-list-item filler">
           <img src="" alt="">
         </li>
       </ul>

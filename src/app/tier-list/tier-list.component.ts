@@ -12,6 +12,8 @@ export class TierListComponent {
   tiers = ['S', 'A', 'B', 'C', 'D', 'E', 'F']
   backgroundColors = ['#FF3131', '#FF7518', '#FFBF00', '#32CD32', '#00FFFF', '#1F51FF', '#DA70D6']
 
+  
+
   drop(e: CdkDragDrop<string[]>) {
     this.tierData.splice(e.currentIndex, 0, e.item.data)
   }
@@ -20,8 +22,8 @@ export class TierListComponent {
   tierData: string[] = []
 
   sortPredicate(index: number, item: CdkDrag<number>) {
-    return index == 0;
+    console.log('Index:', index, 'Item:', item)
+    return index == 0
   }
 
-  test() {}
 }
