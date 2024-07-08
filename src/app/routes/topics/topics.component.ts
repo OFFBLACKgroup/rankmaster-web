@@ -6,10 +6,10 @@ import { HeadlineComponent } from '../../components/headline/headline.component'
   selector: 'app-levels',
   standalone: true,
   imports: [RouterLink, HeadlineComponent],
-  templateUrl: './levels.component.html',
-  styleUrl: './levels.component.css'
+  templateUrl: './topics.component.html',
+  styleUrl: './topics.component.css'
 })
-export class LevelsComponent {
+export class TopicsComponent {
   topicData = [
     { title: 'Sports & Exercise', coverImage: 'sport.svg' },
     { title: 'Video Games', coverImage: 'videogame.svg' },

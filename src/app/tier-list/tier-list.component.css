@@ -157,7 +157,6 @@ ul.tier-list-items {
 
 li.tier-list-item.filler {
   flex-grow: 5;
-  transform: scaleX(100%);
   transform-origin: left;
 }
 

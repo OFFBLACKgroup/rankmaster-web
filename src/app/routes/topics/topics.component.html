@@ -2,7 +2,7 @@
 <main>
   <ul>
     @for (topic of topicData; track topic.title) {
-      <li>
+      <li routerLink="/">
         <img [src]="'https://pubhndccqdwypcouejkh.supabase.co/storage/v1/object/public/rankmaster/topic_images/' + topic.coverImage" alt="">
         <h3>{{topic.title}} <span>7 / 10</span></h3>
       </li>
