@@ -3,9 +3,9 @@
 } @else {
   <app-headline [title]="topicData[id]"></app-headline>
   <ul>
-    @for (tierList of tierLists; track tierList; let index = $index) {
+    @for (tierList of topicTierlists; track tierList; let index = $index) {
       <li>
-        <a href="">
+        <a href="" [style.backgroundColor]="setBackgroundColor(tierList.num_of_rows)">
           {{index}}
         </a>
         <p>{{points}} points</p>

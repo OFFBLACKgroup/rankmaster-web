@@ -25,9 +25,8 @@ export class TopicTierlistsComponent implements OnInit {
       this.id = params['id'];
 
       // sending 'id + 1' as my database is not 0-indexed
-      this._httpService.fetchTopicTierlists(params['id'] + 1).subscribe(config => {
+      this._httpService.fetchTopicTierlists(Number(params['id']) + 1).subscribe(config => {
         this.topicTierlists = config
-        console.log(this.topicTierlists)
       });
     });
   }
@@ -52,4 +51,13 @@ export class TopicTierlistsComponent implements OnInit {
 
   points = 2
 
+  setBackgroundColor(numOfRows: number) {
+    if (numOfRows == 3) {
+      return '#75F94C'
+    } else if (numOfRows == 5) {
+      return '#FFF502'
+    } else {
+      return '#FF3131'
+    }
+  }
 }
