@@ -5,6 +5,14 @@ import { Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 
+interface TierList {
+  created_at: Date,
+  id: number,
+  name: string,
+  num_of_tiers: number,
+  topic_ID: number
+}
+
 @Component({
   selector: 'app-topic-tierlists',
   standalone: true,
@@ -26,14 +34,19 @@ export class TopicTierlistsComponent implements OnInit {
       this.id = params['id'];
 
       // sending 'id + 1' as my database is not 0-indexed
-      this._httpService.fetchTopicTierlists(Number(params['id']) + 1).subscribe(config => {
-        this.topicTierlists = config
+      this._httpService.fetchTopicTierlists(Number(params['id']) + 1).subscribe(config=> {
+        this.topicTierlists = config as TierList[]
+        this.topicTierlists.sort(this.compareFn)
         console.log(config)
       });
     });
   }
 
-  topicTierlists: any = []
+  compareFn(a: TierList, b: TierList) {
+    return a.num_of_tiers - b.num_of_tiers
+  }
+
+  topicTierlists: TierList[] = []
 
   ngOnDestroy(): void {
     this.sub.unsubscribe();
