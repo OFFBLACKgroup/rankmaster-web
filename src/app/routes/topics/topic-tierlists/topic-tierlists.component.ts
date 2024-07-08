@@ -1,6 +1,8 @@
-import { Component, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HeadlineComponent } from '../../../components/headline/headline.component';
 import { HttpService } from '../../../http-service.service';
+import { Subscription } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-topic-tierlists',
@@ -9,10 +11,36 @@ import { HttpService } from '../../../http-service.service';
   templateUrl: './topic-tierlists.component.html',
   styleUrl: './topic-tierlists.component.css'
 })
-export class TopicTierlistsComponent {
-  constructor (private http: HttpService) {}
+export class TopicTierlistsComponent implements OnInit {
+  constructor(
+    private route: ActivatedRoute,
+    private http: HttpService
+  ) { }
 
-  @Input() title = 'Tier lists'
+  private sub: Subscription | any; 
+  id: string | any;
+
+  ngOnInit(): void {
+    this.sub = this.route.params.subscribe(params => {
+      this.id = params['id'];
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.sub.unsubscribe();
+  }
+
+  topicData = [
+    'Sports & Exercise',
+    'Video Games',
+    'Anime & Manga',
+    'Food & Drink',
+    'Movies & TV Series',
+    'Cars & Vehicles',
+    'Books & Literature',
+    'Famous People',
+    'Culture & History'
+  ]
 
   points = 2
 

@@ -1,11 +1,15 @@
-<app-headline [title]="'Tier list'"></app-headline>
-<ul>
-  @for (tierList of tierLists; track tierList; let index = $index) {
-    <li>
-      <a href="">
-        {{index}}
-      </a>
-      <p>{{points}} points</p>
-    </li>
-  }
-</ul>
+@if (id > 8 || id < 0) {
+  <p>Seems like this page does not exist</p>
+} @else {
+  <app-headline [title]="topicData[id]"></app-headline>
+  <ul>
+    @for (tierList of tierLists; track tierList; let index = $index) {
+      <li>
+        <a href="">
+          {{index}}
+        </a>
+        <p>{{points}} points</p>
+      </li>
+    }
+  </ul>
+}

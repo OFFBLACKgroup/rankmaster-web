@@ -42,3 +42,7 @@ p {
   padding: 0.2rem 0.6rem;
   background-color: white;
 }
+
+p:first-child {
+  margin-top: 5rem
+}
