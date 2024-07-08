@@ -5,10 +5,12 @@ import { TopicsComponent } from './routes/topics/topics.component';
 import { DailyComponent } from './routes/daily/daily.component';
 import { LeaderboardComponent } from './routes/leaderboard/leaderboard.component';
 import { TopicTierlistsComponent } from './routes/topics/topic-tierlists/topic-tierlists.component';
+import { PlayTierlistComponent } from './routes/topics/topic-tierlists/play-tierlist/play-tierlist.component';
 
 export const routes: Routes = [
   { path: 'menu', component: MainMenuComponent},
-  { path: 'topics/:id', component: TopicTierlistsComponent},
+  { path: 'topics/:topicID/tierlists/:id', component: PlayTierlistComponent },
+  { path: 'topics/:id', component: TopicTierlistsComponent },
   { path: 'topics', component: TopicsComponent},
   { path: 'daily', component: DailyComponent},
   { path: 'leaderboard', component: LeaderboardComponent},

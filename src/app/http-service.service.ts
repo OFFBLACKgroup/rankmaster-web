@@ -18,7 +18,11 @@ export class HttpService {
     return this.http.get('https://www.api.rankmaster.click/testDownload')
   }
 
-  fetchTopicTierlists(id: number) {
-    return this.http.get('https://www.api.rankmaster.click/fetchTopicTierlists/' + id)
+  fetchTopic(id: number) {
+    return this.http.get('https://www.api.rankmaster.click/fetchTopic/' + id)
+  }
+
+  fetchTierlist(id: number) {
+    return this.http.get('https://www.api.rankmaster.click/fetchTierlist/' + id)
   }
 }

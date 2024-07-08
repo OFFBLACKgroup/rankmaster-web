@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DndModule } from 'ngx-drag-drop';
 import { DndDropEvent } from 'ngx-drag-drop';
-import { HttpService } from '../http-service.service';
+import { HttpService } from '../../http-service.service';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 
 @Component({

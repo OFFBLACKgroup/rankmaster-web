@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HeadlineComponent } from '../../../components/headline/headline.component';
 import { HttpService } from '../../../http-service.service';
 import { Subscription } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 
 interface TierList {
@@ -13,10 +13,21 @@ interface TierList {
   topic_ID: number
 }
 
+interface TierListItem {
+  id: number,
+  created_at: Date,
+  tierlist_ID: number,
+  name: string,
+  background_color: string,
+  num_of_votes: number,
+  average_rank: number,
+  file_path: string
+} 
+
 @Component({
   selector: 'app-topic-tierlists',
   standalone: true,
-  imports: [HeadlineComponent, MatProgressSpinner],
+  imports: [HeadlineComponent, MatProgressSpinner, RouterLink],
   templateUrl: './topic-tierlists.component.html',
   styleUrl: './topic-tierlists.component.css'
 })
@@ -34,10 +45,9 @@ export class TopicTierlistsComponent implements OnInit {
       this.id = params['id'];
 
       // sending 'id + 1' as my database is not 0-indexed
-      this._httpService.fetchTopicTierlists(Number(params['id']) + 1).subscribe(config=> {
+      this._httpService.fetchTopic(Number(params['id']) + 1).subscribe(config=> {
         this.topicTierlists = config as TierList[]
         this.topicTierlists.sort(this.compareFn)
-        console.log(config)
       });
     });
   }
@@ -47,6 +57,7 @@ export class TopicTierlistsComponent implements OnInit {
   }
 
   topicTierlists: TierList[] = []
+  selectedTierlist: TierListItem[] = []
 
   ngOnDestroy(): void {
     this.sub.unsubscribe();
@@ -74,5 +85,22 @@ export class TopicTierlistsComponent implements OnInit {
     } else {
       return '#FF3131'
     }
+  }
+
+  calculateRoute(tierList: TierList) {
+    return './tierlists/' + tierList.id
+  }
+
+  calculateStateData(tierlistID: number) {
+    this._httpService.fetchTierlist(tierlistID).subscribe(config => {
+      this.selectedTierlist = config as TierListItem[]
+    });
+    return { data: this.selectedTierlist }
+  }
+
+  pathValue = './tierlists/1'
+
+  test() {
+    this.pathValue = './tierlists/2'
   }
 }

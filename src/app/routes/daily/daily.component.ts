@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { HeadlineComponent } from '../../components/headline/headline.component';
-import { TierListComponent } from '../../tier-list/tier-list.component';
+import { TierListComponent } from '../../components/tier-list/tier-list.component';
 
 @Component({
   selector: 'app-daily',
