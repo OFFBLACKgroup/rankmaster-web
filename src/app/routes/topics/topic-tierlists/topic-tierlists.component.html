@@ -1,1 +1,11 @@
-<p>topic-tierlists works!</p>
+<app-headline [title]="'Tier list'"></app-headline>
+<ul>
+  @for (tierList of tierLists; track tierList; let index = $index) {
+    <li>
+      <a href="">
+        {{index}}
+      </a>
+      <p>{{points}} points</p>
+    </li>
+  }
+</ul>
