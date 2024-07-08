@@ -17,4 +17,8 @@ export class HttpService {
   testFetch() {
     return this.http.get('https://www.api.rankmaster.click/testDownload')
   }
+
+  fetchTopicTierlists(id: number) {
+    return this.http.get('https://www.api.rankmaster.click/fetchTopicTierlists/' + id)
+  }
 }

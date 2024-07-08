@@ -13,18 +13,26 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class TopicTierlistsComponent implements OnInit {
   constructor(
-    private route: ActivatedRoute,
-    private http: HttpService
+    private _route: ActivatedRoute,
+    private _httpService: HttpService
   ) { }
 
   private sub: Subscription | any; 
   id: string | any;
 
   ngOnInit(): void {
-    this.sub = this.route.params.subscribe(params => {
+    this.sub = this._route.params.subscribe(params => {
       this.id = params['id'];
+
+      // sending 'id + 1' as my database is not 0-indexed
+      this._httpService.fetchTopicTierlists(params['id'] + 1).subscribe(config => {
+        this.topicTierlists = config
+        console.log(this.topicTierlists)
+      });
     });
   }
+
+  topicTierlists: any
 
   ngOnDestroy(): void {
     this.sub.unsubscribe();
@@ -44,5 +52,4 @@ export class TopicTierlistsComponent implements OnInit {
 
   points = 2
 
-  tierLists = [0,0,0,0,0,0,0,0,0]
 }
