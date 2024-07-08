@@ -1,14 +1,20 @@
 @if (id > 8 || id < 0) {
   <p>Seems like this page does not exist</p>
 } @else {
-  <app-headline [title]="topicData[id]"></app-headline>
+  <app-headline [title]="topicTitles[id]"></app-headline>
   <ul>
-    @for (tierList of topicTierlists; track tierList; let index = $index) {
+    @if (topicTierlists.length != 0) {
+      @for (tierList of topicTierlists; track tierList; let index = $index) {
+        <li>
+          <a href="" [style.backgroundColor]="setBackgroundColor(tierList.num_of_tiers)">
+            {{index + 1}}
+          </a>
+          <p>{{points}} points</p>
+        </li>
+      }
+    } @else {
       <li>
-        <a href="" [style.backgroundColor]="setBackgroundColor(tierList.num_of_rows)">
-          {{index}}
-        </a>
-        <p>{{points}} points</p>
+        <mat-progress-spinner mode="indeterminate" diameter="96"></mat-progress-spinner>
       </li>
     }
   </ul>

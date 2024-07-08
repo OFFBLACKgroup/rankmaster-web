@@ -3,11 +3,12 @@ import { HeadlineComponent } from '../../../components/headline/headline.compone
 import { HttpService } from '../../../http-service.service';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-topic-tierlists',
   standalone: true,
-  imports: [HeadlineComponent],
+  imports: [HeadlineComponent, MatProgressSpinner],
   templateUrl: './topic-tierlists.component.html',
   styleUrl: './topic-tierlists.component.css'
 })
@@ -27,17 +28,18 @@ export class TopicTierlistsComponent implements OnInit {
       // sending 'id + 1' as my database is not 0-indexed
       this._httpService.fetchTopicTierlists(Number(params['id']) + 1).subscribe(config => {
         this.topicTierlists = config
+        console.log(config)
       });
     });
   }
 
-  topicTierlists: any
+  topicTierlists: any = []
 
   ngOnDestroy(): void {
     this.sub.unsubscribe();
   }
 
-  topicData = [
+  topicTitles = [
     'Sports & Exercise',
     'Video Games',
     'Anime & Manga',
