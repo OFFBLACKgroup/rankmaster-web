@@ -2,11 +2,13 @@
   <section class="tier-list-header">
     <div class="tier-list-info">
       <p>Next up:</p>
-      <h3>{{tierlistItems[currentItem].name}}</h3>
+      @if (tierlistItems[currentItem]) {
+        <h3>{{tierlistItems[currentItem].name}}</h3>
+      }
     </div>
     <ul>
       @if (tierlistItems.length != 0) {
-        <li [dndDraggable]="tierlistItems[currentItem].file_path" class="next-up">
+        <li [dndDraggable]="tierlistItems[currentItem].file_path" class="next-up" dndType="import">
           <img [src]="tierlistItems[currentItem].file_path" alt="">
           <div dndDragImageRef class="drag-preview">
             <img [src]="tierlistItems[currentItem].file_path" alt="">
@@ -17,19 +19,19 @@
   </section>
 }
 <ul class="tier-list-body">
-  @for (row of calculateRows(); track row; let rowIndex = $index) {
+  @for (row of calculateRows(); track $index; let rowIndex = $index) {
     <li class="tier-list-row">
       <div class="tier-list-rank" [style.backgroundColor]="backgroundColors[rowIndex]">
         <span>{{tiers[rowIndex]}}</span>
       </div>
       <ul class="tier-list-items" dndDropzone [dndHorizontal]="true" (dndDrop)="onDrop($event, rowIndex)">
-        @for (item of tierData[rowIndex]; track $index; let index = $index) {
-          <li class="tier-list-item" [dndDraggable]="tierData[rowIndex][index]">
+        @for (item of tierData[rowIndex]; track item; let index = $index) {
+          <li class="tier-list-item" [dndDraggable]="tierData[rowIndex][index]" dndType="transfer" (dndStart)="onDragStart(rowIndex, index)">
             <img class="added" [src]="tierData[rowIndex][index]" alt="">
           </li>
         }
         <li class="placeholder" dndPlaceholderRef>
-          <img [src]="tierlistItems[currentItem].file_path" alt="">
+          <img [src]="tierlistItems[currentPlaceholder].file_path" alt="">
         </li>
         <li class="tier-list-item filler" [@shrink]="finished ? 'shrink' : 'initial' "></li>
       </ul>

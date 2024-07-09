@@ -9,7 +9,7 @@
           <a [routerLink]="['./tierlists/' + tierList.id, { title: tierList.name }]" [style.backgroundColor]="setBackgroundColor(tierList.num_of_tiers)">
             {{index + 1}}
           </a>
-          <p>{{points}} points</p>
+          <p [style.backgroundColor]="completed ? 'white' : '#9B9B9B'"  >{{ completed ? points + ' points' : '?'}}</p>
         </li>
       }
     } @else {

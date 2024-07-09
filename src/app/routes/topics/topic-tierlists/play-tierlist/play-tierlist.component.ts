@@ -36,10 +36,8 @@ export class PlayTierlistComponent {
   ngOnInit(): void {
     this.sub = this._route.params.subscribe(params => {
       this.id = params['id'];
-      console.log('ID:', params['id'])
 
       this._httpService.fetchTierlist(Number(params['id'])).subscribe(config=> {
-        console.log(config)
         this.tierlistItems = config as TierListItem[]
       });
     });

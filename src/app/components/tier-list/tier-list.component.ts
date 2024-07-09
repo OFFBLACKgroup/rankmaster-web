@@ -30,24 +30,43 @@ export class TierListComponent {
     }
   } 
 
-  draggable = {
-    effectAllowed: "all",
-    disable: false,
-    handle: false
-  };
-
   currentItem = 0
+  currentPlaceholder = 0
 
   tiers = ['S', 'A', 'B', 'C', 'D', 'E', 'F']
   backgroundColors = ['#FF3131', '#FF7518', '#FFBF00', '#32CD32', '#00FFFF', '#1F51FF', '#DA70D6']
 
   tierData: string[][] = Array.from({ length: 7 }, () => [])
 
-  onDrop(e: DndDropEvent, index: number) {
+  private draggedFromRow?: number;
+  private draggedIndex?: number;
+
+
+  onDragStart(rowIndex: number, index: number) {
+    this.draggedFromRow = rowIndex
+    this.draggedIndex = index;
+    this.currentPlaceholder = this.tierlistItems.findIndex(item => item.file_path == this.tierData[rowIndex][index])
+  }
+
+  onDrop(e: DndDropEvent, rowIndex: number) {
     if (e.index != undefined) {
-      this.tierData[index].splice(e.index, 0, e.data)
-      this.nextUp()
+      if (e.type == 'import') {
+        this.tierData[rowIndex].splice(e.index, 0, e.data)
+        this.nextUp()
+      } else {
+        if (this.currentItem != this.currentPlaceholder) {
+          this.currentPlaceholder = this.currentItem
+        }
+        if (this.draggedFromRow != undefined && this.draggedIndex != undefined) {
+          this.tierData[this.draggedFromRow].splice(this.draggedIndex, 1)
+          this.tierData[rowIndex].splice(e.index, 0, e.data)
+        }
+      }
     }
+  }
+
+  onTransfer() {
+
   }
 
   nextUp() {
@@ -55,6 +74,7 @@ export class TierListComponent {
       this.finished = true
     } else {
       this.currentItem += 1
+      this.currentPlaceholder += 1
     }
   }
 }

@@ -26,6 +26,8 @@ export class TopicTierlistsComponent implements OnInit {
     private _httpService: HttpService
   ) { }
 
+  completed = false
+
   private sub: Subscription | any; 
   id: string | any;
 
