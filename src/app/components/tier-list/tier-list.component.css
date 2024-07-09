@@ -146,14 +146,14 @@ ul.tier-list-items {
   cursor: grab;
 }
 
-li.tier-list-item.filler {
-  flex-grow: 5;
-  transform-origin: left;
-  cursor: default !important;
+.tier-list-items li.placeholder:last-child {
+  display: none;
 }
 
-li.tier-list-item.filler img {
-  display: none;
+li.tier-list-item.filler {
+  flex: 5 100;
+  transform-origin: left;
+  cursor: default !important;
 }
 
 li.tier-list-item img.added {

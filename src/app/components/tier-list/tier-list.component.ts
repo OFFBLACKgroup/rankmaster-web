@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { DndModule } from 'ngx-drag-drop';
 import { DndDropEvent } from 'ngx-drag-drop';
 import { animate, state, style, transition, trigger } from '@angular/animations';
@@ -28,25 +28,35 @@ export class TierListComponent {
     if (this.tierlistItems.length != 0) {
       return [].constructor(this.tierlistItems.length <= 5 ? 3 : this.tierlistItems.length <= 8 ? 5 : 7)
     }
-  } 
+  }
+
+  maxItems?: number
+
+  calculateMaxItems(rowWidth: number, rowId: number) {
+    if (!this.maxItems) {
+      this.maxItems = Math.floor(rowWidth / 104)
+    }
+  }
 
   currentItem = 0
   currentPlaceholder = 0
+
 
   tiers = ['S', 'A', 'B', 'C', 'D', 'E', 'F']
   backgroundColors = ['#FF3131', '#FF7518', '#FFBF00', '#32CD32', '#00FFFF', '#1F51FF', '#DA70D6']
 
   tierData: string[][] = Array.from({ length: 7 }, () => [])
 
-  private draggedFromRow?: number;
-  private draggedIndex?: number;
-
+  draggedFromRow?: number;
+  draggedIndex?: number;
 
   onDragStart(rowIndex: number, index: number) {
     this.draggedFromRow = rowIndex
     this.draggedIndex = index;
     this.currentPlaceholder = this.tierlistItems.findIndex(item => item.file_path == this.tierData[rowIndex][index])
   }
+
+  showFiller: string[] = ['block', 'block', 'block', 'block', 'block', 'block', 'block']
 
   onDrop(e: DndDropEvent, rowIndex: number) {
     if (e.index != undefined) {
@@ -62,11 +72,8 @@ export class TierListComponent {
           this.tierData[rowIndex].splice(e.index, 0, e.data)
         }
       }
+      this.calcShowFiller()
     }
-  }
-
-  onTransfer() {
-
   }
 
   nextUp() {
@@ -75,6 +82,16 @@ export class TierListComponent {
     } else {
       this.currentItem += 1
       this.currentPlaceholder += 1
+    }
+  }
+
+  calcShowFiller() {
+    for (let i = 0; i < this.showFiller.length; i++) {
+      if (this.tierData[i].length % 4 == 0 && this.tierData[i].length != 0) {
+        this.showFiller[i] = 'none'
+      } else {
+        this.showFiller[i] = 'block'
+      }
     }
   }
 }
