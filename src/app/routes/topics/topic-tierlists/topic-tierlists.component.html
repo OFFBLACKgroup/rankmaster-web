@@ -6,7 +6,7 @@
     @if (topicTierlists.length != 0) {
       @for (tierList of topicTierlists; track tierList; let index = $index) {
         <li>
-          <a [routerLink]="'./tierlists/' + tierList.id" [style.backgroundColor]="setBackgroundColor(tierList.num_of_tiers)">
+          <a [routerLink]="['./tierlists/' + tierList.id, { title: tierList.name }]" [style.backgroundColor]="setBackgroundColor(tierList.num_of_tiers)">
             {{index + 1}}
           </a>
           <p>{{points}} points</p>

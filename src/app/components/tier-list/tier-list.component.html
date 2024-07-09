@@ -2,14 +2,14 @@
   <section class="tier-list-header">
     <div class="tier-list-info">
       <p>Next up:</p>
-      <h3>{{tierlistData[currentItem].name}}</h3>
+      <h3>{{tierlistItems[currentItem].name}}</h3>
     </div>
     <ul>
-      @if (tierlistData) {
-        <li [dndDraggable]="tierlistData[currentItem].file_path" class="next-up">
-          <img [src]="tierlistData[currentItem].file_path" alt="">
+      @if (tierlistItems.length != 0) {
+        <li [dndDraggable]="tierlistItems[currentItem].file_path" class="next-up">
+          <img [src]="tierlistItems[currentItem].file_path" alt="">
           <div dndDragImageRef class="drag-preview">
-            <img [src]="tierlistData[currentItem].file_path" alt="">
+            <img [src]="tierlistItems[currentItem].file_path" alt="">
           </div>
         </li>
       }
@@ -17,7 +17,7 @@
   </section>
 }
 <ul class="tier-list-body">
-  @for (row of numOfRows; track row; let rowIndex = $index) {
+  @for (row of calculateRows(); track row; let rowIndex = $index) {
     <li class="tier-list-row">
       <div class="tier-list-rank" [style.backgroundColor]="backgroundColors[rowIndex]">
         <span>{{tiers[rowIndex]}}</span>
@@ -29,7 +29,7 @@
           </li>
         }
         <li class="placeholder" dndPlaceholderRef>
-          <img [src]="tierlistData[currentItem].file_path" alt="">
+          <img [src]="tierlistItems[currentItem].file_path" alt="">
         </li>
         <li class="tier-list-item filler" [@shrink]="finished ? 'shrink' : 'initial' "></li>
       </ul>

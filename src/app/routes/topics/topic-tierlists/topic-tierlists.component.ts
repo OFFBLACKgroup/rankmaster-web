@@ -13,17 +13,6 @@ interface TierList {
   topic_ID: number
 }
 
-interface TierListItem {
-  id: number,
-  created_at: Date,
-  tierlist_ID: number,
-  name: string,
-  background_color: string,
-  num_of_votes: number,
-  average_rank: number,
-  file_path: string
-} 
-
 @Component({
   selector: 'app-topic-tierlists',
   standalone: true,
@@ -57,7 +46,6 @@ export class TopicTierlistsComponent implements OnInit {
   }
 
   topicTierlists: TierList[] = []
-  selectedTierlist: TierListItem[] = []
 
   ngOnDestroy(): void {
     this.sub.unsubscribe();
@@ -85,22 +73,5 @@ export class TopicTierlistsComponent implements OnInit {
     } else {
       return '#FF3131'
     }
-  }
-
-  calculateRoute(tierList: TierList) {
-    return './tierlists/' + tierList.id
-  }
-
-  calculateStateData(tierlistID: number) {
-    this._httpService.fetchTierlist(tierlistID).subscribe(config => {
-      this.selectedTierlist = config as TierListItem[]
-    });
-    return { data: this.selectedTierlist }
-  }
-
-  pathValue = './tierlists/1'
-
-  test() {
-    this.pathValue = './tierlists/2'
   }
 }
