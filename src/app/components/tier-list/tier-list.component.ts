@@ -1,13 +1,14 @@
-import { Component, Input } from '@angular/core';
-import { DndModule } from 'ngx-drag-drop';
-import { DndDropEvent } from 'ngx-drag-drop';
+import { Component, Input, OnChanges } from '@angular/core';
+import { DndModule, DndDropEvent } from 'ngx-drag-drop';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { TierListItem } from '../../routes/topics/topic-tierlists/play-tierlist/play-tierlist.component';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-tier-list',
   standalone: true,
-  imports: [DndModule],
+  imports: [DndModule, MatProgressSpinner, MatTooltipModule],
   templateUrl: './tier-list.component.html',
   styleUrl: './tier-list.component.css',
   animations: [
@@ -18,17 +19,29 @@ import { TierListItem } from '../../routes/topics/topic-tierlists/play-tierlist/
     ])
   ]
 })
-export class TierListComponent {
+export class TierListComponent implements OnChanges {
 
   @Input() tierlistItems: TierListItem[] = []
 
-  finished = false
-  
-  calculateRows() {
+  numOfRows?: number
+
+  ngOnChanges() {
     if (this.tierlistItems.length != 0) {
-      return [].constructor(this.tierlistItems.length <= 5 ? 3 : this.tierlistItems.length <= 8 ? 5 : 7)
+      this.numOfRows = this.tierlistItems.length <= 5 ? 3 : this.tierlistItems.length <= 8 ? 5 : 7
     }
   }
+
+  array(n: number) {
+    return Array(n)
+  }
+
+  showSpinner = false
+
+  imageLoaded() {
+    this.showSpinner = false
+  }
+
+  finished = false
 
   maxItems?: number
 
@@ -38,9 +51,17 @@ export class TierListComponent {
     }
   }
 
+  getTooltip(rowIndex: number, index: number) {
+    const tooltip = this.tierlistItems.find(el => el.file_path == this.tierData[rowIndex][index])
+    if (tooltip) {
+      return tooltip.name
+    } else {
+      return 'Item'
+    }
+  }
+
   currentItem = 0
   currentPlaceholder = 0
-
 
   tiers = ['S', 'A', 'B', 'C', 'D', 'E', 'F']
   backgroundColors = ['#FF3131', '#FF7518', '#FFBF00', '#32CD32', '#00FFFF', '#1F51FF', '#DA70D6']
@@ -61,6 +82,7 @@ export class TierListComponent {
   onDrop(e: DndDropEvent, rowIndex: number) {
     if (e.index != undefined) {
       if (e.type == 'import') {
+        this.showSpinner = true
         this.tierData[rowIndex].splice(e.index, 0, e.data)
         this.nextUp()
       } else {

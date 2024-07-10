@@ -7,38 +7,49 @@
       }
     </div>
     <ul>
-      @if (tierlistItems.length != 0) {
-        <li [dndDraggable]="tierlistItems[currentItem].file_path" class="next-up" dndType="import">
-          <img [src]="tierlistItems[currentItem].file_path" alt="">
+      @if (tierlistItems[currentItem]) {
+        <li [dndDraggable]="tierlistItems[currentItem].file_path" dndType="import">
+            <img (load)="imageLoaded()" [src]="tierlistItems[currentItem].file_path" alt="">
+            @if (showSpinner) {
+              <div class="spinner-bg">
+                <mat-progress-spinner class="spinner" mode="indeterminate" diameter="48"></mat-progress-spinner>
+              </div>
+            }
           <div dndDragImageRef class="drag-preview">
             <img [src]="tierlistItems[currentItem].file_path" alt="">
           </div>
+        </li>
+      } @else {
+        <li>
+          <mat-progress-spinner mode="indeterminate" diameter="48"></mat-progress-spinner>
         </li>
       }
     </ul>
   </section>
 }
-<ul class="tier-list-body">
-  @for (row of calculateRows(); track $index; let rowIndex = $index) {
-    <li class="tier-list-row">
-      <div class="tier-list-rank" [style.backgroundColor]="backgroundColors[rowIndex]">
-        <span>{{tiers[rowIndex]}}</span>
-      </div>
-      <ul #firstRow class="tier-list-items" dndDropzone [dndHorizontal]="true" (dndDrop)="onDrop($event, rowIndex)">
-        @for (item of tierData[rowIndex]; track item; let index = $index) {
-          <li class="tier-list-item not-filler" [dndDraggable]="tierData[rowIndex][index]" dndType="transfer" (dndStart)="onDragStart(rowIndex, index)" [dndDisableDragIf]="finished">
-            <img class="added" [src]="tierData[rowIndex][index]" alt="">
+@if (numOfRows) {
+  <ul class="tier-list-body">
+    @for (row of array(numOfRows); track $index; let rowIndex = $index) {
+      <li class="tier-list-row">
+        <div class="tier-list-rank" [style.backgroundColor]="backgroundColors[rowIndex]">
+          <span>{{tiers[rowIndex]}}</span>
+        </div>
+        <ul #firstRow class="tier-list-items" dndDropzone [dndHorizontal]="true" (dndDrop)="onDrop($event, rowIndex)">
+          @for (item of tierData[rowIndex]; track item; let index = $index) {
+            <li [matTooltip]="getTooltip(rowIndex, index)" matTooltipPosition="above" matTooltipShowDelay="500" class="tier-list-item not-filler" [dndDraggable]="tierData[rowIndex][index]" dndType="transfer" (dndStart)="onDragStart(rowIndex, index)" [dndDisableDragIf]="finished">
+              <img class="added" [src]="tierData[rowIndex][index]" alt="">
+            </li>
+          }
+          <li class="placeholder" dndPlaceholderRef>
+            <img [src]="tierlistItems[currentPlaceholder].file_path" alt="">
           </li>
-        }
-        <li class="placeholder" dndPlaceholderRef>
-          <img [src]="tierlistItems[currentPlaceholder].file_path" alt="">
-        </li>
-        @if (rowIndex == 0) {
-          <li [style.display]="showFiller[rowIndex]" [style.opacity]="calculateMaxItems(firstRow.offsetWidth, rowIndex)" class="tier-list-item filler" [@shrink]="finished ? 'shrink' : 'initial' "></li>
-        } @else {
-          <li [style.display]="showFiller[rowIndex]" class="tier-list-item filler" [@shrink]="finished ? 'shrink' : 'initial' "></li>
-        }
-      </ul>
-    </li>
-  }
-</ul>
+          @if (rowIndex == 0) {
+            <li [style.display]="showFiller[rowIndex]" [style.opacity]="calculateMaxItems(firstRow.offsetWidth, rowIndex)" class="tier-list-item filler" [@shrink]="finished ? 'shrink' : 'initial' "></li>
+          } @else {
+            <li [style.display]="showFiller[rowIndex]" class="tier-list-item filler" [@shrink]="finished ? 'shrink' : 'initial' "></li>
+          }
+        </ul>
+      </li>
+    }
+  </ul>
+}
