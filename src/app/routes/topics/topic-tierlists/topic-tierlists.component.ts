@@ -35,8 +35,7 @@ export class TopicTierlistsComponent implements OnInit {
     this.sub = this._route.params.subscribe(params => {
       this.id = params['id'];
 
-      // sending 'id + 1' as my database is not 0-indexed
-      this._httpService.fetchTopic(Number(params['id']) + 1).subscribe(config=> {
+      this._httpService.fetchTopic(Number(params['id'])).subscribe(config=> {
         this.topicTierlists = config as TierList[]
         this.topicTierlists.sort(this.compareFn)
       });
@@ -54,14 +53,14 @@ export class TopicTierlistsComponent implements OnInit {
   }
 
   topicTitles = [
-    'Sports & Exercise',
     'Video Games',
-    'Anime & Manga',
+    'Sports & Exercise',
     'Food & Drink',
     'Movies & TV Series',
-    'Cars & Vehicles',
-    'Books & Literature',
+    'Anime & Manga',
     'Famous People',
+    'Books & Literature',
+    'Cars & Vehicles',
     'Culture & History'
   ]
 

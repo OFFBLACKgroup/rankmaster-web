@@ -1,7 +1,7 @@
 @if (id > 8 || id < 0) {
   <p>Seems like this page does not exist</p>
 } @else {
-  <app-headline [title]="topicTitles[id]"></app-headline>
+  <app-headline [title]="topicTitles[id - 1]"></app-headline>
   <ul>
     @if (topicTierlists.length != 0) {
       @for (tierList of topicTierlists; track tierList; let index = $index) {
