@@ -7,14 +7,9 @@
       }
     </div>
     <ul>
-      @if (tierlistItems[currentItem]) {
+      @if (loadData.areImagesLoaded) {
         <li [dndDraggable]="tierlistItems[currentItem].file_path" dndType="import">
-            <img (load)="imageLoaded()" [src]="tierlistItems[currentItem].file_path" alt="">
-            @if (showSpinner) {
-              <div class="spinner-bg">
-                <mat-progress-spinner class="spinner" mode="indeterminate" diameter="48"></mat-progress-spinner>
-              </div>
-            }
+            <img [src]="tierlistItems[currentItem].file_path" alt="">
           <div dndDragImageRef class="drag-preview">
             <img [src]="tierlistItems[currentItem].file_path" alt="">
           </div>

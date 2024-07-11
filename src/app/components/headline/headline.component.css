@@ -32,6 +32,7 @@
   font: clamp(2.25rem, 2.025rem + 1.125vw, 3.375rem) 'Alfa Slab One';
   color: white;
   margin: auto 0;
+  text-align: center;
 }
 
 @media only screen and (max-width: 768px) {

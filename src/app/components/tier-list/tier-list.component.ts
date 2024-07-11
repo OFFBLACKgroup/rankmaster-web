@@ -1,9 +1,10 @@
-import { Component, Input, OnChanges } from '@angular/core';
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { DndModule, DndDropEvent } from 'ngx-drag-drop';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { TierListItem } from '../../routes/main-menu/topics/topic-tierlists/play-tierlist/play-tierlist.component';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import { preloadImages } from '../../routes/main-menu/topics/topics.component';
 
 @Component({
   selector: 'app-tier-list',
@@ -26,8 +27,9 @@ export class TierListComponent implements OnChanges {
   numOfRows?: number
 
   ngOnChanges() {
-    if (this.tierlistItems.length != 0) {
+    if (!this.numOfRows && this.tierlistItems.length != 0) {
       this.numOfRows = this.tierlistItems.length <= 5 ? 3 : this.tierlistItems.length <= 8 ? 5 : 7
+      preloadImages(this.tierlistItems.map(item => item.file_path), this.loadData)
     }
   }
 
@@ -35,10 +37,9 @@ export class TierListComponent implements OnChanges {
     return Array(n)
   }
 
-  showSpinner = false
-
-  imageLoaded() {
-    this.showSpinner = false
+  loadData = {
+    areImagesLoaded: false,
+    numOfLoaded: 0
   }
 
   finished = false
@@ -82,7 +83,6 @@ export class TierListComponent implements OnChanges {
   onDrop(e: DndDropEvent, rowIndex: number) {
     if (e.index != undefined) {
       if (e.type == 'import') {
-        this.showSpinner = true
         this.tierData[rowIndex].splice(e.index, 0, e.data)
         this.nextUp()
       } else {
