@@ -3,7 +3,7 @@
   @if (loadingData.areImagesLoaded) {
     <ul>
       @for (topic of topicData; track topic.title) {
-        <li [routerLink]="['/topics', topic.id]">
+        <li @appear [routerLink]="['/topics', topic.id]">
           <img [src]="topic.coverImage" alt="">
           <h3>{{topic.title}} <span>7 / 10</span></h3>
         </li>

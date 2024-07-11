@@ -2,6 +2,7 @@ import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { HeadlineComponent } from '../../../components/headline/headline.component';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { trigger, animate, transition, style } from '@angular/animations';
 
 export function preloadImages(imageSources: string[], loadingData: {areImagesLoaded: boolean, numOfLoaded: number}) {
   for (const source of imageSources) {
@@ -21,7 +22,16 @@ export function preloadImages(imageSources: string[], loadingData: {areImagesLoa
   standalone: true,
   imports: [RouterLink, HeadlineComponent, MatProgressSpinner],
   templateUrl: './topics.component.html',
-  styleUrl: './topics.component.css'
+  styleUrl: './topics.component.css',
+  animations: [
+    trigger('appear', [
+      transition(":enter", [
+        style({ transform: "scale(0.8)" }),
+        animate("0.2s ease-out", style({ transfrom: "scale(1)" })),
+      ]),
+    ])
+  ]
+
 })
 export class TopicsComponent {
   constructor() {
