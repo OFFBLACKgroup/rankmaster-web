@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit } from '@angular/core';
+import { Component, Input, OnChanges } from '@angular/core';
 import { DndModule, DndDropEvent } from 'ngx-drag-drop';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { TierListItem } from '../../routes/main-menu/topics/topic-tierlists/play-tierlist/play-tierlist.component';
@@ -17,12 +17,41 @@ import { preloadImages } from '../../routes/main-menu/topics/topics.component';
       state('initial', style({ transform: 'scaleX(100%)' })),
       state('shrink', style({ transform: 'scaleX(0%)' })),
       transition('initial => shrink', [animate('0.4s 0.1s ease-in')])
+    ]),
+    trigger('slideInFromLeft', [
+      transition(':enter', [
+        style({ transform: 'translateX(-15rem)' }),
+        animate('0.25s ease-out', style({ transform: 'translateX(0)' }))
+      ])
+    ]),
+    trigger('slideInFromRight', [
+      transition(':enter', [
+        style({ transform: 'translateX(15rem)' }),
+        animate('0.25s ease-out', style({ transform: 'translateX(0)' }))
+      ])
+    ]),
+    trigger('scaleOut', [
+      transition(':leave', [
+        style({ }),
+        animate('0.3s ease-in', style({ height: '0', transform: 'scale(0)' }))
+      ])
+    ]),
+    trigger('scaleIn', [
+      transition(':enter', [
+        style({ transform: 'scale(0.3)', opacity: 0.4 }),
+        animate('0.3s ease-in', style({ transform: 'scale(1)', opacity: 1 }))
+      ])
     ])
   ]
 })
 export class TierListComponent implements OnChanges {
 
   @Input() tierlistItems: TierListItem[] = []
+
+  isHigh = true
+  animateHeight() {
+    this.isHigh = !this.isHigh
+  }
 
   numOfRows?: number
 

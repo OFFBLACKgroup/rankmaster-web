@@ -1,29 +1,25 @@
 @if (!placedAll) {
-  <section class="tier-list-header">
-    <div class="tier-list-info">
-      <p>Next up:</p>
-      @if (tierlistItems[currentItem]) {
+  <section @scaleOut class="tier-list-header">
+    @if (loadData.areImagesLoaded) {
+      <div @slideInFromLeft class="tier-list-info">
+        <p>Next up:</p>
         <h3>{{tierlistItems[currentItem].name}}</h3>
-      }
-    </div>
-    <ul>
-      @if (loadData.areImagesLoaded) {
+      </div>
+    }
+    @if (loadData.areImagesLoaded) {
+      <ul @slideInFromRight>
         <li [dndDraggable]="tierlistItems[currentItem].file_path" dndType="import">
             <img [src]="tierlistItems[currentItem].file_path" alt="">
           <div dndDragImageRef class="drag-preview">
             <img [src]="tierlistItems[currentItem].file_path" alt="">
           </div>
         </li>
-      } @else {
-        <li>
-          <mat-progress-spinner mode="indeterminate" diameter="48"></mat-progress-spinner>
-        </li>
-      }
-    </ul>
+      </ul>
+    }
   </section>
 }
 @if (numOfRows) {
-  <ul class="tier-list-body">
+  <ul @scaleIn class="tier-list-body">
     @for (row of array(numOfRows); track $index; let rowIndex = $index) {
       <li class="tier-list-row">
         <div class="tier-list-rank" [style.backgroundColor]="backgroundColors[rowIndex]">

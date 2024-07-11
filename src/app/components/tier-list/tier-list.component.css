@@ -13,11 +13,12 @@
   width: 100%;
   height: clamp(4rem, 3.3rem + 3.5vw, 7.5rem);
   display: flex;
-  justify-content: center;
-  gap: clamp(1.25rem, 0.7rem + 2.75vw, 4rem);
+  justify-content: space-between;
 }
 
 .tier-list-header ul {
+  margin-left: auto;
+  margin-right: 4rem;
   list-style: none;
   width: clamp(6rem, 5.2rem + 4vw, 10rem);
   height: clamp(4rem, 3.3rem + 3.5vw, 7.5rem);
@@ -25,6 +26,7 @@
   border: 1px solid white;
   background-color: white;
   overflow: hidden;
+  transition: all 0.2s ease-out
 }
 .tier-list-header li {
   width: 100%;
@@ -69,6 +71,9 @@
   display: flex;
   flex-direction: column;
   gap: 0;
+  margin-left: 3rem;
+  width: calc(100% - 7rem - clamp(6rem, 5.2rem + 4vw, 10rem));
+  padding-right: 1rem;
 }
 
 .tier-list-info p {
