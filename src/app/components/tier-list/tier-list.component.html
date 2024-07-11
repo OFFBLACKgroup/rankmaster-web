@@ -1,4 +1,4 @@
-@if (!finished) {
+@if (!placedAll) {
   <section class="tier-list-header">
     <div class="tier-list-info">
       <p>Next up:</p>
@@ -47,4 +47,9 @@
       </li>
     }
   </ul>
+  @if (placedAll) {
+    <div class="btn-container">
+      <button (click)="finish()" class="submit">Submit</button>
+    </div>
+  }
 }

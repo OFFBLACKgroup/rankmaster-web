@@ -42,7 +42,12 @@ export class TierListComponent implements OnChanges {
     numOfLoaded: 0
   }
 
+  placedAll = false
   finished = false
+
+  finish() {
+    this.finished = true
+  }
 
   maxItems?: number
 
@@ -100,7 +105,7 @@ export class TierListComponent implements OnChanges {
 
   nextUp() {
     if (this.currentItem == this.tierlistItems.length - 1) {
-      this.finished = true
+      this.placedAll = true
     } else {
       this.currentItem += 1
       this.currentPlaceholder += 1
