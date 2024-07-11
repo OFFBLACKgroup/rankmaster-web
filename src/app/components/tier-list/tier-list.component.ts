@@ -1,7 +1,7 @@
 import { Component, Input, OnChanges } from '@angular/core';
 import { DndModule, DndDropEvent } from 'ngx-drag-drop';
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { TierListItem } from '../../routes/topics/topic-tierlists/play-tierlist/play-tierlist.component';
+import { TierListItem } from '../../routes/main-menu/topics/topic-tierlists/play-tierlist/play-tierlist.component';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import {MatTooltipModule} from '@angular/material/tooltip';
 

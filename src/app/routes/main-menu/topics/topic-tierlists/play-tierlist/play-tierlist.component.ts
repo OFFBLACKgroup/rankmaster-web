@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { HeadlineComponent } from '../../../../components/headline/headline.component';
+import { HeadlineComponent } from '../../../../../components/headline/headline.component';
 import { ActivatedRoute } from '@angular/router';
-import { HttpService } from '../../../../http-service.service';
+import { HttpService } from '../../../../../http-service.service';
 import { Subscription } from 'rxjs';
-import { TierListComponent } from '../../../../components/tier-list/tier-list.component';
+import { TierListComponent } from '../../../../../components/tier-list/tier-list.component';
 
 export interface TierListItem {
   id: number,

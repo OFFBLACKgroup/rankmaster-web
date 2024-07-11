@@ -1,15 +1,22 @@
 import { Component, Input } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { HeadlineComponent } from '../../components/headline/headline.component';
+import { HeadlineComponent } from '../../../components/headline/headline.component';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
+
+export function preloadImages() {
+  
+}
 
 @Component({
   selector: 'app-levels',
   standalone: true,
-  imports: [RouterLink, HeadlineComponent],
+  imports: [RouterLink, HeadlineComponent, MatProgressSpinner],
   templateUrl: './topics.component.html',
   styleUrl: './topics.component.css'
 })
 export class TopicsComponent {
+  imagesLoaded = true
+
   topicData = [
     { title: 'Sports & Exercise', coverImage: 'sport.svg', id: 2 },
     { title: 'Video Games', coverImage: 'videogame.svg', id: 1 },
