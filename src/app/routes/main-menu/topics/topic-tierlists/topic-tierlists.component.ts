@@ -4,6 +4,7 @@ import { HttpService } from '../../../../http-service.service';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { animate, style, transition, trigger } from '@angular/animations';
 
 interface TierList {
   created_at: Date,
@@ -18,7 +19,15 @@ interface TierList {
   standalone: true,
   imports: [HeadlineComponent, MatProgressSpinner, RouterLink],
   templateUrl: './topic-tierlists.component.html',
-  styleUrl: './topic-tierlists.component.css'
+  styleUrl: './topic-tierlists.component.css',
+  animations: [
+    trigger('appear', [
+      transition(':enter', [
+        style({ transform: 'translateY(150%)' }),
+        animate('0.3s ease-out', style({ transform: 'translateY(0%)' }))
+      ])
+    ])
+  ]
 })
 export class TopicTierlistsComponent implements OnInit {
   constructor(

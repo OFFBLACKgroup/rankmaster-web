@@ -14,9 +14,11 @@ ul {
 
 li {
   width: 7.5rem;
+  height: max-content;
   display: flex;
   flex-direction: column;
   align-items: center;
+  overflow: hidden;
 }
 
 a {
@@ -34,6 +36,12 @@ a {
   font: 5rem "Rhodium Libre";
   color: black;
   border: 0.375rem solid white;
+  position: relative;
+  transition: all 0.2s ease-out;
+}
+
+a:hover {
+  transform: translateY(5px);
 }
 
 p {
