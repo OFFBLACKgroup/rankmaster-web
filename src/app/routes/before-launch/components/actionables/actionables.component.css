@@ -55,11 +55,12 @@ form {
 form h3 {
   font-size: clamp(1.25rem, 1.083rem + 0.348vw, 1.5rem);
   font-weight: 500;
+  margin: 0
 }
 
 form p {
   font-size: clamp(0.92rem, 0.867rem + 0.111vw, 1rem);
-  color: rgba(102, 102, 102, 0.8)
+  color: rgba(102, 102, 102, 0.8);
 }
 
 input {

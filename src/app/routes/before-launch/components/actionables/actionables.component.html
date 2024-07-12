@@ -77,12 +77,16 @@
       </div>
     }
   </div>
-  <form>
-    <h3>Get notified on launch!</h3>
-    <p>Be the first to try out RankMaster</p>
-    <input id="email" #email="ngModel" required type="email" name="email" [(ngModel)]="emailValue" email placeholder="Enter your email address">
-    <button (click)="sendEmail($event, !email.invalid)" class="ng-valid">Continue</button>
-  </form>
+  @if (waitlist) {
+    <form>
+      <h3>Get notified on launch!</h3>
+      <p>Be the first to try out RankMaster</p>
+      <input id="email" #email="ngModel" required type="email" name="email" [(ngModel)]="emailValue" email placeholder="Enter your email address">
+      <button (click)="sendEmail($event, !email.invalid)" class="ng-valid">Continue</button>
+    </form>
+  } @else {
+    <app-login-form></app-login-form>
+  }
   <div class="socials-container">
     <app-socials></app-socials>
   </div>

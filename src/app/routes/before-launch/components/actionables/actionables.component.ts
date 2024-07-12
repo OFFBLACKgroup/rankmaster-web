@@ -5,11 +5,12 @@ import {MatProgressSpinner } from '@angular/material/progress-spinner';
 import { trigger, transition, style, animate } from '@angular/animations';
 import { HttpService } from '../../../../http-service.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { LoginFormComponent } from './login-form/login-form.component';
 
 @Component({
   selector: 'app-actionables',
   standalone: true,
-  imports: [FormsModule, SocialsComponent, MatProgressSpinner,],
+  imports: [FormsModule, SocialsComponent, MatProgressSpinner, LoginFormComponent],
   templateUrl: './actionables.component.html',
   styleUrl: './actionables.component.css',
   animations: [
@@ -25,12 +26,15 @@ export class ActionablesComponent {
 
   constructor(private _httpService: HttpService, private _snackBar: MatSnackBar) {}
 
+  waitlist = false
+  showSignUp = true
+
   emailValue = ''
 
   sendEmail(event: Event, isEmailValid: boolean | null) {
     event.preventDefault()
     if (isEmailValid) {
-      // this._httpService.sendEmail(this.emailValue)
+      this._httpService.sendEmail(this.emailValue)
       let snackBarRef = this._snackBar.open('Added to Waiting List!', '🎉🎉', {
         duration: 3000,
         panelClass: ['snackbar'],
