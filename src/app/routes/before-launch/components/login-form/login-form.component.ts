@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpService } from '../../../../../http-service.service';
+import { HttpService } from '../../../../http-service.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
@@ -9,23 +9,27 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   imports: [FormsModule],
   template: `
   <form>
+    <button (click)='closeModal()' aria-label="close" class="close">
+      <img src='assets/close.svg'>
+    </button>
     <h3>{{ showSignUp ? 'Sign Up' : 'Sign In' }}</h3>
     <input id="email" #email="ngModel" required type="email" name="email" [(ngModel)]="emailValue" email placeholder="Enter your email address">
     <input id="password" #password="ngModel" required minlength="8" type="password" name="password" [(ngModel)]="passwordValue" password placeholder="Enter your password">
-    <button (click)="showSignUp ? signUp($event, !email.invalid, !password.invalid) : signIn($event, !email.invalid, !password.invalid)" class="ng-valid">Continue</button>
+    <button (click)="showSignUp ? signUp($event, !email.invalid, !password.invalid) : signIn($event, !email.invalid, !password.invalid)" class="ng-valid submit">Continue</button>
     <p>Or</p>
     <h4>{{ showSignUp ? 'Already signed up?' : "Haven't signed up yet?" }} <span (click)="toggleForm()">{{ showSignUp ? 'Sign In' : 'Sign Up' }}</span></h4>
   </form>
   `,
   styles: [`
     form {
-      width: 90%;
+      width: 20rem;
       margin: 0 auto;
       background-color: white;
       border-radius: 1rem;
       padding: 1rem;
       font-family: 'Poppins';
       text-align: center;
+      position: relative;
     }
 
     form h3 {
@@ -45,7 +49,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
       font: 1rem 'Poppins'
     }
 
-    form button {
+    form .submit {
       margin-top: 0.75rem;
       width: 100%;
       height: 2.5rem;
@@ -82,6 +86,23 @@ import { MatSnackBar } from '@angular/material/snack-bar';
       background-color: gray;
     }
 
+    form button.close {
+      position: absolute;
+      top: 5%;
+      right: 5%;
+      border: transparent;
+      width: 2rem;
+      height: 2rem;
+      background-color: transparent;
+      cursor: pointer;
+    }
+
+    button.close img {
+      height: 100%;
+      width: 100%;
+      object-fit: contain;
+    }
+
     form h4 {
       font-size: 1rem; 
     }
@@ -116,6 +137,12 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class LoginFormComponent {
   constructor(private _httpService: HttpService, private _snackBar: MatSnackBar) {}
+  @Output() hideModal = new EventEmitter()
+
+  closeModal() {
+    this.hideModal.emit()
+  }
+
   showSignUp = true
 
   toggleForm() {

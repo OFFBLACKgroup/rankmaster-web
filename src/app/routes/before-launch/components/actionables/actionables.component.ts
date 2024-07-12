@@ -1,11 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { SocialsComponent } from '../../../../components/socials/socials.component';
 import { FormsModule } from '@angular/forms';
 import {MatProgressSpinner } from '@angular/material/progress-spinner';
 import { trigger, transition, style, animate } from '@angular/animations';
 import { HttpService } from '../../../../http-service.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { LoginFormComponent } from './login-form/login-form.component';
+import { LoginFormComponent } from '../login-form/login-form.component';
 
 @Component({
   selector: 'app-actionables',
@@ -23,11 +23,18 @@ import { LoginFormComponent } from './login-form/login-form.component';
   ]
 })
 export class ActionablesComponent {
-
   constructor(private _httpService: HttpService, private _snackBar: MatSnackBar) {}
+  @Input() modalState?: boolean
+  @Output() updateModal = new EventEmitter()
+
+  showModal() {
+    if (this.modalState != undefined) {
+      this.modalState = true
+      this.updateModal.emit(this.modalState)
+    }
+  }
 
   waitlist = false
-  showSignUp = true
 
   emailValue = ''
 

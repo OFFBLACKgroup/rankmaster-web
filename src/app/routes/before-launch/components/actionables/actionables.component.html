@@ -85,7 +85,7 @@
       <button (click)="sendEmail($event, !email.invalid)" class="ng-valid">Continue</button>
     </form>
   } @else {
-    <app-login-form></app-login-form>
+    <button (click)="showModal()" class="modal">Show Modal</button>
   }
   <div class="socials-container">
     <app-socials></app-socials>
