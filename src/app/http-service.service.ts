@@ -14,15 +14,19 @@ export class HttpService {
     });
   }
 
-  testFetch() {
-    return this.http.get('https://www.api.rankmaster.click/testDownload')
-  }
-
   fetchTopic(id: number) {
     return this.http.get('https://www.api.rankmaster.click/fetchTopic/' + id)
   }
 
   fetchTierlist(id: number) {
     return this.http.get('https://www.api.rankmaster.click/fetchTierlist/' + id)
+  }
+
+  signUp(email: string, password: string) {
+    return this.http.post('https://www.api.rankmaster.click/signUp/', { email: email, password: password })
+  }
+
+  signIn(email: string, password: string) {
+    return this.http.post('https://www.api.rankmaster.click/signIn/', { email: email, password: password })
   }
 }

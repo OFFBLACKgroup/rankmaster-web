@@ -11,12 +11,6 @@ body {
   font-family: 'Poppins';
 }
 
-::ng-deep .mat-mdc-snack-bar-container.blue-snackbar {
-  background-color: blue;
-  font-family: monospace;
-  color: green
-}
-
 .snackbar {
   --mdc-snackbar-supporting-text-font: 'Poppins';
 }
