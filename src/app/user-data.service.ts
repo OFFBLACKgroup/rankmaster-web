@@ -14,6 +14,5 @@ export class UserDataService {
     this._httpService.getUserData().subscribe((data) => {
       this.userData = data
     })
-    console.log(this.userData)
   }
 }

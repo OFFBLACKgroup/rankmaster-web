@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpService } from '../../../../http-service.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { UserDataService } from '../../../../user-data.service';
 
 @Component({
   selector: 'app-login-form',
@@ -137,7 +138,7 @@ import { Router } from '@angular/router';
   `]
 })
 export class LoginFormComponent {
-  constructor(private _httpService: HttpService, private _snackBar: MatSnackBar, private router: Router) {}
+  constructor(private _httpService: HttpService, private _snackBar: MatSnackBar, private router: Router, private _userDataService: UserDataService) {}
   @Output() hideModal = new EventEmitter()
 
   closeModal() {
@@ -157,7 +158,7 @@ export class LoginFormComponent {
     event.preventDefault()
     if (isEmailValid && isPasswordValid) {
       this._httpService.signUp(this.emailValue, this.passwordValue).subscribe((config) => {
-        console.log(config)
+        // console.log(config)
       })
       let snackBarRef = this._snackBar.open('Successful Sign Up!', '🎉🎉', {
         duration: 3000,
@@ -184,7 +185,7 @@ export class LoginFormComponent {
     event.preventDefault()
     if (isEmailValid && isPasswordValid) {
       this._httpService.signIn(this.emailValue, this.passwordValue).subscribe((config) => {
-        console.log(config)
+        this._userDataService.getUserData()
       })
       let snackBarRef = this._snackBar.open('Successful Sign In!', '🎉🎉', {
         duration: 3000,
