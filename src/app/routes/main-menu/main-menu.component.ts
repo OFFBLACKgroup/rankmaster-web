@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { SocialsComponent } from '../../components/socials/socials.component';
 import { RouterLink } from '@angular/router';
+import { UserDataService } from '../../user-data.service';
 
 @Component({
   selector: 'app-main-menu',
@@ -10,5 +11,7 @@ import { RouterLink } from '@angular/router';
   styleUrl: './main-menu.component.css'
 })
 export class MainMenuComponent {
-
+  constructor(private _userDataService: UserDataService) {
+    _userDataService.getUserData()
+  }
 }
