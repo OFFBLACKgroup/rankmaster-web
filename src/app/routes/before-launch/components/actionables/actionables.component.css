@@ -95,9 +95,28 @@ app-socials {
   margin: 0 auto;
 }
 
-.modal {
-  width: max-content;
-  margin: 0 auto;
+.button-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.button-container button {
+  font: 1.5rem 'Indie Flower';
+  padding: 0.4rem 1.2rem;
+  border-radius: 2rem;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s ease-out;
+}
+
+.button-container button:hover {
+  transform: scale(1.04) rotate(3deg);
+}
+
+.button-container button:first-child {
+  background-color: black;
+  color: white;
 }
 
 @media only screen and (max-width: 768px) {

@@ -85,7 +85,10 @@
       <button (click)="sendEmail($event, !email.invalid)" class="ng-valid">Continue</button>
     </form>
   } @else {
-    <button (click)="showModal()" class="modal">Show Modal</button>
+    <div class="button-container">
+      <button (click)="showModal()" class="modal">Sign In</button>
+      <button disabled>Play!</button>
+    </div>
   }
   <div class="socials-container">
     <app-socials></app-socials>
