@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpService } from '../../../../http-service.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login-form',
@@ -136,7 +137,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   `]
 })
 export class LoginFormComponent {
-  constructor(private _httpService: HttpService, private _snackBar: MatSnackBar) {}
+  constructor(private _httpService: HttpService, private _snackBar: MatSnackBar, private router: Router) {}
   @Output() hideModal = new EventEmitter()
 
   closeModal() {
@@ -167,6 +168,7 @@ export class LoginFormComponent {
       })
       this.emailValue = ''
       this.passwordValue = ''
+      this.router.navigate(['/menu'])
     } else if (!isPasswordValid) {
       let snackBarRef = this._snackBar.open('Longer password required (8+ characters)', 'Okay', {
         duration: 3000,
@@ -193,6 +195,7 @@ export class LoginFormComponent {
       })
       this.emailValue = ''
       this.passwordValue = ''
+      this.router.navigate(['/menu'])
     }
   }
 }
