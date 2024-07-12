@@ -27,7 +27,7 @@ export function preloadImages(imageSources: string[], loadingData: {areImagesLoa
     trigger('appear', [
       transition(":enter", [
         style({ transform: "scale(0.8)" }),
-        animate("0.2s ease-out", style({ transfrom: "scale(1)" })),
+        animate("0.2s ease-out", style({ transform: "scale(1)" })),
       ]),
     ])
   ]
