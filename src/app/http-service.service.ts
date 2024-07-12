@@ -29,4 +29,8 @@ export class HttpService {
   signIn(email: string, password: string) {
     return this.http.post('https://www.api.rankmaster.click/signIn/', { email: email, password: password })
   }
+
+  getUserData() {
+    return this.http.get('https://www.api.rankmaster.click/userData/');
+  }
 }
