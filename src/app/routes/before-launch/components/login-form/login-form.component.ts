@@ -144,7 +144,7 @@ export class LoginFormComponent {
     this.hideModal.emit()
   }
 
-  showSignUp = true
+  showSignUp = false
 
   toggleForm() {
     this.showSignUp = !this.showSignUp
