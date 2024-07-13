@@ -5,7 +5,7 @@
       @for (topic of topicData; track topic.title) {
         <li @appear [routerLink]="['/topics', topic.id]">
           <img [src]="topic.coverImage" alt="">
-          <h3>{{topic.title}} <span>7 / 10</span></h3>
+          <h3>{{topic.title}} <span>{{topic.completedTierlists}} / 10</span></h3>
         </li>
       }
     </ul>

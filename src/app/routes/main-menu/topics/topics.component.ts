@@ -3,6 +3,7 @@ import { RouterLink } from '@angular/router';
 import { HeadlineComponent } from '../../../components/headline/headline.component';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { trigger, animate, transition, style } from '@angular/animations';
+import { UserDataService } from '../../../user-data.service';
 
 export function preloadImages(imageSources: string[], loadingData: {areImagesLoaded: boolean, numOfLoaded: number}) {
   for (const source of imageSources) {
@@ -15,6 +16,13 @@ export function preloadImages(imageSources: string[], loadingData: {areImagesLoa
     }
     img.src = source
   }
+}
+
+export interface Topic {
+  title: string;
+  coverImage: string;
+  id: number;
+  completedTierlists: number;
 }
 
 @Component({
@@ -34,8 +42,9 @@ export function preloadImages(imageSources: string[], loadingData: {areImagesLoa
 
 })
 export class TopicsComponent {
-  constructor() {
+  constructor(private _userDataService: UserDataService) {
     preloadImages(this.topicData.map(item => item.coverImage), this.loadingData)
+    _userDataService.getCompletedTierlists(this.topicData)
   }
 
   loadingData = {
@@ -43,43 +52,60 @@ export class TopicsComponent {
     numOfLoaded: 0
   }
 
-  topicData = [
+  topicData: Topic[] = [
     { 
       title: 'Sports & Exercise', 
       coverImage: 'https://pubhndccqdwypcouejkh.supabase.co/storage/v1/object/public/rankmaster/topic_images/sport.svg', 
-      id: 2 
+      id: 2,
+      completedTierlists: 0
     },
     { 
       title: 'Video Games', 
       coverImage: 'https://pubhndccqdwypcouejkh.supabase.co/storage/v1/object/public/rankmaster/topic_images/videogame.svg', 
-      id: 1 },
+      id: 1,
+      completedTierlists: 0
+    },
     { 
       title: 'Anime & Manga', 
       coverImage: 'https://pubhndccqdwypcouejkh.supabase.co/storage/v1/object/public/rankmaster/topic_images/anime.svg', 
-      id: 5 },
+      id: 5,
+      completedTierlists: 0
+    },
     { 
       title: 'Food & Drink', 
       coverImage: 'https://pubhndccqdwypcouejkh.supabase.co/storage/v1/object/public/rankmaster/topic_images/food.svg', 
-      id: 3 },
+      id: 3,
+      completedTierlists: 0 
+    },
     { 
       title: 'Movies & TV Series', 
       coverImage: 'https://pubhndccqdwypcouejkh.supabase.co/storage/v1/object/public/rankmaster/topic_images/movies.svg', 
-      id: 4 },
+      id: 4,
+      completedTierlists: 0 
+    },
     { 
       title: 'Cars & Vehicles', 
       coverImage: 'https://pubhndccqdwypcouejkh.supabase.co/storage/v1/object/public/rankmaster/topic_images/cars.svg', 
-      id: 8 },
+      id: 8,
+      completedTierlists: 0 
+    },
     { 
       title: 'Books & Literature', 
       coverImage: 'https://pubhndccqdwypcouejkh.supabase.co/storage/v1/object/public/rankmaster/topic_images/books.svg', 
-      id: 7 },
+      id: 7,
+      completedTierlists: 0
+    },
     { 
       title: 'Famous People', 
       coverImage: 'https://pubhndccqdwypcouejkh.supabase.co/storage/v1/object/public/rankmaster/topic_images/celebrities.svg', 
-      id: 6 },
+      id: 6,
+      completedTierlists: 0 
+    },
     { 
       title: 'Culture & History', 
       coverImage: 'https://pubhndccqdwypcouejkh.supabase.co/storage/v1/object/public/rankmaster/topic_images/history.svg', 
-      id: 9 },
+      id: 9,
+      completedTierlists: 0
+    },
   ]
 }
