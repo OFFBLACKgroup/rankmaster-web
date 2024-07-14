@@ -24,14 +24,10 @@ import { LoginFormComponent } from '../login-form/login-form.component';
 })
 export class ActionablesComponent {
   constructor(private _httpService: HttpService, private _snackBar: MatSnackBar) {}
-  @Input() modalState?: boolean
-  @Output() updateModal = new EventEmitter()
+  @Output() showModal = new EventEmitter()
 
-  showModal() {
-    if (this.modalState != undefined) {
-      this.modalState = true
-      this.updateModal.emit(this.modalState)
-    }
+  emit() {
+    this.showModal.emit()
   }
 
   waitlist = false

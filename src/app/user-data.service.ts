@@ -11,10 +11,8 @@ export class UserDataService {
 
   userData?: any
 
-  getUserData() {
-    this._httpService.getUserData().subscribe((data) => {
-      this.userData = data
-    })
+  async getUserData() {
+    this.userData = await this._httpService.getUserData()
   }
 
   getCompletedTierlists(topicData: Topic[]) {
@@ -25,5 +23,4 @@ export class UserDataService {
       })
     } 
   }
-  
 }

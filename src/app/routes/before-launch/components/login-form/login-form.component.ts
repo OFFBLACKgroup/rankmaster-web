@@ -2,13 +2,14 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpService } from '../../../../http-service.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { Router } from '@angular/router';
 import { UserDataService } from '../../../../user-data.service';
 
 @Component({
   selector: 'app-login-form',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, MatProgressSpinner],
   template: `
   <form>
     <button (click)='closeModal()' aria-label="close" class="close">
@@ -17,7 +18,12 @@ import { UserDataService } from '../../../../user-data.service';
     <h3>{{ showSignUp ? 'Sign Up' : 'Sign In' }}</h3>
     <input id="email" #email="ngModel" required type="email" name="email" [(ngModel)]="emailValue" email placeholder="Enter your email address">
     <input id="password" #password="ngModel" required minlength="8" type="password" name="password" [(ngModel)]="passwordValue" password placeholder="Enter your password">
-    <button (click)="showSignUp ? signUp($event, !email.invalid, !password.invalid) : signIn($event, !email.invalid, !password.invalid)" class="ng-valid submit">Continue</button>
+    <button type="submit" (click)="showSignUp ? signUp($event, !email.invalid, !password.invalid) : signIn($event, !email.invalid, !password.invalid)" class="ng-valid submit">
+      Continue
+      @if (tryingToLog) {
+        <mat-progress-spinner mode="indeterminate" diameter="24"></mat-progress-spinner>
+      }
+    </button>
     <p>Or</p>
     <h4>{{ showSignUp ? 'Already signed up?' : "Haven't signed up yet?" }} <span (click)="toggleForm()">{{ showSignUp ? 'Sign In' : 'Sign Up' }}</span></h4>
   </form>
@@ -59,7 +65,11 @@ import { UserDataService } from '../../../../user-data.service';
       color: white;
       background-color: rgba(17, 17, 17, 0.25);
       border: transparent;
-      font: 1rem 'Poppins'
+      font: 1rem 'Poppins';
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.5rem
     }
 
     form p {
@@ -146,6 +156,7 @@ export class LoginFormComponent {
   }
 
   showSignUp = false
+  tryingToLog = false
 
   toggleForm() {
     this.showSignUp = !this.showSignUp
@@ -154,49 +165,44 @@ export class LoginFormComponent {
   emailValue = ''
   passwordValue = ''
 
-  signUp(event: Event, isEmailValid: boolean, isPasswordValid: boolean) {
+  async signUp(event: Event, isEmailValid: boolean, isPasswordValid: boolean) {
     event.preventDefault()
     if (isEmailValid && isPasswordValid) {
-      this._httpService.signUp(this.emailValue, this.passwordValue).subscribe((config) => {
-        // console.log(config)
-      })
-      let snackBarRef = this._snackBar.open('Successful Sign Up!', '🎉🎉', {
-        duration: 3000,
-        panelClass: ['snackbar'],
-      });
-      snackBarRef.onAction().subscribe(() => {
-        snackBarRef.dismiss()
-      })
-      this.emailValue = ''
-      this.passwordValue = ''
-      this.router.navigate(['/menu'])
+      this.tryingToLog = true
+      const response = await this._httpService.signUp(this.emailValue, this.passwordValue)
+      if (response.ok) {
+        this._userDataService.getUserData()
+        this.openSnackbar('Successful Sign Up', '🎉🎉')
+        this.tryingToLog  = false
+        this.router.navigate(['/menu'])
+      }
     } else if (!isPasswordValid) {
-      let snackBarRef = this._snackBar.open('Longer password required (8+ characters)', 'Okay', {
-        duration: 3000,
-        panelClass: ['snackbar'],
-      });
-      snackBarRef.onAction().subscribe(() => {
-        snackBarRef.dismiss()
-      })
+      this.openSnackbar('Longer password required (8+ characters)', 'Okay')
+      this.tryingToLog = false
     }
   }
 
-  signIn(event: Event, isEmailValid: boolean, isPasswordValid: boolean) {
+  async signIn(event: Event, isEmailValid: boolean, isPasswordValid: boolean) {
     event.preventDefault()
     if (isEmailValid && isPasswordValid) {
-      this._httpService.signIn(this.emailValue, this.passwordValue).subscribe((config) => {
+      this.tryingToLog = true
+      const response = await this._httpService.signIn(this.emailValue, this.passwordValue)
+      if (response.ok) {
         this._userDataService.getUserData()
-      })
-      let snackBarRef = this._snackBar.open('Successful Sign In!', '🎉🎉', {
-        duration: 3000,
-        panelClass: ['snackbar'],
-      });
-      snackBarRef.onAction().subscribe(() => {
-        snackBarRef.dismiss()
-      })
-      this.emailValue = ''
-      this.passwordValue = ''
-      this.router.navigate(['/menu'])
+        this.openSnackbar('Successful Sign In', '🎉🎉')
+        this.tryingToLog = false
+        this.router.navigate(['/menu'])
+      }
     }
+  }
+
+  openSnackbar(message: string, action: string) {
+    let snackBarRef = this._snackBar.open(message, action, {
+      duration: 3000,
+      panelClass: ['snackbar'],
+    });
+    snackBarRef.onAction().subscribe(() => {
+      snackBarRef.dismiss()
+    })
   }
 }

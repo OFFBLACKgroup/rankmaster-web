@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { first, firstValueFrom } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -22,15 +23,21 @@ export class HttpService {
     return this.http.get('https://www.api.rankmaster.click/fetchTierlist/' + id)
   }
 
-  signUp(email: string, password: string) {
-    return this.http.post('https://www.api.rankmaster.click/signUp/', { email: email, password: password })
+  async signUp(email: string, password: string) {
+    return await firstValueFrom(this.http.post('https://www.api.rankmaster.click/signUp/', 
+      { email: email, password: password },
+      { observe: 'response' }
+    ))
   }
 
-  signIn(email: string, password: string) {
-    return this.http.post('https://www.api.rankmaster.click/signIn/', { email: email, password: password })
+  async signIn(email: string, password: string) {
+    return await firstValueFrom(this.http.post('https://www.api.rankmaster.click/signIn/', 
+      { email: email, password: password },
+      { observe: 'response' } 
+    ))
   }
 
-  getUserData() {
-    return this.http.get('https://www.api.rankmaster.click/userData/');
+  async getUserData() {
+    return await firstValueFrom(this.http.get('https://www.api.rankmaster.click/userData/'))
   }
 }

@@ -1,7 +1,5 @@
 <main [style.filter]="showEntryModal ? 'blur(0.75rem)' : ''" >
   <app-example-slider></app-example-slider>
-  <app-actionables [modalState]="showEntryModal" (updateModal)="updateModal($event)"></app-actionables>
+  <app-actionables (showModal)="showModal()"></app-actionables>
 </main>
-@if (showEntryModal) {
-  <app-login-form (hideModal)="hideModal()" ></app-login-form>
-}
+<app-login-form [style.opacity]="showEntryModal ? 1 : 0" (hideModal)="hideModal()" ></app-login-form>

@@ -13,8 +13,8 @@ import { LoginFormComponent } from './components/login-form/login-form.component
 export class BeforeLaunchComponent {
   showEntryModal = false
 
-  updateModal(newState: any) {
-    this.showEntryModal = newState
+  showModal() {
+    this.showEntryModal = true
   }
 
   hideModal() {
