@@ -7,7 +7,11 @@
       @for (tierList of topicTierlists; track tierList; let index = $index) {
         <li>
           <a @appear [routerLink]="['./tierlists/' + tierList.id, { title: tierList.name }]" [style.backgroundColor]="setBackgroundColor(tierList.num_of_tiers)">
-            {{index + 1}}
+            @if (tierList.isPremium) {
+              <img src="/assets/locked.svg" alt="">
+            } @else {
+              {{index + 1}}
+            } 
           </a>
           <p @appear [style.backgroundColor]="completed ? 'white' : '#9B9B9B'"  >{{ completed ? points + ' points' : '?'}}</p>
         </li>

@@ -11,7 +11,8 @@ interface TierList {
   id: number,
   name: string,
   num_of_tiers: number,
-  topic_ID: number
+  topic_ID: number,
+  isPremium: boolean,
 }
 
 @Component({

@@ -54,3 +54,10 @@ p {
 p:first-child {
   margin-top: 5rem
 }
+
+a img {
+  position: absolute;
+  width: 50%;
+  height: 100%;
+  object-fit: contain;
+}
