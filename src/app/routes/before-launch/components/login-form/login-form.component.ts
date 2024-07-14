@@ -11,8 +11,8 @@ import { UserDataService } from '../../../../user-data.service';
   standalone: true,
   imports: [FormsModule, MatProgressSpinner],
   template: `
-  <form>
-    <button (click)='closeModal()' aria-label="close" class="close">
+  <form (ngSubmit)="showSignUp ? signUp($event, !email.invalid, !password.invalid) : signIn($event, !email.invalid, !password.invalid)">
+    <button type="button" (click)="closeModal()" aria-label="close" class="close">
       <img src='assets/close.svg'>
     </button>
     <h3>{{ showSignUp ? 'Sign Up' : 'Sign In' }}</h3>
