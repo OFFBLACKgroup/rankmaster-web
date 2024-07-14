@@ -10,4 +10,6 @@ import { RouterLink } from '@angular/router';
   styleUrl: './main-menu.component.css'
 })
 export class MainMenuComponent {
+  currentDay = new Date().getDate()
+  currentMonth = new Date().toLocaleString('en-US', { month: 'short' })
 }
