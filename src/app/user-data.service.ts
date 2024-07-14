@@ -10,6 +10,7 @@ export class UserDataService {
   constructor(private _httpService: HttpService) { }
 
   userData?: any
+  isPremiumUser?: boolean
 
   getCompletedTierlists(topicData: Topic[]) {
     if (this.userData != undefined) {

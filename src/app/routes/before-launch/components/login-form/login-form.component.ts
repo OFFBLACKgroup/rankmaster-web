@@ -197,8 +197,9 @@ export class LoginFormComponent {
       this._httpService.signIn(this.emailValue, this.passwordValue).subscribe({
         next: () => {
           this._httpService.getUserData().subscribe({
-            next: (res) => {
-              this._userDataService.userData = res
+            next: (res: any ) => {
+              this._userDataService.userData = res.data
+              this._userDataService.isPremiumUser = res.role == 'premium_user' ? true : false
               this.openSnackbar('Successful Sign In', '🎉🎉');
               this.router.navigate(['/menu']);
               this.tryingToLog = false;
