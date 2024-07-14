@@ -42,7 +42,7 @@ export interface Topic {
 
 })
 export class TopicsComponent {
-  constructor(private _userDataService: UserDataService) {
+  constructor(_userDataService: UserDataService) {
     preloadImages(this.topicData.map(item => item.coverImage), this.loadingData)
     _userDataService.getCompletedTierlists(this.topicData)
   }
