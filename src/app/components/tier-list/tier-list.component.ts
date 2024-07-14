@@ -48,11 +48,6 @@ export class TierListComponent implements OnChanges {
 
   @Input() tierlistItems: TierListItem[] = []
 
-  isHigh = true
-  animateHeight() {
-    this.isHigh = !this.isHigh
-  }
-
   numOfRows?: number
 
   ngOnChanges() {

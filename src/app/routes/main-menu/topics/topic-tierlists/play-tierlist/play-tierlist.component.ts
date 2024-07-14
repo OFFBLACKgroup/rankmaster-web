@@ -39,6 +39,7 @@ export class PlayTierlistComponent {
 
       this._httpService.fetchTierlist(Number(params['id'])).subscribe(config=> {
         this.tierlistItems = config as TierListItem[]
+        this.tierlistItems.sort(() => Math.random() - 0.5)
       });
     });
     this.title = this._route.snapshot.paramMap.get('title')
