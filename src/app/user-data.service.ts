@@ -11,10 +11,6 @@ export class UserDataService {
 
   userData?: any
 
-  async getUserData() {
-    this.userData = await this._httpService.getUserData()
-  }
-
   getCompletedTierlists(topicData: Topic[]) {
     if (this.userData != undefined) {
       this.userData.forEach((tierlist: any) => {

@@ -23,21 +23,21 @@ export class HttpService {
     return this.http.get('https://www.api.rankmaster.click/fetchTierlist/' + id)
   }
 
-  async signUp(email: string, password: string) {
-    return await firstValueFrom(this.http.post('https://www.api.rankmaster.click/signUp/', 
+  signUp(email: string, password: string) {
+    return this.http.post('https://www.api.rankmaster.click/signUp/', 
       { email: email, password: password },
       { observe: 'response' }
-    ))
+    )
   }
 
-  async signIn(email: string, password: string) {
-    return await firstValueFrom(this.http.post('https://www.api.rankmaster.click/signIn/', 
+  signIn(email: string, password: string) {
+    return this.http.post('https://www.api.rankmaster.click/signIn/', 
       { email: email, password: password },
       { observe: 'response' } 
-    ))
+    )
   }
 
-  async getUserData() {
-    return await firstValueFrom(this.http.get('https://www.api.rankmaster.click/userData/'))
+  getUserData() {
+    return this.http.get('https://www.api.rankmaster.click/userData/')
   }
 }

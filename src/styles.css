@@ -14,3 +14,8 @@ body {
 .snackbar {
   --mdc-snackbar-supporting-text-font: 'Poppins';
 }
+
+.red-snackbar {
+  --mdc-snackbar-supporting-text-font: 'Poppins';
+  --mdc-snackbar-container-color: lightcoral;
+}

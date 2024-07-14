@@ -165,41 +165,70 @@ export class LoginFormComponent {
   emailValue = ''
   passwordValue = ''
 
-  async signUp(event: Event, isEmailValid: boolean, isPasswordValid: boolean) {
+  signUp(event: Event, isEmailValid: boolean, isPasswordValid: boolean) {
     event.preventDefault()
     if (isEmailValid && isPasswordValid) {
       this.tryingToLog = true
-      const response = await this._httpService.signUp(this.emailValue, this.passwordValue)
-      if (response.ok) {
-        this._userDataService.getUserData()
-        this.openSnackbar('Successful Sign Up', '🎉🎉')
-        this.tryingToLog  = false
-        this.router.navigate(['/menu'])
-      }
+      this._httpService.signUp(this.emailValue, this.passwordValue).subscribe({
+        next: () => {
+          this.openSnackbar('Successful Sign Up', '🎉🎉');
+          this.router.navigate(['/menu']);
+        },
+        error: (error) => {
+          console.error('Sign in error:', error);
+          this.passwordValue = '';
+          this.openSnackbar('Oops... something went wrong', '', true);
+          this.tryingToLog = false;
+        },
+        complete: () => {
+          this.tryingToLog = false;
+        }
+      })
     } else if (!isPasswordValid) {
       this.openSnackbar('Longer password required (8+ characters)', 'Okay')
       this.tryingToLog = false
     }
   }
 
-  async signIn(event: Event, isEmailValid: boolean, isPasswordValid: boolean) {
+  signIn(event: Event, isEmailValid: boolean, isPasswordValid: boolean) {
     event.preventDefault()
     if (isEmailValid && isPasswordValid) {
       this.tryingToLog = true
-      const response = await this._httpService.signIn(this.emailValue, this.passwordValue)
-      if (response.ok) {
-        this._userDataService.getUserData()
-        this.openSnackbar('Successful Sign In', '🎉🎉')
-        this.tryingToLog = false
-        this.router.navigate(['/menu'])
-      }
+      this._httpService.signIn(this.emailValue, this.passwordValue).subscribe({
+        next: () => {
+          this._httpService.getUserData().subscribe({
+            next: (res) => {
+              this._userDataService.userData = res
+              this.openSnackbar('Successful Sign In', '🎉🎉');
+              this.router.navigate(['/menu']);
+              this.tryingToLog = false;
+            },
+            error: (error) => {
+              console.error('Sign in error:', error);
+              this.passwordValue = '';
+              this.openSnackbar('Error getting user data', '', true);
+              this.tryingToLog = false;
+            },
+          });
+        },
+        error: (error) => {
+          console.error('Sign in error:', error);
+          this.passwordValue = '';
+          this.openSnackbar('Email or password incorrect', '', true);
+          this.tryingToLog = false;
+        },
+      })
     }
   }
 
-  openSnackbar(message: string, action: string) {
+  sendError() {
+
+  }
+
+  openSnackbar(message: string, action: string, error?: boolean) {
     let snackBarRef = this._snackBar.open(message, action, {
       duration: 3000,
-      panelClass: ['snackbar'],
+      panelClass: error ? ['red-snackbar'] : ['snackbar']
     });
     snackBarRef.onAction().subscribe(() => {
       snackBarRef.dismiss()
