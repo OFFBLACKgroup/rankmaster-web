@@ -14,6 +14,10 @@ export class HttpService {
     });
   }
 
+  fetchMenu() {
+    return this.http.get('https://www.api.rankmaster.click/fetchMenu/')
+  }
+
   fetchTopic(id: number) {
     return this.http.get('https://www.api.rankmaster.click/fetchTopic/' + id)
   }

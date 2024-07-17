@@ -12,7 +12,7 @@ interface TierList {
   name: string,
   num_of_tiers: number,
   topic_ID: number,
-  isPremium: boolean,
+  is_premium: boolean,
 }
 
 @Component({
@@ -45,8 +45,8 @@ export class TopicTierlistsComponent implements OnInit {
     this.sub = this._route.params.subscribe(params => {
       this.id = params['id'];
 
-      this._httpService.fetchTopic(Number(params['id'])).subscribe(config=> {
-        this.topicTierlists = config as TierList[]
+      this._httpService.fetchTopic(Number(params['id'])).subscribe(res=> {
+        this.topicTierlists = res as TierList[]
         this.topicTierlists.sort(this.compareFn)
       });
     });

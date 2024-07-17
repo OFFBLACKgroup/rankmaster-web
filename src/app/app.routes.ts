@@ -7,6 +7,7 @@ import { LeaderboardComponent } from './routes/main-menu/leaderboard/leaderboard
 import { TopicTierlistsComponent } from './routes/main-menu/topics/topic-tierlists/topic-tierlists.component';
 import { PlayTierlistComponent } from './routes/main-menu/topics/topic-tierlists/play-tierlist/play-tierlist.component';
 import { routeGuard } from './route.guard';
+import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
 
 export const routes: Routes = [
   { path: 'menu', component: MainMenuComponent},
@@ -15,5 +16,6 @@ export const routes: Routes = [
   { path: 'topics', component: TopicsComponent},
   { path: 'daily', component: DailyComponent},
   { path: 'leaderboard', component: LeaderboardComponent},
+  { path: 'unauthorized', component: UnauthorizedComponent},
   { path: '', component: BeforeLaunchComponent},
 ];

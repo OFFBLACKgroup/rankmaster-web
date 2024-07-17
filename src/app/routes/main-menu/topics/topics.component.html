@@ -2,10 +2,10 @@
 <main>
   @if (loadingData.areImagesLoaded) {
     <ul>
-      @for (topic of topicData; track topic.title) {
+      @for (topic of topics; track topic.id) {
         <li @appear [routerLink]="['/topics', topic.id]">
-          <img [src]="topic.coverImage" alt="">
-          <h3>{{topic.title}} <span>{{topic.completedTierlists}} / 10</span></h3>
+          <img [src]="topic.coverImagePath" alt="">
+          <h3>{{topic.name}} <span>{{topic.completedTierlists}} / {{ topic.tierlists[0].count }}</span></h3>
         </li>
       }
     </ul>
