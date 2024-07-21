@@ -34,7 +34,7 @@ export class HttpService {
   }
 
   getUserID() {
-    return this.http.get('https://www.api.rankmaster.click/currentUserID')
+    return this.http.get('https://www.api.rankmaster.click/currentUserID/')
   }
 
   signIn(email: string, password: string) {

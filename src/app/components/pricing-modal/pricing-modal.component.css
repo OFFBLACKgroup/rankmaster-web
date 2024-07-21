@@ -1,9 +1,10 @@
 :host {
   max-width: 664px;
+  width: 100%;
   min-height: 400px;
   background-color: lightblue;
-  position: fixed;
-  top: calc(50% - 200px + 4rem);
+  position: absolute;
+  top: calc(50% - 200px);
   left: calc(50% - 332px);
   border-radius: 2rem;
   padding: 2rem;
@@ -30,6 +31,7 @@ h2 {
   font-family: 'Poor Story';
   line-height: 100%;
   margin-bottom: 0.5rem;
+  font-size: 2.5rem;
 }
 
 span.grand {
@@ -125,4 +127,54 @@ p {
   height: 12.25rem;
   object-fit: contain;
   margin-top: auto;
+}
+
+@media only screen and (max-width: 768px) {
+  :host {
+    width: 312px;
+    padding: 1rem;
+    padding-top: 3.6rem;
+    top: calc(50% - 375px);
+    left: calc(50% - 156px)
+  }
+
+  span.grand {
+    font-size: 3.6rem;
+  }
+
+  h2 {
+    font-size: 2rem;
+    text-align: center;
+  }
+  
+  span.second-line {
+    margin-top: 2rem;
+    margin-right: 0;
+    text-align: center;
+  }
+
+  .expand {
+    flex-direction: column-reverse;
+    margin-top: 2.5rem;
+    
+  }
+
+  .benefits {
+    margin: 2.5rem 0 1rem 0;
+    align-items: center;
+  }
+
+  .mascot {
+    align-items: flex-start;
+  }
+
+  a {
+    margin-top: 1rem;
+  }
+}
+  
+@media only screen and (max-height: 900px) {
+  :host {
+    top: 2rem;
+  }  
 }

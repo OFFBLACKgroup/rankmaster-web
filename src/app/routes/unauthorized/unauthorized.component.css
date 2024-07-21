@@ -1,12 +1,17 @@
 main {
   max-width: 80rem;
-  display: flex;
   margin: auto;
+  position: relative;
+}
+
+main > div {
+  width: 100%;
   min-height: calc(100vh - 4rem);
+  display: flex;
   align-items: center;
   justify-content: center;
   gap: 5%;
-  transition: all 0.25s ease-in
+  transition: all 0.25s ease-in;
 }
 
 img:first-of-type {
@@ -63,7 +68,7 @@ app-login-form {
 }
 
 @media only screen and (max-width: 768px) {
-  main {
+  main > div {
     flex-direction: column;
     justify-content: center;
     row-gap: 1rem;

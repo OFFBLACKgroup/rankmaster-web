@@ -29,7 +29,7 @@ export class PricingModalComponent {
     })
   }
 
-  linkDirection = 'https://buy.stripe.com/7sI4jq4feb1nfO8000'
+  linkDirection = 'https://buy.stripe.com/7sI4jq4feb1nfO8000?client_reference_id='
 
   emit() {
     this.hideModal.emit()
