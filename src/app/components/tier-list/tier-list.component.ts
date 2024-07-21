@@ -1,10 +1,11 @@
-import { Component, Input, OnChanges } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, Input, OnChanges, ViewChild, inject } from '@angular/core';
 import { DndModule, DndDropEvent } from 'ngx-drag-drop';
 import { animate, query, stagger, state, style, transition, trigger } from '@angular/animations';
 import { TierListItem } from '../../routes/main-menu/topics/topic-tierlists/play-tierlist/play-tierlist.component';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import { preloadImages } from '../../routes/main-menu/topics/topics.component';
+import { HttpService } from '../../http-service.service';
 
 @Component({
   selector: 'app-tier-list',
@@ -47,7 +48,7 @@ import { preloadImages } from '../../routes/main-menu/topics/topics.component';
         query(':enter', [
           style({ opacity: 0, transform: 'translateX(200px)' }),
           stagger('100ms', 
-            animate('701ms ease-out', 
+            animate('701ms 200ms ease-out', 
               style({ opacity: 1, transform: '' })
             )
           )
@@ -57,12 +58,16 @@ import { preloadImages } from '../../routes/main-menu/topics/topics.component';
     trigger('slideUp', [
       transition(':enter', [
         style({ transform: 'translateY(50px)' }),
-        animate('0.5s 0.6s ease-out', style({ transform: '*' }))
+        animate('0.5s 0.8s ease-out', style({ transform: '*' }))
       ])
     ])
   ]
 })
 export class TierListComponent implements OnChanges {
+  changeDetector = inject(ChangeDetectorRef)
+  _httpService = inject(HttpService)
+
+  @ViewChild ('coinscontainer', { static: false }) coinsContainer?: ElementRef
 
   coins = [1, 2, 3, 4, 5, 6, 7];
 
@@ -91,6 +96,15 @@ export class TierListComponent implements OnChanges {
 
   finish() {
     this.finished = true
+    this.changeDetector.detectChanges();
+    
+    if (this.coinsContainer) {
+      setTimeout(() => {
+        if (this.coinsContainer) {
+          this.coinsContainer.nativeElement.scrollIntoView({ behavior: "smooth", block: "end" });
+        }
+      }, 50)
+    }
   }
 
   maxItems?: number

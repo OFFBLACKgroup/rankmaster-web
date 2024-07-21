@@ -13,7 +13,8 @@
   width: 100%;
   height: clamp(4rem, 3.3rem + 3.5vw, 7.5rem);
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  gap: 0.5rem;
 }
 
 .tier-list-header ul {
@@ -73,8 +74,8 @@
   flex-direction: column;
   gap: 0;
   margin-left: 3rem;
-  width: calc(100% - 7rem - clamp(6rem, 5.2rem + 4vw, 10rem));
   padding-right: 1rem;
+  max-width: 10.5rem;
 }
 
 .tier-list-info p {
@@ -234,9 +235,24 @@ button.submit:hover {
 
 div.points-container {
   overflow: hidden;
+  margin-top: 1rem;
 }
 
 p.points {
   font: 1.5rem 'Revalia';
   color: #3BDE39;
+}
+
+@media only screen and (max-width: 500px) {
+  .tier-list-info {
+    margin-left: 1rem;
+  }
+
+  .tier-list-info h3 {
+    margin-left: 0;
+  }
+
+  .tier-list-header ul {
+    margin-right: 1rem;
+  }
 }

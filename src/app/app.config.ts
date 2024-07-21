@@ -1,5 +1,5 @@
 import { ApplicationConfig, importProvidersFrom } from '@angular/core';
-import { provideRouter } from '@angular/router';
+import { provideRouter, withInMemoryScrolling } from '@angular/router';
 import { routes } from './app.routes';
 import { provideAnimationsAsync} from '@angular/platform-browser/animations/async';
 import { provideHttpClient, withFetch } from '@angular/common/http';
@@ -12,10 +12,12 @@ polyfill({
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideRouter(routes),
+    provideRouter(routes,
+      withInMemoryScrolling({ anchorScrolling: 'enabled' })  
+    ),
     provideAnimationsAsync(), provideAnimationsAsync(),
     provideHttpClient(
       withFetch()
-    )
+    ),
   ]
 };
