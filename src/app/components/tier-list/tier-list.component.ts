@@ -125,6 +125,9 @@ export class TierListComponent implements OnChanges {
       }
       this.calcShowFiller()
     }
+    if (this.draggedFromRow != undefined) {
+      this.draggedFromRow = undefined
+    }
   }
 
   nextUp() {

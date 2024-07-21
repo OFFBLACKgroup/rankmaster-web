@@ -25,7 +25,7 @@
         <div class="tier-list-rank" [style.backgroundColor]="backgroundColors[rowIndex]">
           <span>{{tiers[rowIndex]}}</span>
         </div>
-        <ul #firstRow class="tier-list-items" dndDropzone [dndHorizontal]="true" (dndDrop)="onDrop($event, rowIndex)">
+        <ul #firstRow class="tier-list-items" dndDropzone [dndDisableIf]="draggedFromRow == rowIndex" [dndHorizontal]="true" (dndDrop)="onDrop($event, rowIndex)">
           @for (item of tierData[rowIndex]; track item; let index = $index) {
             <li [matTooltip]="getTooltip(rowIndex, index)" matTooltipPosition="above" matTooltipShowDelay="500" class="tier-list-item not-filler" [dndDraggable]="tierData[rowIndex][index]" dndType="transfer" (dndStart)="onDragStart(rowIndex, index)" [dndDisableDragIf]="finished">
               <img class="added" [src]="tierData[rowIndex][index]" alt="">
