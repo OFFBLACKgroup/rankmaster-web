@@ -7,15 +7,22 @@ import { LeaderboardComponent } from './routes/main-menu/leaderboard/leaderboard
 import { TopicTierlistsComponent } from './routes/main-menu/topics/topic-tierlists/topic-tierlists.component';
 import { PlayTierlistComponent } from './routes/main-menu/topics/topic-tierlists/play-tierlist/play-tierlist.component';
 import { routeGuard } from './route.guard';
-import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
+import { UnauthorizedComponent } from './routes/unauthorized/unauthorized.component';
 
 export const routes: Routes = [
-  { path: 'menu', component: MainMenuComponent},
-  { path: 'topics/:topicID/tierlists/:id', component: PlayTierlistComponent, canActivate: [routeGuard] },
-  { path: 'topics/:id', component: TopicTierlistsComponent },
-  { path: 'topics', component: TopicsComponent},
-  { path: 'daily', component: DailyComponent},
-  { path: 'leaderboard', component: LeaderboardComponent},
-  { path: 'unauthorized', component: UnauthorizedComponent},
   { path: '', component: BeforeLaunchComponent},
+  {
+    path: '',
+    canActivate: [routeGuard],
+    children: [
+      { path: 'menu', component: MainMenuComponent},
+      { path: 'topics/:id', component: TopicTierlistsComponent },
+      { path: 'topics', component: TopicsComponent },
+      { path: 'daily', component: DailyComponent },
+      { path: 'leaderboard', component: LeaderboardComponent },
+    ]
+  },
+  { path: 'topics/:topicID/tierlists/:id', component: PlayTierlistComponent, canActivate: [routeGuard], data: { isPremium: true} },
+  { path: 'unauthorized/:id', component: UnauthorizedComponent},
+  { path: '**', component: UnauthorizedComponent }
 ];

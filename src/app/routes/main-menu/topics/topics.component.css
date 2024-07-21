@@ -66,3 +66,10 @@ h3 span {
   border-radius: 0 0 0.5rem 0.5rem;
   cursor: pointer;
 }
+
+mat-progress-spinner {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

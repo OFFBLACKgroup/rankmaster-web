@@ -1,0 +1,80 @@
+main {
+  max-width: 80rem;
+  display: flex;
+  margin: auto;
+  min-height: calc(100vh - 4rem);
+  align-items: center;
+  justify-content: center;
+  gap: 5%;
+  transition: all 0.25s ease-in
+}
+
+img:first-of-type {
+  width: 45%;
+}
+
+section {
+  display: flex;
+  flex-direction: column;
+}
+
+h2 {
+  color: white;
+  font: clamp(2rem, 1.333rem + 1.389vw, 3rem) 'Poppins';
+  font-weight: 500;
+}
+
+a, button {
+  font: clamp(1.75rem, 1.25rem + 1.042vw, 2.5rem) 'Poppins';
+  font-weight: 500;
+  text-transform: uppercase;
+  background-color: #FFDF00;
+  padding: 0 1.5rem;
+  border-radius: 1rem;
+  width: max-content;
+  margin: 1rem auto 0 auto;
+  border: 0.25rem solid black;
+  box-shadow: 0.5rem 0.5rem black;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.3s ease-out;
+  color: black;
+  text-decoration: none;
+}
+
+a:hover, button:hover {
+  transform: rotate(2deg)
+}
+
+.cursor {
+  height: clamp(2rem, 1.333rem + 1.389vw, 3rem);
+  max-width: clamp(2rem, 1.333rem + 1.389vw, 3rem);
+  position: absolute;
+  top: calc(100% + 1rem);
+  left: 0%;
+  opacity: 0;
+}
+
+app-login-form {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@media only screen and (max-width: 768px) {
+  main {
+    flex-direction: column;
+    justify-content: center;
+    row-gap: 1rem;
+  }
+  
+  img:first-of-type {
+    width: 64%;
+  }
+
+  h2 {
+    font-size: clamp(1.5rem, 0.957rem + 2.174vw, 2rem);
+  }
+
+}

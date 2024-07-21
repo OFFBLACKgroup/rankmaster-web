@@ -18,7 +18,7 @@
     }
   </section>
 }
-@if (numOfRows) {
+@if (loadData.areImagesLoaded && numOfRows) {
   <ul @scaleIn class="tier-list-body">
     @for (row of array(numOfRows); track $index; let rowIndex = $index) {
       <li class="tier-list-row">
@@ -48,4 +48,7 @@
       <button (click)="finish()" class="submit">Submit</button>
     </div>
   }
+}
+@if (!loadData.areImagesLoaded) {
+  <mat-progress-spinner diameter="48" mode="indeterminate"></mat-progress-spinner>
 }

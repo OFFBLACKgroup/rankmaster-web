@@ -162,6 +162,13 @@ ul.tier-list-items {
   display: none;
 }
 
+mat-progress-spinner {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
 li.tier-list-item.filler {
   flex: 5 100;
   transform-origin: left;

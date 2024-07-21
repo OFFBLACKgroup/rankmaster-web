@@ -61,3 +61,10 @@ a img {
   height: 100%;
   object-fit: contain;
 }
+
+mat-progress-spinner {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

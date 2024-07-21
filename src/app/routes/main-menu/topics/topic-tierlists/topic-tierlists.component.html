@@ -7,7 +7,7 @@
       @for (tierList of topicTierlists; track tierList; let index = $index) {
         <li>
           <a @appear [routerLink]="['./tierlists/' + tierList.id, { title: tierList.name }]" [style.backgroundColor]="setBackgroundColor(tierList.num_of_tiers)">
-            @if (tierList.is_premium) {
+            @if (tierList.is_premium && !isPremiumUser ) {
               <img src="/assets/locked.svg" alt="">
             } @else {
               {{index + 1}}
@@ -18,7 +18,7 @@
       }
     } @else {
       <li>
-        <mat-progress-spinner mode="indeterminate" diameter="96"></mat-progress-spinner>
+        <mat-progress-spinner mode="indeterminate" diameter="48"></mat-progress-spinner>
       </li>
     }
   </ul>

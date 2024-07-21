@@ -5,14 +5,16 @@ import { Subscription } from 'rxjs';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { animate, style, transition, trigger } from '@angular/animations';
+import { UserDataService } from '../../../../user-data.service';
 
-interface TierList {
+export interface TierList {
   created_at: Date,
   id: number,
   name: string,
   num_of_tiers: number,
   topic_ID: number,
   is_premium: boolean,
+  tierlist_items: { count: number }[]
 }
 
 @Component({
@@ -33,8 +35,14 @@ interface TierList {
 export class TopicTierlistsComponent implements OnInit {
   constructor(
     private _route: ActivatedRoute,
-    private _httpService: HttpService
-  ) { }
+    private _httpService: HttpService,
+    private _userDataService: UserDataService
+  ) 
+  { 
+    this.isPremiumUser = this._userDataService.isPremiumUser
+  }
+
+  isPremiumUser?: boolean
 
   completed = false
 
@@ -42,18 +50,33 @@ export class TopicTierlistsComponent implements OnInit {
   id: string | any;
 
   ngOnInit(): void {
+
     this.sub = this._route.params.subscribe(params => {
       this.id = params['id'];
 
       this._httpService.fetchTopic(Number(params['id'])).subscribe(res=> {
         this.topicTierlists = res as TierList[]
+        this._userDataService.getCurrentPremiumTierlists(this.topicTierlists)
         this.topicTierlists.sort(this.compareFn)
       });
     });
   }
+  
 
-  compareFn(a: TierList, b: TierList) {
-    return a.num_of_tiers - b.num_of_tiers
+  compareFn = (a: TierList, b: TierList) => {
+    if (this._userDataService.isPremiumUser) {
+      return a.tierlist_items[0].count - b.tierlist_items[0].count
+    } else {
+      if (a.is_premium && !b.is_premium) {
+        return 1;
+      } else if (!a.is_premium && b.is_premium) {
+        return -1;
+      } else if (!a.is_premium && !b.is_premium) {
+        return a.tierlist_items[0].count - b.tierlist_items[0].count;
+      } else {
+        return a.num_of_tiers - b.num_of_tiers;
+      }
+    }
   }
 
   topicTierlists: TierList[] = []
