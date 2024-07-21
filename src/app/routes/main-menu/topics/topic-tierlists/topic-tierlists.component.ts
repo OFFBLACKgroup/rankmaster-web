@@ -15,6 +15,13 @@ export interface TierList {
   topic_ID: number,
   is_premium: boolean,
   tierlist_items: { count: number }[]
+  is_completed: boolean,
+  collected_points?: number
+}
+
+export interface CompletedTierlist {
+  tierlist_ID: number,
+  collected_points: number
 }
 
 @Component({
@@ -40,11 +47,11 @@ export class TopicTierlistsComponent implements OnInit {
   ) 
   { 
     this.isPremiumUser = this._userDataService.isPremiumUser
+    this.completedTierlists = this._userDataService.userData as CompletedTierlist[]
   }
 
+  completedTierlists
   isPremiumUser?: boolean
-
-  completed = false
 
   private sub: Subscription | any; 
   id: string | any;
@@ -56,6 +63,14 @@ export class TopicTierlistsComponent implements OnInit {
 
       this._httpService.fetchTopic(Number(params['id'])).subscribe(res=> {
         this.topicTierlists = res as TierList[]
+        this.topicTierlists.map((tierlist) => {
+          this.completedTierlists.forEach((el) => {
+            if (el.tierlist_ID == tierlist.id) {
+              tierlist.is_completed = true
+              tierlist.collected_points = el.collected_points
+            }
+          })
+        })
         this._userDataService.getCurrentPremiumTierlists(this.topicTierlists)
         this.topicTierlists.sort(this.compareFn)
       });

@@ -6,14 +6,17 @@
     @if (topicTierlists.length != 0) {
       @for (tierList of topicTierlists; track tierList; let index = $index) {
         <li>
-          <a @appear [routerLink]="['./tierlists/' + tierList.id, { title: tierList.name }]" [style.backgroundColor]="setBackgroundColor(tierList.num_of_tiers)">
+          <a @appear [style.cursor]="tierList.is_completed ? 'auto' : 'pointer'" [routerLink]="tierList.is_completed ? null : ['./tierlists/' + tierList.id, { title: tierList.name }]">
+            <div [style.filter]="tierList.is_completed ? 'brightness(50%)' : ''" [style.background]="setBackgroundColor(tierList.num_of_tiers)"></div>
             @if (tierList.is_premium && !isPremiumUser ) {
-              <img src="/assets/locked.svg" alt="">
+              <img src="/assets/locked.svg" alt="Lock icon">
+            } @else if (tierList.is_completed) {
+              <img src="/assets/done.svg" alt="Checkmark icon">
             } @else {
               {{index + 1}}
             } 
           </a>
-          <p @appear [style.backgroundColor]="completed ? 'white' : '#9B9B9B'"  >{{ completed ? points + ' points' : '?'}}</p>
+          <p @appear [style.backgroundColor]="tierList.is_completed ? 'white' : '#9B9B9B'"  >{{ tierList.is_completed ? tierList.collected_points + ' points' : '?'}}</p>
         </li>
       }
     } @else {
