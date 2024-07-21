@@ -155,7 +155,6 @@ ul.tier-list-items {
   background-color: #6F8FAF;
   border-radius: 0.375rem;
   padding: 0.35rem;
-  cursor: grab;
 }
 
 .tier-list-items li.placeholder:last-child {
