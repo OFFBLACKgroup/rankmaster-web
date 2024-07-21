@@ -48,6 +48,7 @@
 .drag-preview.dndDragging {
   height: 4rem;
   width: 6rem;
+  object-fit: contain;
   border-radius: 0.375rem;
   overflow: hidden !important;
   background-color: #6F8FAF;
@@ -217,4 +218,25 @@ button.submit {
 
 button.submit:hover {
   transform: translate3d(-0.75rem, -0.75rem, 0);
+}
+
+.coins {
+  width: 268px;
+  list-style: none;
+  display: flex;
+  margin-top: 2rem;
+}
+
+.coins li {
+  width: 67px;
+  object-fit: contain;
+}
+
+div.points-container {
+  overflow: hidden;
+}
+
+p.points {
+  font: 1.5rem 'Revalia';
+  color: #3BDE39;
 }

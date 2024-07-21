@@ -1,6 +1,6 @@
 import { Component, Input, OnChanges } from '@angular/core';
 import { DndModule, DndDropEvent } from 'ngx-drag-drop';
-import { animate, state, style, transition, trigger } from '@angular/animations';
+import { animate, query, stagger, state, style, transition, trigger } from '@angular/animations';
 import { TierListItem } from '../../routes/main-menu/topics/topic-tierlists/play-tierlist/play-tierlist.component';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import {MatTooltipModule} from '@angular/material/tooltip';
@@ -41,10 +41,30 @@ import { preloadImages } from '../../routes/main-menu/topics/topics.component';
         style({ transform: 'scale(0.3)', opacity: 0.4 }),
         animate('0.3s ease-in', style({ transform: 'scale(1)', opacity: 1 }))
       ])
+    ]),
+    trigger('coinsAnimation', [
+      transition('* <=> *', [
+        query(':enter', [
+          style({ opacity: 0, transform: 'translateX(200px)' }),
+          stagger('100ms', 
+            animate('701ms ease-out', 
+              style({ opacity: 1, transform: '' })
+            )
+          )
+        ], { optional: true })
+      ])
+    ]),
+    trigger('slideUp', [
+      transition(':enter', [
+        style({ transform: 'translateY(50px)' }),
+        animate('0.5s 0.6s ease-out', style({ transform: '*' }))
+      ])
     ])
   ]
 })
 export class TierListComponent implements OnChanges {
+
+  coins = [1, 2, 3, 4, 5, 6, 7];
 
   @Input() tierlistItems: TierListItem[] = []
 

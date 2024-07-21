@@ -43,7 +43,7 @@
       </li>
     }
   </ul>
-  @if (placedAll) {
+  @if (placedAll && !finished) {
     <div class="btn-container">
       <button (click)="finish()" class="submit">Submit</button>
     </div>
@@ -51,4 +51,16 @@
 }
 @if (!loadData.areImagesLoaded) {
   <mat-progress-spinner diameter="48" mode="indeterminate"></mat-progress-spinner>
+}
+@if (finished) {
+  <ul [@coinsAnimation]="coins.length" class="coins">
+    @for (coin of coins; track coin) {
+      <li [style.transform]="$index == 0 ? '' : 'translateX(' + (-50  * $index) + '%)'" [style.zIndex]="$index * -1">
+        <img src="../../../assets/coin.png" alt="Coin">
+      </li>
+    }
+  </ul>
+  <div class="points-container">
+    <p @slideUp class="points">+12 points</p>
+  </div>
 }
