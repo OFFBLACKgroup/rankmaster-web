@@ -8,7 +8,7 @@
     }
     @if (loadData.areImagesLoaded) {
       <ul @slideInFromRight>
-        <li [dndDraggable]="tierlistItems[currentItem].file_path" dndType="import">
+        <li [dndDraggable]="tierlistItems[currentItem]" dndType="import">
             <img [src]="tierlistItems[currentItem].file_path" alt="">
           <div dndDragImageRef class="drag-preview">
             <img [src]="tierlistItems[currentItem].file_path" alt="">
@@ -28,7 +28,7 @@
         <ul #firstRow class="tier-list-items" dndDropzone [dndDisableIf]="draggedFromRow == rowIndex" [dndHorizontal]="true" (dndDrop)="onDrop($event, rowIndex)">
           @for (item of tierData[rowIndex]; track item; let index = $index) {
             <li [style.cursor]="finished ? 'auto' : 'grab'" [matTooltip]="getTooltip(rowIndex, index)" matTooltipPosition="above" matTooltipShowDelay="500" class="tier-list-item not-filler" [dndDraggable]="tierData[rowIndex][index]" dndType="transfer" (dndStart)="onDragStart(rowIndex, index)" [dndDisableDragIf]="finished">
-              <img class="added" [src]="tierData[rowIndex][index]" alt="">
+              <img class="added" [src]="tierData[rowIndex][index].file_path" alt="">
             </li>
           }
           <li class="placeholder" dndPlaceholderRef>

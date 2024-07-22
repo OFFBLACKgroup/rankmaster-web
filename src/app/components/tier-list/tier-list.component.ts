@@ -6,6 +6,12 @@ import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import { preloadImages } from '../../routes/main-menu/topics/topics.component';
 import { HttpService } from '../../http-service.service';
+import { ActivatedRoute } from '@angular/router';
+
+export interface Prediction {
+  tierlist_item_id: number,
+  predicted_tier: number
+}
 
 @Component({
   selector: 'app-tier-list',
@@ -66,6 +72,7 @@ import { HttpService } from '../../http-service.service';
 export class TierListComponent implements OnChanges {
   changeDetector = inject(ChangeDetectorRef)
   _httpService = inject(HttpService)
+  _activeRoute = inject(ActivatedRoute)
 
   @ViewChild ('coinscontainer', { static: false }) coinsContainer?: ElementRef
 
@@ -94,10 +101,31 @@ export class TierListComponent implements OnChanges {
   placedAll = false
   finished = false
 
+  getPrediction() {
+    const prediction: Prediction[] = []
+
+    this.tierData.forEach((row, i) => {
+      row.forEach((item, j) => {
+        if (item) {
+          prediction.push({
+            tierlist_item_id: item.id,
+            predicted_tier: i
+          })
+        }
+      });
+    });
+    
+    return prediction
+  }
+
   finish() {
     this.finished = true
-    this.changeDetector.detectChanges();
-    
+    this.changeDetector.detectChanges()
+    const topicID = this._activeRoute.snapshot.paramMap.get(':topicID')
+    const predictionData = this.getPrediction()
+    if (topicID) {
+      this._httpService.calculatePoints(Number(topicID), this.tierlistItems[0].tierlist_ID, predictionData).subscribe((res) => console.log(res))
+    }
     if (this.coinsContainer) {
       setTimeout(() => {
         if (this.coinsContainer) {
@@ -116,7 +144,7 @@ export class TierListComponent implements OnChanges {
   }
 
   getTooltip(rowIndex: number, index: number) {
-    const tooltip = this.tierlistItems.find(el => el.file_path == this.tierData[rowIndex][index])
+    const tooltip = this.tierlistItems.find(el => el.file_path == this.tierData[rowIndex][index].file_path)
     if (tooltip) {
       return tooltip.name
     } else {
@@ -130,7 +158,7 @@ export class TierListComponent implements OnChanges {
   tiers = ['S', 'A', 'B', 'C', 'D', 'E', 'F']
   backgroundColors = ['#FF3131', '#FF7518', '#FFBF00', '#32CD32', '#00FFFF', '#1F51FF', '#DA70D6']
 
-  tierData: string[][] = Array.from({ length: 7 }, () => [])
+  tierData: TierListItem[][] = Array.from({ length: 7 }, () => [])
 
   draggedFromRow?: number;
   draggedIndex?: number;
@@ -138,7 +166,7 @@ export class TierListComponent implements OnChanges {
   onDragStart(rowIndex: number, index: number) {
     this.draggedFromRow = rowIndex
     this.draggedIndex = index;
-    this.currentPlaceholder = this.tierlistItems.findIndex(item => item.file_path == this.tierData[rowIndex][index])
+    this.currentPlaceholder = this.tierlistItems.findIndex(item => item.file_path == this.tierData[rowIndex][index].file_path)
   }
 
   showFiller: string[] = ['block', 'block', 'block', 'block', 'block', 'block', 'block']

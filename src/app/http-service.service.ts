@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Prediction } from './components/tier-list/tier-list.component';
 
 @Injectable({
   providedIn: 'root'
@@ -46,5 +47,15 @@ export class HttpService {
 
   getUserData() {
     return this.http.get('https://www.api.rankmaster.click/userData/')
+  }
+
+  calculatePoints(topicID: number, tierlistID: number, prediction: Prediction[]) {
+    const request = {
+      topicID,
+      tierlistID,
+      prediction
+    }
+
+    return this.http.post('https://www.api.rankmaster.click/points/', request)
   }
 }
