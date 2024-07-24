@@ -74,10 +74,6 @@ export class TierListComponent implements OnChanges {
   _httpService = inject(HttpService)
   _activeRoute = inject(ActivatedRoute)
 
-  @ViewChild ('coinscontainer', { static: false }) coinsContainer?: ElementRef
-
-  coins = [1, 2, 3, 4, 5, 6, 7];
-
   @Input() tierlistItems: TierListItem[] = []
 
   numOfRows?: number
@@ -118,13 +114,28 @@ export class TierListComponent implements OnChanges {
     return prediction
   }
 
+  @ViewChild ('coinscontainer', { static: false }) coinsContainer?: ElementRef
+
+  coins: number[] = [];
+  showCoins = false
+  numOfPoints: number = 0
+
   finish() {
     this.finished = true
     this.changeDetector.detectChanges()
-    const topicID = this._activeRoute.snapshot.paramMap.get(':topicID')
+    const topicID = this._activeRoute.snapshot.paramMap.get('topicID')
     const predictionData = this.getPrediction()
     if (topicID) {
-      this._httpService.calculatePoints(Number(topicID), this.tierlistItems[0].tierlist_ID, predictionData).subscribe((res) => console.log(res))
+      this._httpService.calculatePoints(Number(topicID), this.tierlistItems[0].tierlist_ID, predictionData).subscribe((res: any) => {
+        if (this.numOfRows) {
+          this.numOfPoints = res
+          const maxPoint = (this.numOfRows == 3 ? 2 : this.numOfRows == 5 ? 3 : 4) * this.tierlistItems.length
+          console.log(maxPoint)
+          const numOfCoins = Math.round( (res / maxPoint) * 7 )
+          this.coins = Array.from({ length: numOfCoins + 1 }, (_, i) => i);
+          this.showCoins = true
+        }
+      })
     }
     if (this.coinsContainer) {
       setTimeout(() => {

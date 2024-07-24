@@ -49,11 +49,11 @@ export class HttpService {
     return this.http.get('https://www.api.rankmaster.click/userData/')
   }
 
-  calculatePoints(topicID: number, tierlistID: number, prediction: Prediction[]) {
+  calculatePoints(topicID: number, tierlistID: number, predictions: Prediction[]) {
     const request = {
       topicID,
       tierlistID,
-      prediction
+      predictions
     }
 
     return this.http.post('https://www.api.rankmaster.click/points/', request)

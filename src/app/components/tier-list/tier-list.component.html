@@ -52,7 +52,7 @@
 @if (!loadData.areImagesLoaded) {
   <mat-progress-spinner diameter="48" mode="indeterminate"></mat-progress-spinner>
 }
-@if (finished) {
+@if (showCoins) {
   <ul [@coinsAnimation]="coins.length" class="coins">
     @for (coin of coins; track coin) {
       <li [style.transform]="$index == 0 ? '' : 'translateX(' + (-50  * $index) + '%)'" [style.zIndex]="$index * -1">
@@ -61,7 +61,7 @@
     }
   </ul>
   <div class="points-container">
-    <p @slideUp class="points">+12 points</p>
+    <p @slideUp class="points">+{{ numOfPoints }} points</p>
   </div>
   <div #coinscontainer>
   </div>
