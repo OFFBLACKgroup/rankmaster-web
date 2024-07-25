@@ -1,0 +1,160 @@
+:host {
+  width: 100%;
+  height: 8rem;
+  min-width: 2rem;;
+}
+
+header {
+  width: 100%;
+  height: 8rem;
+  display: flex;
+  align-items: center;
+}
+
+nav {
+  padding: 0.5rem 0.5rem 0.5rem 2.5rem;
+  border-radius: 2rem;
+  background-color: #E6F4FF;
+  display: flex;
+  align-items: center;
+  margin-left: 3rem;
+  box-shadow: 1px 4px 4px rgba(218, 218, 218, 0.25);
+  transition: all 0.3s ease-in-out;
+  overflow: hidden;
+}
+
+nav a {
+  display: flex;
+  align-content: center;
+}
+
+nav > a:first-child {
+  height: 3rem;
+}
+
+nav > a:nth-child(2) {
+  text-decoration: none;
+  color: black;
+  font: 2.25rem 'Roboto Slab';
+  margin-left: 1rem;
+  margin-right: 3rem;
+}
+
+nav .buttons-container {
+  display: flex;
+  gap: 0.75rem;
+  width: max-content;
+  transform-origin: left;
+}
+
+.buttons-container a:first-child {
+  transform: rotate(180deg);
+}
+
+.buttons-container a:last-child {
+  width: 3rem;
+}
+
+section.modal-buttons {
+  margin: auto;
+  display: flex;
+  gap: 5rem;
+  align-items: center;
+}
+
+.modal-buttons button {
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.6);
+  cursor: pointer;
+  position: relative;
+  border: none;
+  background-color: transparent;
+  font: 1.5rem 'Roboto Slab';
+  font-weight: 600;
+  color: white;
+  height: max-content;
+} 
+
+.modal-buttons button:nth-child(2) img {
+  position: absolute;
+  height: 3rem;
+  width: 3rem;
+  left: calc(100% - 1rem);
+  bottom: calc(100% - 1.5rem);
+}
+
+button.user-settings {
+  width: 3.75rem;
+  height: 3.75rem;
+  border-radius: 2rem;
+  margin-right: 4rem;
+  cursor: pointer;
+}
+
+.user-settings img {
+  object-fit: contain;
+  background-color: #E6F4FF;
+  border-radius: 2rem;
+}
+
+button.mobile-navigation {
+  display: none;
+  background-color: transparent;
+  border: none;
+  margin-left: auto;
+  margin-right: 2.25rem;
+}
+
+@media only screen and (max-width: 1280px) {
+  section.modal-buttons {
+    display: none
+  }
+
+  button.user-settings {
+    display: none;
+  }
+
+  button.mobile-navigation {
+    display: block
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  header {
+    height: 4rem;
+    background-color: #E6F4FF;
+  }
+
+  nav {
+    box-shadow: none;
+    margin-left: 1rem;
+    padding: 0;
+  }
+
+  nav a:first-child {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+
+  nav a:nth-child(2) {
+    font-size: 1.5rem;
+    margin-left: 0.5rem;
+    margin-right: 0;
+  }
+
+  button.mobile-navigation {
+    margin-right: 1rem;
+  }
+
+  .mobile-navigation svg {
+    height: 2.5rem;
+    width: 2.5rem;
+  }
+
+  .mobile-navigation svg path {
+    fill: black;
+  }
+
+  nav a:nth-child(3), nav a:nth-child(4) {
+    display: none;
+  }
+}

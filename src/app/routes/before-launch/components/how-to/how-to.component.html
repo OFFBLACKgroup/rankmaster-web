@@ -1,0 +1,13 @@
+<article>
+  <h2>How to Play</h2>
+  <ol>
+    @for (step of steps; track $index) {
+      <li>
+        <div class="li-title">
+          <p>{{$index + 1}}</p>
+          <h3>{{step}}</h3>
+        </div>
+      </li>
+    }
+  </ol>
+</article>

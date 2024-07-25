@@ -3,8 +3,8 @@ import { RouterLink } from '@angular/router';
 import { HeadlineComponent } from '../../../components/headline/headline.component';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { trigger, animate, transition, style } from '@angular/animations';
-import { UserDataService } from '../../../user-data.service';
-import { HttpService } from '../../../http-service.service';
+import { UserDataService } from '../../../services/userData/user-data.service';
+import { HttpService } from '../../../services/http-service.service';
 
 export function preloadImages(imageSources: string[], loadingData: {areImagesLoaded: boolean, numOfLoaded: number}) {
   for (const source of imageSources) {

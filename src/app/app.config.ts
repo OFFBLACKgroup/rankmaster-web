@@ -15,7 +15,7 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes,
       withInMemoryScrolling({ anchorScrolling: 'enabled' })  
     ),
-    provideAnimationsAsync(), provideAnimationsAsync(),
+    provideAnimationsAsync(),
     provideHttpClient(
       withFetch()
     ),

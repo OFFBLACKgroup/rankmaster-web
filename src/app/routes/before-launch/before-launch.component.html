@@ -1,5 +1,5 @@
 <main [style.filter]="showEntryModal ? 'blur(0.75rem)' : ''" >
   <app-example-slider></app-example-slider>
-  <app-actionables (showModal)="showModal()"></app-actionables>
+  <app-play-invitation></app-play-invitation>
 </main>
 <app-login-form [style.opacity]="showEntryModal ? 1 : 0" (hideModal)="hideModal()" ></app-login-form>

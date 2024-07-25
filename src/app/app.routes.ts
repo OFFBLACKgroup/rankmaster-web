@@ -6,7 +6,7 @@ import { DailyComponent } from './routes/main-menu/daily/daily.component';
 import { LeaderboardComponent } from './routes/main-menu/leaderboard/leaderboard.component';
 import { TopicTierlistsComponent } from './routes/main-menu/topics/topic-tierlists/topic-tierlists.component';
 import { PlayTierlistComponent } from './routes/main-menu/topics/topic-tierlists/play-tierlist/play-tierlist.component';
-import { routeGuard } from './route.guard';
+import { routeGuard } from './services/routeGuard/route.guard';
 import { UnauthorizedComponent } from './routes/unauthorized/unauthorized.component';
 
 export const routes: Routes = [

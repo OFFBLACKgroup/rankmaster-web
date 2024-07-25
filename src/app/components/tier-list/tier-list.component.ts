@@ -5,7 +5,7 @@ import { TierListItem } from '../../routes/main-menu/topics/topic-tierlists/play
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import { preloadImages } from '../../routes/main-menu/topics/topics.component';
-import { HttpService } from '../../http-service.service';
+import { HttpService } from '../../services/http-service.service';
 import { ActivatedRoute } from '@angular/router';
 
 export interface Prediction {

@@ -3,7 +3,7 @@ import { SocialsComponent } from '../../../../components/socials/socials.compone
 import { FormsModule } from '@angular/forms';
 import {MatProgressSpinner } from '@angular/material/progress-spinner';
 import { trigger, transition, style, animate } from '@angular/animations';
-import { HttpService } from '../../../../http-service.service';
+import { HttpService } from '../../../../services/http-service.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { LoginFormComponent } from '../login-form/login-form.component';
 

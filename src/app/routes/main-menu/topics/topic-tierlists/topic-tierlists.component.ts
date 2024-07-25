@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { HeadlineComponent } from '../../../../components/headline/headline.component';
-import { HttpService } from '../../../../http-service.service';
+import { HttpService } from '../../../../services/http-service.service';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { animate, style, transition, trigger } from '@angular/animations';
-import { UserDataService } from '../../../../user-data.service';
+import { UserDataService } from '../../../../services/userData/user-data.service';
 
 export interface TierList {
   created_at: Date,

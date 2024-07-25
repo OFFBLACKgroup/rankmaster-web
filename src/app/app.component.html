@@ -1,5 +1,18 @@
 <app-header></app-header>
-<router-outlet></router-outlet>
+<div class="main-screen">
+  <router-outlet></router-outlet>
+  <img src="../assets/palm tree.svg" alt="Palm tree">
+  <img [@hotAirBalloon]="balloonState" (@hotAirBalloon.done)="startFloating()" src="../assets/luftballoon.svg" alt="Hot air balloon">
+  <div @mountainDecoration aria-label="Background decoration, mountain of tier list rows">
+    <img @goatAnimation class="goat" src="../assets/goat.svg" alt="Goat">
+    <ul>
+      @for (row of rows; track $index) {
+        <li @rowAnimation></li>
+      }
+    </ul>
+  </div>
+  
+</div>
 
 <footer>
   

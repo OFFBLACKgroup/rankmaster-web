@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpService } from './http-service.service';
-import { Topic } from './routes/main-menu/topics/topics.component';
-import { TierList } from './routes/main-menu/topics/topic-tierlists/topic-tierlists.component';
+import { HttpService } from '../http-service.service';
+import { Topic } from '../../routes/main-menu/topics/topics.component';
+import { TierList } from '../../routes/main-menu/topics/topic-tierlists/topic-tierlists.component';
 
 @Injectable({
   providedIn: 'root'

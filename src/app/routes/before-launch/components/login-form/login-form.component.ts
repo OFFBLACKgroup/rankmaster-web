@@ -1,10 +1,10 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpService } from '../../../../http-service.service';
+import { HttpService } from '../../../../services/http-service.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { Router } from '@angular/router';
-import { UserDataService } from '../../../../user-data.service';
+import { UserDataService } from '../../../../services/userData/user-data.service';
 
 @Component({
   selector: 'app-login-form',

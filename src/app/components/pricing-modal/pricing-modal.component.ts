@@ -1,6 +1,6 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, EventEmitter, Output, inject } from '@angular/core';
-import { HttpService } from '../../http-service.service';
+import { HttpService } from '../../services/http-service.service';
 
 @Component({
   selector: 'app-pricing-modal',

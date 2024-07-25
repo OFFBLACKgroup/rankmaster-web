@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Prediction } from './components/tier-list/tier-list.component';
+import { Prediction } from '../components/tier-list/tier-list.component';
 
 @Injectable({
   providedIn: 'root'

@@ -1,0 +1,111 @@
+:host {
+  color: white;
+  width: max-content;
+}
+
+section {
+  display: flex;
+  flex-direction: column;
+}
+
+h1 {
+  font: 2.4375rem "Alfa Slab One";
+  text-align: center;
+}
+
+p.messi-text, p.ronaldo-text {
+  padding: 0.75rem 1.25rem;
+  font: 1.5625rem 'Roboto Slab';
+  font-weight: 300;
+  width: max-content;
+}
+
+.texts {
+  width: 100%;
+  display: flex;
+  height: 15rem;
+}
+
+p.messi-text {
+  background-color: #0097F4;
+  border-radius: 1.5rem 1.5rem 2px 1.5rem;
+  position: relative;
+  height: max-content;
+  margin-top: 2.5rem;
+}
+
+div.divider {
+  width: 0.25rem;
+  height: 100%;
+  background-color: white;
+  margin: 0 2rem;
+}
+
+p.ronaldo-text {
+  background-color: #E1E1E7;
+  border-radius: 1.5rem 1.5rem 1.5rem 2px;
+  color: black;
+  margin-top: 8rem;
+  height: max-content;
+}
+
+p.question-text {
+  font: 1.5625rem 'Roboto Slab';
+  align-self: center;
+  margin: 0.5rem 0;
+}
+
+div.arrow-down {
+  align-self: center;
+}
+
+div.line {
+  height: 2.5rem;
+  width: 0.25rem;
+  background-color: white;
+}
+
+div.triangle {
+  width: 0;
+	height: 0;
+	border-left: 25px solid transparent;
+	border-right: 25px solid transparent;
+	border-top: 50px solid white;
+  transform: translateX(-23px);
+}
+
+button {
+  margin-top: 2rem;
+  background-color: #E6F4FF;
+  text-transform: uppercase;
+  padding: 1rem 5rem;
+  font: 3.03125rem 'Bangers';
+  color: black;
+  transform: rotate(2deg) translateX(-1.5rem);
+  box-shadow: 6px 9px 4px rgba(0,0,0,0.4);
+  border-radius: 0.75rem 1.5rem 0.75rem 1.25rem;
+  position: relative;
+  transform-style: preserve-3d;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease-in;
+  width: max-content;
+  align-self: center;
+}
+
+button:hover {
+  transform: rotate(2deg) scale(0.96);
+}
+
+button::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  background: #E6F4FF;
+  border-radius: 0.75rem 1.5rem 0.75rem 1.25rem;
+  transform: translate(5px, 7.5px) translateZ(-1px);
+}
