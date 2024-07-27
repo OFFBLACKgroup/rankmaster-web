@@ -53,6 +53,7 @@ enum SelectionEnum {
   max = 2
 }
 // TODO create actual tier-list examples
+// Waifu / Football Teams / Foods / Drift Cars
 @Component({
   selector: 'app-example-slider',
   standalone: true,

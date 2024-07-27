@@ -24,14 +24,14 @@
 
 .blur > img:nth-of-type(1) {
   left: -2.5rem;
-  bottom: 15.5rem;
+  top: 28rem;
   z-index: 10;
   width: clamp(10.5rem, -5.125rem + 19.531vw, 18.313rem);
 }
 
 .blur > img:nth-of-type(2) {
   left: clamp(3rem, -7rem + 12.5vw, 8rem);
-  bottom: -1rem;
+  top: 90vh;
   transform-origin: 50% -200px;
 }
 
@@ -39,8 +39,7 @@
   width: clamp(8.25rem, -10.25rem + 23.125vw, 17.5rem);
   position: absolute;
   right: 0;
-  top: 50%;
-  transform: translateY(-50%);
+  top: calc(50vh - 19.4297rem - 8rem);
 }
 
 img.goat  {

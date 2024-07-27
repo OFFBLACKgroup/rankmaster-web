@@ -40,6 +40,7 @@ export class LoginFormComponent {
         next: () => {
           this.openSnackbar('Successful Sign Up', '🎉🎉');
           this.router.navigate(['/menu']);
+          this.modalController.showModal(ModalType.login_OFF)
         },
         error: (error) => {
           console.error('Sign in error:', error);
@@ -70,6 +71,7 @@ export class LoginFormComponent {
               this.openSnackbar('Successful Sign In', '🎉🎉');
               this.router.navigate(['/menu']);
               this.tryingToLog = false;
+              this.modalController.showModal(ModalType.login_OFF)
             },
             error: (error) => {
               console.error('Sign in error:', error);
