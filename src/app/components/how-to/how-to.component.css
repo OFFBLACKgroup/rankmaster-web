@@ -1,6 +1,6 @@
 :host {
   position: absolute;
-  top: 50%;
+  top: 50vh;
   left: 50%;
   counter-reset: li;
   padding: 1.5rem 0;

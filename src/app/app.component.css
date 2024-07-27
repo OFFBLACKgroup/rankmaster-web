@@ -1,5 +1,3 @@
-/* FIXME background decorations should be constrained to top (they move when tierlist resizes) */
-
 .main-screen {
   max-width: 100%;
   width: 100vw;

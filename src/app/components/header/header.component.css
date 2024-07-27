@@ -46,10 +46,12 @@ nav .buttons-container {
   gap: 0.75rem;
   width: max-content;
   transform-origin: left;
+  cursor: pointer;
 }
 
 .buttons-container a:first-child {
   transform: rotate(180deg);
+  cursor: pointer;
 }
 
 .buttons-container a:last-child {

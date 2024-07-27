@@ -1,8 +1,9 @@
 import { animate, animateChild, query, state, style, transition, trigger } from '@angular/animations';
-import { Component, EventEmitter, Output, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { ModalControllerService, ModalType } from '../../services/modalController/modal-controller.service';
 import { FeedbackComponent } from './feedback/feedback.component';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-header',
@@ -43,13 +44,16 @@ import { FeedbackComponent } from './feedback/feedback.component';
 // TODO header buttons functionality
 export class HeaderComponent {
   modalController = inject(ModalControllerService)
+  location = inject(Location)
+
   showFeedbackModal = false
   saleIconState = 'shrink'
 
   togglePulseState() {
     this.saleIconState = this.saleIconState == 'shrink' ? 'expand' : 'shrink'
   }
-  
+
+  //#region MODAL CONTROLS 
   showHowTo() {
     this.modalController.showModal(ModalType.howTo_ON)
   }
@@ -68,11 +72,21 @@ export class HeaderComponent {
       }
     }, 3000)
   }
+  //#endregion
+
   showButtons = true
 
-  testFunction() {
+  toggleButtons() {
     this.showButtons = !this.showButtons
   }
 
+  goBack(event: Event) {
+    event.preventDefault()
+    this.location.back()
+  }
 
+  goForward(event: Event) {
+    event.preventDefault()
+    this.location.forward()
+  }
 }
