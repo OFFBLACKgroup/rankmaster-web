@@ -94,7 +94,7 @@ button {
 }
 
 button:hover {
-  transform: rotate(2deg) scale(0.96);
+  transform: rotate(2deg) translateX(-1.5rem) scale(0.96);
 }
 
 button::after {

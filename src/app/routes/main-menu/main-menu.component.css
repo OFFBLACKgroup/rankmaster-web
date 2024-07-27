@@ -67,7 +67,7 @@ li h2 {
   display: flex;
   align-items: center;
   justify-content: center;
-  font: 18px 'Poppins';
+  font: 18px 'Roboto Slab';
   color: white;
   text-transform: uppercase;
   font-weight: 600;
@@ -81,7 +81,7 @@ li h2 {
   display: flex;
   align-items: center;
   justify-content: center;
-  font: 36px 'Poppins';
+  font: 36px 'Roboto Slab';
   font-weight: 500;
   color: #5B5144
 }

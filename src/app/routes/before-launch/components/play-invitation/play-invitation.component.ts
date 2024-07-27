@@ -10,3 +10,7 @@ import { Component } from '@angular/core';
 export class PlayInvitationComponent {
 
 }
+
+// TODO PLAY! button redesign
+// TODO PLAY! button functionality
+// TODO Messages more + animating & cycling

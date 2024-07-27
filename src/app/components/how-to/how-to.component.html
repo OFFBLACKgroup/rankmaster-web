@@ -1,0 +1,55 @@
+<article>
+  <button (click)="closeModal()">
+    <img src="../../../../../assets/close.svg" alt="Close icon">
+  </button>
+  <h2>How to Play</h2>
+  <ol>
+    @for (step of steps; track $index) {
+      <li>
+          <h3>{{step}}</h3>
+          @if ($index == 0) {
+            <div class="container">
+              <ul #firstList [@slideFromRight]="{value: firstSliderState, params: {firstListWidth, firstPart, secondPart, firstLineMainPart} }" (@slideFromRight.done)="animationEnded($event, 0)">
+                @for (topic of topics[0]; track topic) {
+                  <li>{{topic}}</li>
+                }
+              </ul>
+              <ul aria-hidden="true" [@slideFromRight]="{value: secondSliderState, params: {firstListWidth, firstPart, secondPart, firstLineMainPart} }" (@slideFromRight.done)="animationEnded($event, 1)">
+                @for (topic of topics[0]; track topic) {
+                  @if ($index == topics[0].length - 1) {
+                    <li #lastElementOne>{{topic}}</li>
+                  } @else {
+                    <li>{{topic}}</li>
+                  }
+                }
+              </ul>
+              <ul #secondList [@slideFromLeft]="{value: thirdSliderState, params: {secondListWidth, thirdPart, fourthPart, secondLineMainPart} }" (@slideFromLeft.done)="animationEnded($event, 2)">
+                @for (topic of topics[1]; track topic) {
+                  <li>{{topic}}</li>
+                }
+              </ul>
+              <ul aria-hidden="true" [@slideFromLeft]="{value: fourthSliderState, params: {secondListWidth, thirdPart, fourthPart, secondLineMainPart} }" (@slideFromLeft.done)="animationEnded($event, 3)">
+                @for (topic of topics[1]; track topic) {
+                  @if ($index == topics[1].length - 1) {
+                    <li #lastElementTwo>{{topic}}</li>
+                  } @else {
+                    <li>{{topic}}</li>
+                  }
+                }
+              </ul>
+            </div>
+          } @else if ($index == 1) {
+            <p class="next-up">Next up:</p>
+          } @else if ($index == 2) {
+            <ul class="tier-names">
+              @for (tier of tiers; track tier.name) {
+                <li [style.backgroundColor]="tier.color">{{tier.name}}</li>
+              }
+            </ul>
+          } @else if ($index == 3) {
+            <img src="../../../assets/leaderboard.png" alt="">
+          }
+      </li>
+    }
+  </ol>
+</article>

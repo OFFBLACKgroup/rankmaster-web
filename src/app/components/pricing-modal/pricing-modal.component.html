@@ -1,44 +1,46 @@
-<button (click)="emit()" class="close">
-  <img src="../../../assets/close.svg" alt="">
-</button>
-<h2>
-  <span class="first-line">
-    <span class="grand">99+</span> new levels!
-  </span>
-  <br>
-  <span class="second-line">
-    ...for only <span class="price">
-                  0.99$
-                  <img src="../../../assets/sale.svg" alt="Sale icon">
-                </span>
-  </span>
-</h2>
-<div class="expand">
-  <section class="benefits">
-    <ul>
-      <li>
-        <img src="../../../assets/check.svg" alt="Checkmark icon">
-        <p>Instantly unlock
-          <br> 
-          all extra levels</p>
-      </li>
-      <li>
-        <img src="../../../assets/check.svg" alt="Checkmark icon">
-        <p>Tierlist of your
-          <br> 
-          choice added</p>
-      </li>
-      <li>
-        <img src="../../../assets/check.svg" alt="Checkmark icon">
-        <p>Lifetime access
-          <br>
-          to new levels</p>
-      </li>
-    </ul>
-    <a [href]="userId ? linkDirection + userId : '/unauthorized/401'" [target]="userId ? '_blank' : '_self'">Unlock Now!</a>
-  </section>
-  <section class="mascot">
-    <img @rotateIn src="../../../assets/text-bubble.svg" alt="" class="text-bubble">
-    <img src="../../../assets/dog.svg" alt="" class="mascot-dog">
-  </section>
-</div>
+<article>
+  <button (click)="closeModal()" class="close">
+    <img src="../../../assets/close.svg" alt="">
+  </button>
+  <h2>
+    <span class="first-line">
+      <span class="grand">99+</span> new levels!
+    </span>
+    <br>
+    <span class="second-line">
+      ...for only <span class="price">
+                    0.99$
+                    <img src="../../../assets/sale.svg" alt="Sale icon">
+                  </span>
+    </span>
+  </h2>
+  <div class="expand">
+    <section class="benefits">
+      <ul>
+        <li>
+          <img src="../../../assets/check.svg" alt="Checkmark icon">
+          <p>Instantly unlock
+            <br>
+            all extra levels</p>
+        </li>
+        <li>
+          <img src="../../../assets/check.svg" alt="Checkmark icon">
+          <p>Tierlist of your
+            <br> 
+            choice added</p>
+        </li>
+        <li>
+          <img src="../../../assets/check.svg" alt="Checkmark icon">
+          <p>Lifetime access
+            <br>
+            to new levels</p>
+        </li>
+      </ul>
+      <a [href]="userId ? linkDirection + userId : '/unauthorized/401'" [target]="userId ? '_blank' : '_self'">Unlock Now!</a>
+    </section>
+    <section class="mascot">
+      <img @rotateIn src="../../../assets/text-bubble.svg" alt="" class="text-bubble">
+      <img src="../../../assets/dog.svg" alt="" class="mascot-dog">
+    </section>
+  </div>
+</article>

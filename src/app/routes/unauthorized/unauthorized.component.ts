@@ -2,7 +2,7 @@ import { animate, animateChild, keyframes, query, style, transition, trigger } f
 import { CUSTOM_ELEMENTS_SCHEMA, Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { RouterLink } from '@angular/router';
-import { LoginFormComponent } from '../before-launch/components/login-form/login-form.component';
+import { LoginFormComponent } from '../../components/login-form/login-form.component';
 import { PricingModalComponent } from '../../components/pricing-modal/pricing-modal.component';
 
 @Component({

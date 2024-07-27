@@ -16,10 +16,4 @@
       }
     </section>
   </div>
-  @if (showPricing) {
-    <app-pricing-modal @scaleIn (hideModal)="hidePricingModal()"></app-pricing-modal>
-  }
 </main>
-@if (showLogin) {
-  <app-login-form (hideModal)="hideLoginModal()"></app-login-form>
-}

@@ -1,11 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { BeforeLaunchComponent } from './routes/before-launch/before-launch.component';
 import { HeaderComponent } from './components/header/header.component';
 import { animate, animateChild, keyframes, query, stagger, state, style, transition, trigger } from '@angular/animations';
-import { LoginFormComponent } from './routes/before-launch/components/login-form/login-form.component';
-import { HowToComponent } from './routes/before-launch/components/how-to/how-to.component';
+import { LoginFormComponent } from './components/login-form/login-form.component';
+import { HowToComponent } from './components/how-to/how-to.component';
 import { PricingModalComponent } from './components/pricing-modal/pricing-modal.component';
+import { ModalControllerService } from './services/modalController/modal-controller.service';
 
 @Component({
   selector: 'app-root',
@@ -46,12 +47,26 @@ import { PricingModalComponent } from './components/pricing-modal/pricing-modal.
         style({ transform: 'translate(0, -65vh)', offset: 0.5 }),
         style({ transform: 'translate(0, -65vh) rotate(-12deg)' , offset: 1 })
       ]))),
-    ])
+    ]),
+    trigger('scaleIn', [
+      transition(':enter', [
+        style({ transform: 'translate(-50%, max(-50vh + 8rem, -50%)) scale(0.6)' }),
+        animate('0.3s ease-in-out', style({ transform: 'translate(-50%, max(-50vh + 8rem, -50%)) scale(1)' })),
+        query('@slideFromRight, @slideFromLeft, @rotateIn', animateChild(), { optional: true }),
+      ]),
+      transition(':leave', [
+        style({ transform: 'translate(-50%, max(-50vh + 8rem, -50%)) scale(1)', opacity: 1 }),
+        animate('0.3s ease-in-out', style({ transform: 'translate(-50%, max(-50vh + 8rem, -50%)) scale(0.6)', opacity: 0 })),
+      ])
+    ]),
   ]
 })
 export class AppComponent {
   title = 'rankmaster';
+  modalController = inject((ModalControllerService))
+  
   intervalRef?: any
+  
   firstEnd = true
 
   balloonState = 'top'

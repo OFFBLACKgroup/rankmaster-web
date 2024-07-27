@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ExampleSliderComponent } from './components/example-slider/example-slider.component';
 import { ActionablesComponent } from './components/actionables/actionables.component';
-import { LoginFormComponent } from './components/login-form/login-form.component';
+import { LoginFormComponent } from '../../components/login-form/login-form.component';
 import { PlayInvitationComponent } from './components/play-invitation/play-invitation.component';
 
 @Component({

@@ -120,7 +120,7 @@ li.first-place {
 }
 
 .rank-indicator h4 {
-  font: clamp(0.5rem, 0.321rem + 0.893vw, 0.75rem) 'Poppins';
+  font: clamp(0.5rem, 0.321rem + 0.893vw, 0.75rem) 'Roboto Slab';
   color: white;
   position: absolute;
   top: 50%;
@@ -133,7 +133,7 @@ li {
 }
 
 li.second-place h3, li.third-place h3 {
-  font: clamp(0.875rem, 0.607rem + 1.339vw, 1.25rem) 'Poppins';
+  font: clamp(0.875rem, 0.607rem + 1.339vw, 1.25rem) 'Roboto Slab';
   color: white;
   text-align: center;
   font-weight: 300;
@@ -166,7 +166,7 @@ li span {
 
 li.first-place h3 {
   margin-top: 1rem;
-  font: clamp(1.125rem, 0.768rem + 1.786vw, 1.625rem) 'Poppins';
+  font: clamp(1.125rem, 0.768rem + 1.786vw, 1.625rem) 'Roboto Slab';
   font-weight: 300;
   color: white;
   overflow: hidden;
@@ -236,7 +236,7 @@ ul.leaderboard {
 }
 
 .leaderboard li h3:first-child {
-  font: clamp(2rem, 1.286rem + 3.571vw, 3rem) 'Poppins';
+  font: clamp(2rem, 1.286rem + 3.571vw, 3rem) 'Roboto Slab';
   width: 12%;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -263,7 +263,7 @@ ul.leaderboard {
 }
 
 .leaderboard li h3:nth-of-type(2) {
-  font: clamp(1rem, 0.643rem + 1.786vw, 1.5rem) 'Poppins';
+  font: clamp(1rem, 0.643rem + 1.786vw, 1.5rem) 'Roboto Slab';
   font-weight: 300;
   color: white;
   margin: 0;

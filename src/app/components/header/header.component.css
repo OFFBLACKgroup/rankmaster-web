@@ -1,7 +1,8 @@
 :host {
   width: 100%;
   height: 8rem;
-  min-width: 2rem;;
+  min-width: 2rem;
+  z-index: 100;
 }
 
 header {
@@ -80,6 +81,10 @@ section.modal-buttons {
   width: 3rem;
   left: calc(100% - 1rem);
   bottom: calc(100% - 1.5rem);
+}
+
+app-feedback {
+  transform-origin: top 90%;
 }
 
 button.user-settings {

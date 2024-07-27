@@ -1,0 +1,16 @@
+<form (ngSubmit)="showSignUp ? signUp($event, !email.invalid, !password.invalid) : signIn($event, !email.invalid, !password.invalid)">
+  <button type="button" (click)="closeModal()" aria-label="close" class="close">
+    <img src='assets/close.svg'>
+  </button>
+  <h3>{{ showSignUp ? 'Sign Up' : 'Sign In' }}</h3>
+  <input id="email" #email="ngModel" required type="email" name="email" [(ngModel)]="emailValue" email placeholder="Enter your email address">
+  <input id="password" #password="ngModel" required minlength="8" type="password" name="password" [(ngModel)]="passwordValue" password placeholder="Enter your password">
+  <button type="submit" (click)="showSignUp ? signUp($event, !email.invalid, !password.invalid) : signIn($event, !email.invalid, !password.invalid)" class="ng-valid submit">
+    Continue
+    @if (tryingToLog) {
+      <mat-progress-spinner mode="indeterminate" diameter="24"></mat-progress-spinner>
+    }
+  </button>
+  <p>Or</p>
+  <h4>{{ showSignUp ? 'Already signed up?' : "Haven't signed up yet?" }} <span (click)="toggleForm()">{{ showSignUp ? 'Sign In' : 'Sign Up' }}</span></h4>
+</form>

@@ -1,3 +1,5 @@
+/* FIXME background decorations should be constrained to top (they move when tierlist resizes) */
+
 .main-screen {
   max-width: 100%;
   width: 100vw;
@@ -5,29 +7,35 @@
   min-height: calc(100vh - 8rem);
   height: auto;
   position: relative;
-  z-index: 50;
 }
 
-.main-screen > img {
-  position: fixed;
+.main-screen .blur {
+  width: 100%;
+  height: 100% !important;
+  position: relative;
+  transition: all 0.3s ease-in-out;
+}
+
+.blur > img {
+  position: absolute;
   mix-blend-mode: normal;
   opacity: 0.2;
 }
 
-.main-screen > img:nth-of-type(1) {
+.blur > img:nth-of-type(1) {
   left: -2.5rem;
   bottom: 15.5rem;
   z-index: 10;
   width: clamp(10.5rem, -5.125rem + 19.531vw, 18.313rem);
 }
 
-.main-screen > img:nth-of-type(2) {
+.blur > img:nth-of-type(2) {
   left: clamp(3rem, -7rem + 12.5vw, 8rem);
   bottom: -1rem;
   transform-origin: 50% -200px;
 }
 
-.main-screen > div {
+.blur > div {
   width: clamp(8.25rem, -10.25rem + 23.125vw, 17.5rem);
   position: absolute;
   right: 0;
@@ -68,7 +76,7 @@ ul li:last-child {
 
 
 @media (max-width: 1280px) {
-  .main-screen img, .main-screen > div {
+  .main-screen img, .blur > div {
     display: none;
   }
 }

@@ -25,12 +25,12 @@ section {
 
 h2 {
   color: white;
-  font: clamp(2rem, 1.333rem + 1.389vw, 3rem) 'Poppins';
+  font: clamp(2rem, 1.333rem + 1.389vw, 3rem) 'Roboto Slab';
   font-weight: 500;
 }
 
 a, button {
-  font: clamp(1.75rem, 1.25rem + 1.042vw, 2.5rem) 'Poppins';
+  font: clamp(1.75rem, 1.25rem + 1.042vw, 2.5rem) 'Roboto Slab';
   font-weight: 500;
   text-transform: uppercase;
   background-color: #FFDF00;

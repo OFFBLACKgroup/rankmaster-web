@@ -1,0 +1,48 @@
+:host {
+  position: absolute;
+  z-index: 100;
+  top: calc(100% + 1.75rem);
+  right: -1.25rem;
+  cursor: auto;
+}
+
+section {
+  display: flex;
+  gap: .75rem;
+  padding: .375rem .75rem;
+  border-radius: 0.5rem;
+  background-color: white;
+  align-items: center;
+}
+
+p {
+  font: 1.25rem 'Roboto Slab';
+  width: max-content;
+  color: black;
+  text-shadow: none;
+  margin-bottom: 0;
+  display: flex;
+  align-items: center;
+}
+
+a {
+  border: none;
+  cursor: pointer;
+  height: max-content;
+  width: 2rem;
+  height: 2rem;
+}
+
+a img {
+  object-fit: contain;
+}
+
+div {
+  border-left: .875rem solid transparent;
+  border-right: .875rem solid transparent;
+  border-bottom: 1.5rem solid white;
+  position: absolute;
+  top: -1.5rem;
+  right: 16%;
+}
+

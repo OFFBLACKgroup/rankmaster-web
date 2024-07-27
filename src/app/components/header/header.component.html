@@ -17,13 +17,17 @@
   </nav>
   <section class="modal-buttons">
     <button (click)="showHowTo()">How to Play?</button>
-    <button>
+    <button (click)="showPricing()">
       Pricing
-      <img src="../../../assets/sale.svg" alt="">
+      <img [@pulse]="saleIconState" (@pulse.done)="togglePulseState()" src="../../../assets/sale.svg" alt="">
     </button>
-    <button>Feedback</button>
+    <button (click)="showFeedback()">Feedback
+      @if (showFeedbackModal) {
+        <app-feedback @scaleIn></app-feedback>
+      }
+    </button>
   </section>
-  <button class="user-settings">
+  <button (click)="showLogin()" class="user-settings">
     <img src="../../../assets/user-icon.svg" alt="User icon">
   </button>
   <button (click)="testFunction()" class="mobile-navigation">

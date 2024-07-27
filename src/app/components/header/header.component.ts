@@ -2,11 +2,12 @@ import { animate, animateChild, query, state, style, transition, trigger } from 
 import { Component, EventEmitter, Output, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { ModalControllerService, ModalType } from '../../services/modalController/modal-controller.service';
+import { FeedbackComponent } from './feedback/feedback.component';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink, FeedbackComponent],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css',
   animations: [
@@ -23,15 +24,50 @@ import { ModalControllerService, ModalType } from '../../services/modalControlle
       state('hide', style({ opacity: 0 })),
       transition('hide => show', [animate('0.2s ease-in-out')]),
     ]),
+    trigger('scaleIn', [
+      transition(':enter', [
+        style({ transform: 'scale(0.6)' }),
+        animate('0.3s ease-out', style({ transform: 'scale(1)' }))
+      ]),
+      transition(':leave', [
+        animate('0.2s ease-in', style({ opacity: 0.2 }) )
+      ])
+    ]),
+    trigger('pulse', [
+      state('expand', style({ transform: 'scale(0.96)' })),
+      state('shrink', style({ transform: 'scale(1.04)' })),
+      transition('shrink <=> expand', animate('0.36s ease-in-out'))
+    ]),
   ]
 })
+// TODO header buttons functionality
 export class HeaderComponent {
   modalController = inject(ModalControllerService)
+  showFeedbackModal = false
+  saleIconState = 'shrink'
+
+  togglePulseState() {
+    this.saleIconState = this.saleIconState == 'shrink' ? 'expand' : 'shrink'
+  }
   
   showHowTo() {
     this.modalController.showModal(ModalType.howTo_ON)
   }
+  showPricing() {
+    this.modalController.showModal(ModalType.pricing_ON)
+  }
+  showLogin() {
+    this.modalController.showModal(ModalType.login_ON)
+  }
 
+  showFeedback() {
+    this.showFeedbackModal = true
+    setTimeout(() => {
+      if (this.showFeedbackModal) {
+        this.showFeedbackModal = false
+      }
+    }, 3000)
+  }
   showButtons = true
 
   testFunction() {

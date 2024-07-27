@@ -1,17 +1,27 @@
 <app-header></app-header>
 <div class="main-screen">
-  <router-outlet></router-outlet>
-  <img src="../assets/palm tree.svg" alt="Palm tree">
-  <img [@hotAirBalloon]="balloonState" (@hotAirBalloon.done)="startFloating()" src="../assets/luftballoon.svg" alt="Hot air balloon">
-  <div @mountainDecoration aria-label="Background decoration, mountain of tier list rows">
-    <img @goatAnimation class="goat" src="../assets/goat.svg" alt="Goat">
-    <ul>
-      @for (row of rows; track $index) {
-        <li @rowAnimation></li>
-      }
-    </ul>
+  <div class="blur" [style.filter]="(modalController.showHowTo || modalController.showLogin || modalController.showPricing) ? 'blur(0.75rem)' : '' ">
+    <router-outlet></router-outlet>
+    <img src="../assets/palm tree.svg" alt="Palm tree">
+    <img [@hotAirBalloon]="balloonState" (@hotAirBalloon.done)="startFloating()" src="../assets/luftballoon.svg" alt="Hot air balloon">
+    <div @mountainDecoration aria-label="Background decoration, mountain of tier list rows">
+      <img @goatAnimation class="goat" src="../assets/goat.svg" alt="Goat">
+      <ul>
+        @for (row of rows; track $index) {
+          <li @rowAnimation></li>
+        }
+      </ul>
+    </div>
   </div>
-  
+  @if (modalController.showHowTo) {
+    <app-how-to @scaleIn></app-how-to>
+  }
+  @if (modalController.showLogin) {
+    <app-login-form @scaleIn></app-login-form>
+  }
+  @if (modalController.showPricing) {
+    <app-pricing-modal @scaleIn></app-pricing-modal>
+  }
 </div>
 
 <footer>

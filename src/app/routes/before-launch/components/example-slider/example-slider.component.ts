@@ -52,7 +52,7 @@ enum SelectionEnum {
   min = 0,
   max = 2
 }
-
+// TODO create actual tier-list examples
 @Component({
   selector: 'app-example-slider',
   standalone: true,

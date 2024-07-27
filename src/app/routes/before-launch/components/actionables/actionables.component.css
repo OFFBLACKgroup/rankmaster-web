@@ -35,11 +35,11 @@ h2 {
 }
 
 .countdown h3 {
-  font: 2.25rem 'Poppins'
+  font: 2.25rem 'Roboto Slab'
 }
 
 .countdown div p {
-  font: 1rem 'Poppins'
+  font: 1rem 'Roboto Slab'
 }
 
 form {
@@ -48,7 +48,7 @@ form {
   background-color: white;
   border-radius: 1rem;
   padding: 1rem;
-  font-family: 'Poppins';
+  font-family: 'Roboto Slab';
   text-align: center;
 }
 
@@ -71,7 +71,7 @@ input {
   border-radius: 0.5rem;
   border: 1px solid rgba(102, 102, 102, 0.35);
   padding-left: 1rem;
-  font: 1rem 'Poppins'
+  font: 1rem 'Roboto Slab'
 }
 
 form button {
@@ -82,7 +82,7 @@ form button {
   color: white;
   background-color: rgba(17, 17, 17, 0.25);
   border: transparent;
-  font: 1rem 'Poppins'
+  font: 1rem 'Roboto Slab'
 }
 
 .ng-valid button {

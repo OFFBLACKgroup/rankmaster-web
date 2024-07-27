@@ -2,12 +2,16 @@
   max-width: 664px;
   width: 100%;
   min-height: 400px;
-  background-color: lightblue;
-  position: absolute;
-  top: calc(50% - 200px);
-  left: calc(50% - 332px);
+  position: fixed;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, max(-50vh + 8rem, -50%));
+  background: linear-gradient(to bottom, #89D0FF, #37AFFF);
   border-radius: 2rem;
   padding: 2rem;
+}
+
+article {
   display: flex;
   flex-direction: column;
 }
@@ -21,21 +25,21 @@
 }
 
 .close img {
-  height: 1.5rem;
-  width: 1.5rem;
+  height: 2rem;
+  width: 2rem;
   object-fit: contain;
   cursor: pointer;
 }
 
 h2 {
-  font-family: 'Poor Story';
+  font-family: 'Roboto Slab';
   line-height: 100%;
   margin-bottom: 0.5rem;
-  font-size: 2.5rem;
+  font-size: 2.4375rem;
 }
 
 span.grand {
-  font-size: 4rem;
+  font-size: 3.8125rem;
   font-weight: 600;
 }
 
@@ -88,16 +92,16 @@ ul li {
 p {
   margin-bottom: 0;
   margin-left: 1rem;
-  font: 1rem 'Poppins';
+  font: 1rem 'Roboto Slab';
   font-weight: 400;
 }
 
 .benefits a {
-  font: 2rem 'Covered By Your Grace';
+  font: 1.5625rem 'Alfa Slab One';
   text-transform: uppercase;
   background: linear-gradient(45deg, #FF6666, #FF2626);
   color: white;
-  padding: 0.5rem 2rem;
+  padding: 0.5rem 1.5rem;
   width: max-content;
   border: transparent;
   border-radius: 0.5rem;

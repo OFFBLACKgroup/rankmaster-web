@@ -5,7 +5,7 @@ import {MatProgressSpinner } from '@angular/material/progress-spinner';
 import { trigger, transition, style, animate } from '@angular/animations';
 import { HttpService } from '../../../../services/http-service.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { LoginFormComponent } from '../login-form/login-form.component';
+import { LoginFormComponent } from '../../../../components/login-form/login-form.component';
 
 @Component({
   selector: 'app-actionables',
