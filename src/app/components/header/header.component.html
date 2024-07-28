@@ -30,9 +30,27 @@
   <button (click)="showLogin()" class="user-settings">
     <img src="../../../assets/user-icon.svg" alt="User icon">
   </button>
-  <button class="mobile-navigation">
+  <button (click)="toggleMobileNav()" [style.transform]="showMobileNav ? 'rotate(180deg)' : 'rotate(0)'" class="mobile-navigation">
     <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path fill-rule="evenodd" clip-rule="evenodd" d="M4.6863 59.3136C9.37258 64 16.915 64 32 64C47.0848 64 54.6275 64 59.3136 59.3136C64 54.6275 64 47.0848 64 32C64 16.915 64 9.37258 59.3136 4.6863C54.6275 -3.8147e-07 47.0848 0 32 0C16.915 0 9.37258 -3.8147e-07 4.6863 4.6863C-3.8147e-07 9.37258 0 16.915 0 32C0 47.0848 -3.8147e-07 54.6275 4.6863 59.3136ZM53.6 44.8C53.6 46.1254 52.5254 47.2 51.2 47.2H12.8C11.4745 47.2 10.4 46.1254 10.4 44.8C10.4 43.4746 11.4745 42.4 12.8 42.4H51.2C52.5254 42.4 53.6 43.4746 53.6 44.8ZM51.2 34.4C52.5254 34.4 53.6 33.3254 53.6 32C53.6 30.6746 52.5254 29.6 51.2 29.6H12.8C11.4745 29.6 10.4 30.6746 10.4 32C10.4 33.3254 11.4745 34.4 12.8 34.4H51.2ZM53.6 19.2C53.6 20.5255 52.5254 21.6 51.2 21.6H12.8C11.4745 21.6 10.4 20.5255 10.4 19.2C10.4 17.8745 11.4745 16.8 12.8 16.8H51.2C52.5254 16.8 53.6 17.8745 53.6 19.2Z" fill="#E6F4FF"/>
-    </svg>      
+    </svg> 
   </button>
+  @if (showMobileNav) {
+    <nav @mobileNavScale class="mobile-nav-modal">
+      <ul>
+        <li>
+          <a routerLink="">Home</a>
+        </li>
+        <li>
+          <button (click)="mobileHowTo()">How to Play</button>
+        </li>
+        <li>
+          <button (click)="mobilePricing()">Pricing</button>
+        </li>
+        <li>
+          <button (click)="mobileLogin()">Login</button>
+        </li>
+      </ul>
+    </nav>
+  }
 </header>

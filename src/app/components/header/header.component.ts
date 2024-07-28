@@ -6,6 +6,7 @@ import { FeedbackComponent } from './feedback/feedback.component';
 import { Location } from '@angular/common';
 
 // TODO Make header buttons work as inteded
+
 @Component({
   selector: 'app-header',
   standalone: true,
@@ -40,6 +41,15 @@ import { Location } from '@angular/common';
       state('shrink', style({ transform: 'scale(1.04)' })),
       transition('shrink <=> expand', animate('0.36s ease-in-out'))
     ]),
+    trigger('mobileNavScale', [
+      transition(':enter', [
+        style({ transform: 'scale(0.2)' }),
+        animate('0.3s ease-in', style({ transform: 'scale(1)'}))
+      ]),
+      transition(':leave', [
+        animate('0.3s ease-in', style({ transform: 'scale(0)' }))
+      ])
+    ])
   ]
 })
 export class HeaderComponent {
@@ -48,6 +58,11 @@ export class HeaderComponent {
 
   showFeedbackModal = false
   saleIconState = 'shrink'
+  showMobileNav = true
+
+  toggleMobileNav() {
+    this.showMobileNav = !this.showMobileNav
+  }
 
   togglePulseState() {
     this.saleIconState = this.saleIconState == 'shrink' ? 'expand' : 'shrink'
@@ -74,6 +89,20 @@ export class HeaderComponent {
   }
   //#endregion
 
+  //#region MOBILE MODALS
+  mobileHowTo() {
+    this.showMobileNav = false
+    this.modalController.showModal(ModalType.howTo_ON)
+  }
+  mobilePricing() {
+    this.showMobileNav = false
+    this.modalController.showModal(ModalType.pricing_ON)
+  }
+  mobileLogin() {
+    this.showMobileNav = false
+    this.modalController.showModal(ModalType.login_ON)
+  }
+  //#endregion
   showButtons = true
 
   toggleButtons() {
@@ -89,4 +118,6 @@ export class HeaderComponent {
     event.preventDefault()
     this.location.forward()
   }
+
+
 }

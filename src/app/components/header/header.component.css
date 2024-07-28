@@ -10,6 +10,7 @@ header {
   height: 8rem;
   display: flex;
   align-items: center;
+  position: relative;
 }
 
 nav {
@@ -105,6 +106,12 @@ button.mobile-navigation {
   border: none;
   margin-left: auto;
   margin-right: 2.25rem;
+  transition: all 0.3s ease-in-out;
+}
+
+nav.mobile-nav-modal {
+  display: none;
+  transform-origin: top right;
 }
 
 @media only screen and (max-width: 1280px) {
@@ -118,6 +125,39 @@ button.mobile-navigation {
 
   button.mobile-navigation {
     display: block
+  }
+
+  nav.mobile-nav-modal {
+    display: flex;
+    position: absolute;
+    z-index: 101;
+    right: 2.25rem;
+    top: 7rem;
+    width: 25rem;
+    border-radius: 1rem;
+  }
+
+  .mobile-nav-modal ul {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem 0;
+    gap: 1rem;
+  }
+
+  .mobile-nav-modal li {
+    display: flex;
+    justify-content: center;
+    height: 100% !important;
+  }
+
+  .mobile-nav-modal a, button {
+    width: max-content !important;
+    text-decoration: none;
+    font: 2rem 'Roboto Slab';
+    color: black;
+    border: none;
+    background-color: transparent;
   }
 }
 
@@ -134,13 +174,13 @@ button.mobile-navigation {
     border-radius: 0;
   }
 
-  .buttons-container {
-    margin-left: 0.5rem;
-  }
-
-  nav a:first-child, .buttons-container a:nth-child(2) {
+  nav a:first-child {
     width: 2.5rem;
     height: 2.5rem;
+  }
+
+  .buttons-container {
+    display: none !important;
   }
 
   nav a:nth-child(2) {
@@ -163,5 +203,17 @@ button.mobile-navigation {
 
   nav a:nth-child(3), nav a:nth-child(4) {
     display: none;
+  }
+
+  nav.mobile-nav-modal {
+    top: 5rem;
+    right: 1rem;
+  }
+}
+
+@media screen and (max-width: 432px) {
+  nav.mobile-nav-modal {
+    width: 19.5rem;
+    right: 0.25rem;
   }
 }
