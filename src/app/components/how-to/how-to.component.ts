@@ -46,7 +46,7 @@ export class HowToComponent {
   firstLineMainPart?: number
   secondLineMainPart?: number
 
-  steps = ['Read the Topic of the tier list:', 'You are shown a list of items', 'Place them in tiers', 'Compete aginst others!']
+  steps = ['Read the Topic of the tier list:', 'You are shown a list of items', 'Place them in tiers:', 'Compete aginst others!']
 
   topics = [
     ['Best Football Teams', 'Rappers Eminem is Afraid to Diss', 'Best Drift Cars'],

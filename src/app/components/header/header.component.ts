@@ -41,7 +41,6 @@ import { Location } from '@angular/common';
     ]),
   ]
 })
-// TODO header buttons functionality
 export class HeaderComponent {
   modalController = inject(ModalControllerService)
   location = inject(Location)

@@ -29,7 +29,7 @@
 
 .blur > img:nth-of-type(2) {
   left: clamp(3rem, -7rem + 12.5vw, 8rem);
-  top: 90vh;
+  top: calc(100vh - 16.5rem);
   transform-origin: 50% -200px;
 }
 
