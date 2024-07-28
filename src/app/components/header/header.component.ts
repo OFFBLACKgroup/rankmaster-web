@@ -5,6 +5,7 @@ import { ModalControllerService, ModalType } from '../../services/modalControlle
 import { FeedbackComponent } from './feedback/feedback.component';
 import { Location } from '@angular/common';
 
+// TODO Make header buttons work as inteded
 @Component({
   selector: 'app-header',
   standalone: true,

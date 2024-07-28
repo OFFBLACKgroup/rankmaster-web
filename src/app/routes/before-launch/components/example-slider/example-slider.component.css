@@ -34,7 +34,7 @@ main .example-slider {
   max-width: 95%;
   object-fit: contain;
   border-radius: 2.25rem;
-  box-shadow: 0 0 12px white;
+  box-shadow: 0 0 12px #5e96ff;
 }
 
 .slider-indicator {

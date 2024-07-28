@@ -4,6 +4,8 @@ import { ActionablesComponent } from './components/actionables/actionables.compo
 import { LoginFormComponent } from '../../components/login-form/login-form.component';
 import { PlayInvitationComponent } from './components/play-invitation/play-invitation.component';
 
+
+// FIXME scalability issue
 @Component({
   selector: 'app-before-launch',
   standalone: true,
