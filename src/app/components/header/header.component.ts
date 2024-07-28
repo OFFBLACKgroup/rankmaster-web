@@ -58,7 +58,7 @@ export class HeaderComponent {
 
   showFeedbackModal = false
   saleIconState = 'shrink'
-  showMobileNav = true
+  showMobileNav = false
 
   toggleMobileNav() {
     this.showMobileNav = !this.showMobileNav
