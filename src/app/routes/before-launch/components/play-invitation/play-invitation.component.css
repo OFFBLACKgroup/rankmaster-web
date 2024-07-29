@@ -1,6 +1,7 @@
 :host {
   color: white;
-  width: max-content;
+  width: 30vw;
+  min-width: 34.4375rem;
 }
 
 section {
@@ -13,11 +14,10 @@ h1 {
   text-align: center;
 }
 
-p.messi-text, p.ronaldo-text {
+p.text-2, p.text-1 {
   padding: 0.75rem 1.25rem;
   font: 1.5625rem 'Roboto Slab';
   font-weight: 300;
-  width: max-content;
 }
 
 .texts {
@@ -26,12 +26,14 @@ p.messi-text, p.ronaldo-text {
   height: 15rem;
 }
 
-p.messi-text {
+p.text-2 {
   background-color: #0097F4;
   border-radius: 1.5rem 1.5rem 2px 1.5rem;
   position: relative;
   height: max-content;
   margin-top: 2.5rem;
+  transform-origin: 90%;
+  width: 265px;
 }
 
 div.divider {
@@ -41,22 +43,30 @@ div.divider {
   margin: 0 2rem;
 }
 
-p.ronaldo-text {
+p.text-1 {
   background-color: #E1E1E7;
   border-radius: 1.5rem 1.5rem 1.5rem 2px;
   color: black;
   margin-top: 8rem;
   height: max-content;
+  transform-origin: 10%;
+  width: 13.625rem;  
 }
 
 p.question-text {
   font: 1.5625rem 'Roboto Slab';
   align-self: center;
   margin: 0.5rem 0;
+  transform: translateX(-10%);
+  opacity: 0;
 }
 
 div.arrow-down {
   align-self: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transform: translateX(-23px);
 }
 
 div.line {
@@ -71,7 +81,6 @@ div.triangle {
 	border-left: 25px solid transparent;
 	border-right: 25px solid transparent;
 	border-top: 50px solid white;
-  transform: translateX(-23px);
 }
 
 button {
@@ -81,7 +90,7 @@ button {
   padding: 1rem 5rem;
   font: 3.03125rem 'Bangers';
   color: white;
-  transform: rotate(2deg) translateX(-1.5rem);
+  transform: rotate(2deg) translateX(-1.5rem) scale(0);
   box-shadow: 6px 9px 4px rgba(0,0,0,0.4);
   border-radius: 0.75rem 1.5rem 0.75rem 1.25rem;
   position: relative;
@@ -94,7 +103,7 @@ button {
 }
 
 button:hover {
-  transform: rotate(2deg) translateX(-1.5rem) scale(0.96);
+  transform: rotate(2deg) translateX(-1.5rem) scale(0.96) !important;
 }
 
 button::after {
