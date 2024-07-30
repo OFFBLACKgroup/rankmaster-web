@@ -58,4 +58,8 @@ export class HttpService {
 
     // return this.http.post('https://www.api.rankmaster.click/points/', request)
   }
+
+  fetchDailyTierlist() {
+    return this.http.get('https://www.api.rankmaster.click/dailyTierlist/')
+  }
 }

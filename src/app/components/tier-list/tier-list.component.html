@@ -28,11 +28,14 @@
         <ul #firstRow class="tier-list-items" dndDropzone [dndDisableIf]="draggedFromRow == rowIndex" [dndHorizontal]="true" (dndDrop)="onDrop($event, rowIndex)">
           @for (item of tierData[rowIndex]; track item; let index = $index) {
             <li [style.cursor]="finished ? 'auto' : 'grab'" [matTooltip]="getTooltip(rowIndex, index)" matTooltipPosition="above" matTooltipShowDelay="500" class="tier-list-item not-filler" [dndDraggable]="tierData[rowIndex][index]" dndType="transfer" (dndStart)="onDragStart(rowIndex, index)" [dndDisableDragIf]="finished">
-              <img class="added" [src]="tierData[rowIndex][index].file_path" alt="">
+              <img class="added" [src]="tierData[rowIndex][index].file_path">
+              <div class="result-marker">
+                <img src="../../../assets/chevron.svg" alt="Chevron">
+              </div>
             </li>
           }
           <li class="placeholder" dndPlaceholderRef>
-            <img [src]="tierlistItems[currentPlaceholder].file_path" alt="">
+            <img [src]="tierlistItems[currentPlaceholder].file_path">
           </li>
           @if (rowIndex == 0) {
             <li [style.display]="showFiller[rowIndex]" [style.cursor]="finished ? 'auto' : 'grab'" [style.opacity]="calculateMaxItems(firstRow.offsetWidth, rowIndex)" class="tier-list-item filler" [@shrink]="finished ? 'shrink' : 'initial' "></li>
@@ -65,7 +68,7 @@
       <span>+{{ numOfPoints }}</span> points</p>
   </div>
   <div class="progress-bar"></div>
-  <p class="end-text">You placed in the top <span>{{56}}%</span><br> for the daily tier list</p>
+  <p class="end-text">You placed in the top <span>{{56}}%</span><br> for {{dailyTierlist ? 'the daily' : 'this'}} tier list</p>
   <p class="end-text">Check back tomorrow<br>or try a random level:</p>
   <div class="random">
     <button aria-label="Play random level"></button>

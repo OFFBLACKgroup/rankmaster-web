@@ -13,6 +13,9 @@ export interface Prediction {
   predicted_tier: number
 }
 
+//TODO display how far off a guess was from correct tier
+//TODO create logic for when daily tierlist is being played
+
 @Component({
   selector: 'app-tier-list',
   standalone: true,
@@ -74,14 +77,30 @@ export class TierListComponent implements OnChanges {
   _httpService = inject(HttpService)
   _activeRoute = inject(ActivatedRoute)
 
+  @Input() dailyTierlist: boolean = false
   @Input() tierlistItems: TierListItem[] = []
+
+  ngOnInit() {
+    if(this.dailyTierlist) {
+      this._httpService.fetchDailyTierlist().subscribe((res: any) => {
+        this._httpService.fetchTierlist(res[0].id).subscribe((res: any) => {
+          this.tierlistItems = res as TierListItem[]
+          this.calcRows()
+        })
+      })
+    }
+  }
 
   numOfRows?: number
 
+  calcRows() {
+    this.numOfRows = this.tierlistItems.length <= 5 ? 3 : this.tierlistItems.length <= 8 ? 5 : 7
+      preloadImages(this.tierlistItems.map(item => item.file_path), this.loadData)
+  }
+
   ngOnChanges() {
     if (!this.numOfRows && this.tierlistItems.length != 0) {
-      this.numOfRows = this.tierlistItems.length <= 5 ? 3 : this.tierlistItems.length <= 8 ? 5 : 7
-      preloadImages(this.tierlistItems.map(item => item.file_path), this.loadData)
+      this.calcRows()
     }
   }
 
@@ -123,7 +142,6 @@ export class TierListComponent implements OnChanges {
 
   changeCoinsWidth(coins: number) {
     this.coinsWidth = 67 + (coins - 1) * 33.5 + 'px'
-    console.log(this.coinsWidth)
   }
 
   finish() {
@@ -144,11 +162,11 @@ export class TierListComponent implements OnChanges {
       // })
 
       //TEST:
-      this.changeCoinsWidth(5)
-      this.numOfPoints = 12
-      this.coins = Array.from({ length: 5 })
-      this.showCoins = true
     }
+    this.changeCoinsWidth(5)
+    this.numOfPoints = 12
+    this.coins = Array.from({ length: 5 })
+    this.showCoins = true
     if (this.coinsContainer) {
       setTimeout(() => {
         if (this.coinsContainer) {

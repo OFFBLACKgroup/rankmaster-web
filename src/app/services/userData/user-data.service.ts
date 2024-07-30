@@ -3,6 +3,8 @@ import { HttpService } from '../http-service.service';
 import { Topic } from '../../routes/main-menu/topics/topics.component';
 import { TierList } from '../../routes/main-menu/topics/topic-tierlists/topic-tierlists.component';
 
+
+// TODO userData has to correctly keep track of finished levels / loaded data / etc. 
 @Injectable({
   providedIn: 'root'
 })

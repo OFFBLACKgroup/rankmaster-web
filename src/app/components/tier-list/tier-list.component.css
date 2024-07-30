@@ -159,6 +159,7 @@ ul.tier-list-items {
   background-color: #6F8FAF;
   border-radius: 0.375rem;
   padding: 0.35rem;
+  position: relative;
 }
 
 .tier-list-items li.placeholder:last-child {
@@ -311,25 +312,45 @@ p.end-text:last-of-type {
 div.random {
   position: relative;
   margin-bottom: 1.5rem;
+  transition: all 0.3s ease-in-out;
+}
+
+div.random:hover {
+  transform: scale(0.92);
 }
 
 div.random button {
-  width: 6.25rem;
-  height: 6.25rem;
+  width: 6.25rem !important;
+  height: 6.25rem !important;
   border-radius: 50%;
   background-color: #F50001;
   box-shadow: 2px 4px 4px rgba(29, 0, 0, 0.4);
   cursor: pointer;
   border: none;
+
 }
 
 div.random img {
-  width: 4rem;
-  height: 4rem;
+  width: 64% !important;
+  object-fit: contain;
   position: absolute;
-  top: calc(50% - 2rem);
-  left: calc(50% - 2rem);
+  top: 1.125rem;
+  left: 1.125rem;
   pointer-events: none;
+}
+
+.result-marker {
+  position: absolute;
+  bottom: -0.25rem;
+  right: 0.5rem;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 0.25rem;
+  border: 1px solid black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: yellow;
 }
 
 @media only screen and (max-width: 500px) {
