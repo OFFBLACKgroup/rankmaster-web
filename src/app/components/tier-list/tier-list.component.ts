@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, ElementRef, Input, OnChanges, ViewChild, inject } from '@angular/core';
 import { DndModule, DndDropEvent } from 'ngx-drag-drop';
-import { animate, query, stagger, state, style, transition, trigger } from '@angular/animations';
+import { animate, keyframes, query, stagger, state, style, transition, trigger } from '@angular/animations';
 import { TierListItem } from '../../routes/main-menu/topics/topic-tierlists/play-tierlist/play-tierlist.component';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import {MatTooltipModule} from '@angular/material/tooltip';
@@ -61,10 +61,10 @@ export interface Prediction {
         ], { optional: true })
       ])
     ]),
-    trigger('slideUp', [
+    trigger('rotateScaleIn', [
       transition(':enter', [
-        style({ transform: 'translateY(50px)' }),
-        animate('0.5s 0.8s ease-out', style({ transform: '*' }))
+        style({ transform: 'rotateX(80deg)', opacity: 0 }),
+        animate('0.5s 1s cubic-bezier(0.250, 0.460, 0.450, 0.940)', style({ transform: 'rotateX(0)', opacity: 1 }))
       ])
     ])
   ]
@@ -116,9 +116,15 @@ export class TierListComponent implements OnChanges {
 
   @ViewChild ('coinscontainer', { static: false }) coinsContainer?: ElementRef
 
+  coinsWidth = '268px'
   coins: number[] = [];
   showCoins = false
   numOfPoints: number = 0
+
+  changeCoinsWidth(coins: number) {
+    this.coinsWidth = 67 + (coins - 1) * 33.5 + 'px'
+    console.log(this.coinsWidth)
+  }
 
   finish() {
     this.finished = true
@@ -126,16 +132,22 @@ export class TierListComponent implements OnChanges {
     const topicID = this._activeRoute.snapshot.paramMap.get('topicID')
     const predictionData = this.getPrediction()
     if (topicID) {
-      this._httpService.calculatePoints(Number(topicID), this.tierlistItems[0].tierlist_ID, predictionData).subscribe((res: any) => {
-        if (this.numOfRows) {
-          this.numOfPoints = res
-          const maxPoint = (this.numOfRows == 3 ? 2 : this.numOfRows == 5 ? 3 : 4) * this.tierlistItems.length
-          console.log(maxPoint)
-          const numOfCoins = Math.round( (res / maxPoint) * 7 )
-          this.coins = Array.from({ length: numOfCoins + 1 }, (_, i) => i);
-          this.showCoins = true
-        }
-      })
+      // this._httpService.calculatePoints(Number(topicID), this.tierlistItems[0].tierlist_ID, predictionData).subscribe((res: any) => {
+      //   if (this.numOfRows) {
+      //     this.numOfPoints = res
+      //     const maxPoint = (this.numOfRows == 3 ? 2 : this.numOfRows == 5 ? 3 : 4) * this.tierlistItems.length
+      //     console.log(maxPoint)
+      //     const numOfCoins = Math.round( (res / maxPoint) * 7 )
+      //     this.coins = Array.from({ length: numOfCoins + 1 }, (_, i) => i);
+      //     this.showCoins = true
+      //   }
+      // })
+
+      //TEST:
+      this.changeCoinsWidth(5)
+      this.numOfPoints = 12
+      this.coins = Array.from({ length: 5 })
+      this.showCoins = true
     }
     if (this.coinsContainer) {
       setTimeout(() => {

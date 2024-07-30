@@ -13,7 +13,7 @@ import { ModalControllerService, ModalType } from '../../services/modalControlle
     trigger('rotateIn', [
       transition(':enter', [
         style({ opacity: 0, transform: 'rotate(-20deg) translate(10%, 25%) scale(0.8)' }),
-        animate('0.2s 1s ease-in', style({ opacity: 1, transform: 'rotate(0) translate(10%, 0%) trans scale(1)' }))
+        animate('0.2s 1s ease-in', style({ opacity: 1, transform: 'rotate(0) translate(10%, 0%) scale(1)' }))
       ])
     ])
   ]

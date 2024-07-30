@@ -6,6 +6,7 @@ import { FeedbackComponent } from './feedback/feedback.component';
 import { Location } from '@angular/common';
 
 // TODO Make header buttons work as inteded
+// TODO Make header stay on top or at least the navigation
 
 @Component({
   selector: 'app-header',

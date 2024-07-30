@@ -53,16 +53,24 @@
   <mat-progress-spinner diameter="48" mode="indeterminate"></mat-progress-spinner>
 }
 @if (showCoins) {
-  <ul [@coinsAnimation]="coins.length" class="coins">
-    @for (coin of coins; track coin) {
+  <ul [@coinsAnimation]="coins.length" class="coins" [style.width]="coinsWidth">
+    @for (coin of coins; track $index) {
       <li [style.transform]="$index == 0 ? '' : 'translateX(' + (-50  * $index) + '%)'" [style.zIndex]="$index * -1">
         <img src="../../../assets/coin.png" alt="Coin">
       </li>
     }
   </ul>
-  <div class="points-container">
-    <p @slideUp class="points">+{{ numOfPoints }} points</p>
+  <div @rotateScaleIn class="points-container">
+    <p class="points">
+      <span>+{{ numOfPoints }}</span> points</p>
   </div>
-  <div #coinscontainer>
+  <div class="progress-bar"></div>
+  <p class="end-text">You placed in the top <span>{{56}}%</span><br> for the daily tier list</p>
+  <p class="end-text">Check back tomorrow<br>or try a random level:</p>
+  <div class="random">
+    <button aria-label="Play random level"></button>
+    <img src="../../../assets/dice.png" alt="Dice icon">
   </div>
 }
+<div #coinscontainer>
+</div>

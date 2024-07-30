@@ -6,10 +6,11 @@
   align-items: center;
   max-width: 38.75rem;
   width: 100%;
-  margin: 1.5rem auto;
+  margin: 0 auto;
 }
 
 .tier-list-header {
+  margin-top: 1.5rem;
   width: 100%;
   height: clamp(4rem, 3.3rem + 3.5vw, 7.5rem);
   display: flex;
@@ -104,6 +105,7 @@
 }
 
 ul.tier-list-body {
+  margin-bottom: 1.5rem;
   width: calc(100% - 1rem);
   background-color: #1C2D4C;
   margin-top: 2.5rem;
@@ -222,7 +224,7 @@ button.submit:hover {
 }
 
 .coins {
-  width: 268px;
+  width: 201px;
   list-style: none;
   display: flex;
   margin-top: 2rem;
@@ -234,13 +236,100 @@ button.submit:hover {
 }
 
 div.points-container {
-  overflow: hidden;
-  margin-top: 1rem;
+  overflow: hidden;  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
 }
 
 p.points {
-  font: 1.5rem 'Revalia';
-  color: #3BDE39;
+  border: 1px solid black;
+  padding: 0.25rem 1.5rem;
+  background-color: white;
+  border-radius: 0.5rem;
+  font: 1.5625rem 'Bangers';
+}
+
+p.points span {
+  font-size: 3rem;
+}
+
+.progress-bar {
+  height: 1.25rem;
+  width: 18.75rem;
+  box-shadow: 0 6px 6px rgba(0,0,0,0.4);
+  background-color: #101010;
+  position: relative;
+  border-radius: 0.5rem;
+}
+
+.progress-bar::after {
+  content: '';
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  left: 56%;
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+  
+  border-bottom: 12px solid white;
+}
+
+/* TODO Don't forget to redo the calculation! */
+.progress-bar::before {
+  content: '';
+  position: absolute;
+  top: calc(50% - .3125rem);
+  left: .5rem;
+  height: .625rem;
+  width: calc(56%);
+  background-color: #27DEBF;
+  border-radius: 0.5rem;
+}
+
+p.end-text {
+  font: 1.25rem 'Roboto Slab';
+  color: white;
+  text-align: center;
+}
+
+p.end-text:first-of-type {
+  margin-top: 1.5rem;
+}
+
+p.end-text:last-of-type {
+  margin: 3rem 0 1.5rem;
+}
+
+.end-text span {
+  font-size: 1.5625rem;
+  font-weight: 500;
+  color: red;
+}
+
+div.random {
+  position: relative;
+  margin-bottom: 1.5rem;
+}
+
+div.random button {
+  width: 6.25rem;
+  height: 6.25rem;
+  border-radius: 50%;
+  background-color: #F50001;
+  box-shadow: 2px 4px 4px rgba(29, 0, 0, 0.4);
+  cursor: pointer;
+  border: none;
+}
+
+div.random img {
+  width: 4rem;
+  height: 4rem;
+  position: absolute;
+  top: calc(50% - 2rem);
+  left: calc(50% - 2rem);
+  pointer-events: none;
 }
 
 @media only screen and (max-width: 500px) {
