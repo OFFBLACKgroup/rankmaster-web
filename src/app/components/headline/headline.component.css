@@ -39,4 +39,8 @@
   .headline button {
     display: none;
   }
+
+  .headline {
+    margin-top: 2rem;
+  }
 }

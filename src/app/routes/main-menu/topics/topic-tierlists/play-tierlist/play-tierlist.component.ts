@@ -5,6 +5,13 @@ import { HttpService } from '../../../../../services/http-service.service';
 import { Subscription } from 'rxjs';
 import { TierListComponent } from '../../../../../components/tier-list/tier-list.component';
 
+export enum MarkerColor {
+  red = 'red',
+  yellow = 'yellow',
+  green = 'greenyellow',
+  perfect = ''
+}
+
 export interface TierListItem {
   id: number,
   created_at: Date,
@@ -13,7 +20,8 @@ export interface TierListItem {
   background_color: string,
   num_of_votes: number,
   average_rank: number,
-  file_path: string
+  file_path: string,
+  result_marker_color?: MarkerColor
 } 
 
 @Component({

@@ -56,7 +56,7 @@ export class HttpService {
       predictions
     }
 
-    // return this.http.post('https://www.api.rankmaster.click/points/', request)
+    return this.http.post('https://www.api.rankmaster.click/points/', request)
   }
 
   fetchDailyTierlist() {

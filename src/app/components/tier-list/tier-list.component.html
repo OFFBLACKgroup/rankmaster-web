@@ -29,9 +29,11 @@
           @for (item of tierData[rowIndex]; track item; let index = $index) {
             <li [style.cursor]="finished ? 'auto' : 'grab'" [matTooltip]="getTooltip(rowIndex, index)" matTooltipPosition="above" matTooltipShowDelay="500" class="tier-list-item not-filler" [dndDraggable]="tierData[rowIndex][index]" dndType="transfer" (dndStart)="onDragStart(rowIndex, index)" [dndDisableDragIf]="finished">
               <img class="added" [src]="tierData[rowIndex][index].file_path">
-              <div class="result-marker">
-                <img src="../../../assets/chevron.svg" alt="Chevron">
-              </div>
+              @if (tierData[rowIndex][index].result_marker_color) {
+                <div class="result-marker" [style.backgroundColor]="tierData[rowIndex][index].result_marker_color">
+                  <img src="../../../assets/chevron.svg" alt="Chevron">
+                </div>
+              }
             </li>
           }
           <li class="placeholder" dndPlaceholderRef>
@@ -70,9 +72,15 @@
   <div class="progress-bar"></div>
   <p class="end-text">You placed in the top <span>{{56}}%</span><br> for {{dailyTierlist ? 'the daily' : 'this'}} tier list</p>
   <p class="end-text">Check back tomorrow<br>or try a random level:</p>
-  <div class="random">
-    <button aria-label="Play random level"></button>
-    <img src="../../../assets/dice.png" alt="Dice icon">
+  <div class="next-action-buttons">
+    <div class="random">
+      <button aria-label="Play random level"></button>
+      <img src="../../../assets/dice.png" alt="Dice icon">
+    </div>
+    <button (click)="scrollToTop()" class="scroll-up">
+      <img src="../../../assets/arrow up.svg" alt="Arrow up icon">
+      <span>TO TOP</span>
+    </button>
   </div>
 }
 <div #coinscontainer>
