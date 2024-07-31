@@ -3,14 +3,7 @@ import { HeadlineComponent } from '../../../../../components/headline/headline.c
 import { ActivatedRoute } from '@angular/router';
 import { HttpService } from '../../../../../services/http-service.service';
 import { Subscription } from 'rxjs';
-import { TierListComponent } from '../../../../../components/tier-list/tier-list.component';
-
-export enum MarkerColor {
-  red = 'red',
-  yellow = 'yellow',
-  green = 'greenyellow',
-  perfect = ''
-}
+import { TierListComponent, MarkerColor } from '../../../../../components/tier-list/tier-list.component';
 
 export interface TierListItem {
   id: number,
@@ -21,7 +14,8 @@ export interface TierListItem {
   num_of_votes: number,
   average_rank: number,
   file_path: string,
-  result_marker_color?: MarkerColor
+  result_marker_color?: MarkerColor,
+  flip_marker?: boolean
 } 
 
 @Component({

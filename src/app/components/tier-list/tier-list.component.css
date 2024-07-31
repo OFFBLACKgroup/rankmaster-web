@@ -356,7 +356,7 @@ div.random img {
   display: flex;
   align-items: center;
   border: none;
-  border-radius: .25rem;
+  border-radius: .5rem;
   gap: 0.5rem;
   padding: 0.25rem 0.75rem;
   cursor: pointer;
@@ -389,6 +389,19 @@ div.random img {
   background-color: yellow;
 }
 
+.result-marker-perfect {
+  position: absolute;
+  bottom: -0.5rem;
+  right: 0.5rem;
+  width: 2rem;
+  height: 2rem;
+}
+.result-marker-perfect img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
 @media only screen and (max-width: 500px) {
   .tier-list-info {
     margin-left: 1rem;
@@ -401,10 +414,15 @@ div.random img {
   .tier-list-header ul {
     margin-right: 1rem;
   }
+
+  .next-action-buttons .scroll-up {
+    top: calc(100% - 2rem);
+  }
 }
 
 @media screen and (max-width: 768px) {
   .next-action-buttons .scroll-up {
+    border-radius: 0.5rem;
     left: auto;
     font-size: 1rem;
     right: 0.5rem;

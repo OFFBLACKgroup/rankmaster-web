@@ -1,21 +1,30 @@
 import { ChangeDetectorRef, Component, ElementRef, Input, OnChanges, ViewChild, inject } from '@angular/core';
 import { DndModule, DndDropEvent } from 'ngx-drag-drop';
 import { animate, keyframes, query, stagger, state, style, transition, trigger } from '@angular/animations';
-import { MarkerColor, TierListItem } from '../../routes/main-menu/topics/topic-tierlists/play-tierlist/play-tierlist.component';
+import { TierListItem } from '../../routes/main-menu/topics/topic-tierlists/play-tierlist/play-tierlist.component';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import { preloadImages } from '../../routes/main-menu/topics/topics.component';
 import { HttpService } from '../../services/http-service.service';
 import { ActivatedRoute } from '@angular/router';
 
+export enum MarkerColor {
+  red = 'red',
+  yellow = 'yellow',
+  green = '#32CD32',
+  perfect = ''
+}
+
 export interface Prediction {
   tierlist_item_id: number,
   predicted_tier: number,
-  points_for_item?: number
+  points_for_item?: number,
+  correct_tier?: number
 }
 
-//TODO display how far off a guess was from correct tier
 //TODO create logic for when daily tierlist is being played
+//TODO animate tier list post-submit result animations
+//OPTIMIZABLE create sections for tier-list (largest logic file)
 
 @Component({
   selector: 'app-tier-list',
@@ -145,22 +154,53 @@ export class TierListComponent implements OnChanges {
     this.coinsWidth = 67 + (coins - 1) * 33.5 + 'px'
   }
 
-  // calculateMarkerColor(pointsReceived: number) {
-  //   if (this.numOfRows) {
-  //     switch (this.numOfRows) {
-  //       case 3:
-  //         return pointsReceived == 1 ? MarkerColor.yellow : MarkerColor.perfect
-  //       case 5:
-  //         return pointsReceived == 1 ? MarkerColor.yellow : pointsReceived == 2 ? MarkerColor.green : MarkerColor.perfect
-  //       case 7:
-  //         return pointsReceived == 1 ? MarkerColor.red : pointsReceived == 2 ? MarkerColor.yellow : pointsReceived == 3 ? MarkerColor.green : MarkerColor.perfect
-  //       default:
-  //         return MarkerColor.red
-  //     }
-  //   } else {
-  //     return MarkerColor.red
-  //   }
-  // }
+  calculateMarkerColor(pointsReceived: number): MarkerColor {
+    if (this.numOfRows != null) {
+      switch (this.numOfRows) {
+        case 3:
+          switch (pointsReceived) {
+            case 0:
+              return MarkerColor.red
+            case 1:
+              return MarkerColor.yellow
+            case 2:
+              return MarkerColor.perfect
+            default:
+              return MarkerColor.red
+          }
+        case 5:
+          switch (pointsReceived) {
+            case 0:
+              return MarkerColor.red
+            case 1:
+              return MarkerColor.yellow
+            case 2:
+              return MarkerColor.green
+            case 3:
+              return MarkerColor.perfect
+            default:
+              return MarkerColor.red
+          }
+        case 7:
+          switch (pointsReceived) {
+            case 1:
+              return MarkerColor.red
+            case 2:
+              return MarkerColor.yellow
+            case 3:
+              return MarkerColor.green
+            case 4:
+              return MarkerColor.perfect
+            default:
+              return MarkerColor.red
+          }
+        default:
+          return MarkerColor.red
+      }
+    } else {
+      return MarkerColor.red
+    }
+  }
 
   finish() {
     this.finished = true
@@ -170,22 +210,25 @@ export class TierListComponent implements OnChanges {
     if (topicID) {
       this._httpService.calculatePoints(Number(topicID), this.tierlistItems[0].tierlist_ID, predictionData).subscribe((res: any) => {
         if (this.numOfRows) {
+          console.log(res.predictions)
+          console.log(this.tierData)
+          res.predictions.forEach((prediction: Prediction) => {
+            for (let i = 0; i < this.tierData.length; i++) {
+              for (let j = 0; j < this.tierData[i].length; j++) {
+                if (this.tierData[i][j].id == prediction.tierlist_item_id) {
+                  if (prediction.points_for_item != undefined && prediction.correct_tier != undefined) {
+                    this.tierData[i][j].result_marker_color = this.calculateMarkerColor(prediction.points_for_item)
+                    this.tierData[i][j].flip_marker = prediction.correct_tier < prediction.predicted_tier
+                  }
+                }
+              }
+            }
+          })
           this.numOfPoints = res.points
           const maxPoint = (this.numOfRows == 3 ? 2 : this.numOfRows == 5 ? 3 : 4) * this.tierlistItems.length
           const numOfCoins = Math.round( (res / maxPoint) * 7 )
           this.coins = Array.from({ length: numOfCoins + 1 }, (_, i) => i);
           this.showCoins = true
-          // res.predictions.forEach((prediction: Prediction) => {
-            // for (let i = 0; i < this.tierData.length; i++) {
-            //   for (let j = 0; j < this.tierData[i].length; j++) {
-            //     if (this.tierData[i][j].id == prediction.tierlist_item_id) {
-            //       if (prediction.points_for_item) {
-            //         this.tierData[i][j].result_marker_color = this.calculateMarkerColor(prediction.points_for_item)
-            //       }
-            //     }
-            //   }
-            // }
-          // })
           if (this.coinsContainer) {
             setTimeout(() => {
               if (this.coinsContainer) {

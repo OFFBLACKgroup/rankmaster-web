@@ -30,8 +30,12 @@
             <li [style.cursor]="finished ? 'auto' : 'grab'" [matTooltip]="getTooltip(rowIndex, index)" matTooltipPosition="above" matTooltipShowDelay="500" class="tier-list-item not-filler" [dndDraggable]="tierData[rowIndex][index]" dndType="transfer" (dndStart)="onDragStart(rowIndex, index)" [dndDisableDragIf]="finished">
               <img class="added" [src]="tierData[rowIndex][index].file_path">
               @if (tierData[rowIndex][index].result_marker_color) {
-                <div class="result-marker" [style.backgroundColor]="tierData[rowIndex][index].result_marker_color">
-                  <img src="../../../assets/chevron.svg" alt="Chevron">
+                <div class="result-marker" [style.backgroundColor]="tierData[rowIndex][index].result_marker_color" [style.transform]="tierData[rowIndex][index].flip_marker ? 'rotate(180deg)' : ''">
+                  <img src="../../../assets/chevron.svg" alt="Chevron icon">
+                </div>
+              } @else if (tierData[rowIndex][index].result_marker_color == '') {
+                <div class="result-marker-perfect">
+                  <img src="../../../assets/check.svg" alt="Checkmark icon">
                 </div>
               }
             </li>
