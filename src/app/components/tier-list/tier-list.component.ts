@@ -23,7 +23,7 @@ export interface Prediction {
   correct_tier?: number
 }
 
-//FOCUS create logic for when daily tierlist is being played
+//TODO make the random / play button work
 //TODO animate tier list post-submit result animations
 //OPTIMIZABLE create sections for tier-list (largest logic file)
 

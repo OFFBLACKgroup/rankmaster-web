@@ -1,10 +1,11 @@
 import { trigger, animate, transition, style, keyframes, state } from '@angular/animations';
 import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-play-invitation',
   standalone: true,
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './play-invitation.component.html',
   styleUrl: './play-invitation.component.css',
   animations: [

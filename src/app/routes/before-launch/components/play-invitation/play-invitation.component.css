@@ -83,7 +83,7 @@ div.triangle {
 	border-top: 50px solid white;
 }
 
-button {
+a {
   margin-top: 2rem;
   background-color: #F50001;
   text-transform: uppercase;
@@ -100,13 +100,14 @@ button {
   transition: all 0.2s ease-in;
   width: max-content;
   align-self: center;
+  text-decoration: none;
 }
 
-button:hover {
+a:hover {
   transform: rotate(2deg) translateX(-1.5rem) scale(0.96) !important;
 }
 
-button::after {
+a::after {
   content: '';
   position: absolute;
   left: 0;
