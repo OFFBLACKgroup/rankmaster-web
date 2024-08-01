@@ -64,6 +64,8 @@ export class HeaderComponent {
   saleIconState = 'shrink'
   showMobileNav = false
 
+  homeLink = ''
+
   ngOnInit() {
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
@@ -71,9 +73,15 @@ export class HeaderComponent {
           if (this.showButtons == true) {
             this.showButtons = false
           }
+          if (this.homeLink != '') {
+            this.homeLink = ''
+          }
         } else {
           if (this.showButtons == false) {
             this.showButtons = true
+          }
+          if (this.homeLink == '') {
+            this.homeLink = '/menu'
           }
         }
       }
