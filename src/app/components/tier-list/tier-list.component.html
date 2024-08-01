@@ -78,7 +78,7 @@
   <p class="end-text">{{dailyTierlist ? 'Check back tomorrow' : 'Want to try' }}<br>{{dailyTierlist ? 'or try a random level:' : 'a random level?' }}</p>
   <div class="next-action-buttons">
     <div class="random">
-      <button aria-label="Play random level"></button>
+      <button (click)="playRandomLevel()" aria-label="Play random level"></button>
       <img src="../../../assets/dice.png" alt="Dice icon">
     </div>
     <button (click)="scrollToTop()" class="scroll-up">

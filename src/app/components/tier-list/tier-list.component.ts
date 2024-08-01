@@ -329,4 +329,11 @@ export class TierListComponent implements OnChanges {
   scrollToTop() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
+
+  playRandomLevel() {
+    this._httpService.fetchRandomTierlist().subscribe((res: any) => {
+      this.router.navigateByUrl('/', {skipLocationChange: true})
+      .then(()=>this.router.navigate(['/topics/' + res.topic_ID + '/tierlists/' + res.id, { title: res.name }], { onSameUrlNavigation: 'reload' }));
+    })
+  }
 }

@@ -22,7 +22,7 @@ export const routes: Routes = [
       { path: 'leaderboard', component: LeaderboardComponent },
     ]
   },
-  { path: 'topics/:topicID/tierlists/:id', component: PlayTierlistComponent, canActivate: [routeGuard], data: { isPremium: true} },
+  { path: 'topics/:topicID/tierlists/:id', component: PlayTierlistComponent, canActivate: [routeGuard], data: { isPremium: true},  },
   { path: 'unauthorized/:id', component: UnauthorizedComponent},
   { path: '**', component: UnauthorizedComponent }
 ];

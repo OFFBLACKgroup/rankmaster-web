@@ -38,13 +38,12 @@ export class PlayTierlistComponent {
   ngOnInit(): void {
     this.sub = this._route.params.subscribe(params => {
       this.id = params['id'];
-
       this._httpService.fetchTierlist(Number(params['id'])).subscribe(config=> {
         this.tierlistItems = config as TierListItem[]
         this.tierlistItems.sort(() => Math.random() - 0.5)
+        this.title = this._route.snapshot.paramMap.get('title')
       });
     });
-    this.title = this._route.snapshot.paramMap.get('title')
   }
 
   ngOnDestroy(): void {

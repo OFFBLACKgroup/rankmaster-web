@@ -62,4 +62,8 @@ export class HttpService {
   fetchDailyTierlist() {
     return this.http.get('https://www.api.rankmaster.click/dailyTierlist/')
   }
+
+  fetchRandomTierlist() {
+    return this.http.get('https://www.api.rankmaster.click/randomTierlist/')
+  }
 }
