@@ -6,7 +6,8 @@ import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import { preloadImages } from '../../routes/main-menu/topics/topics.component';
 import { HttpService } from '../../services/http-service.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { TierList } from '../../routes/main-menu/topics/topic-tierlists/topic-tierlists.component';
 
 export enum MarkerColor {
   red = 'red',
@@ -22,7 +23,7 @@ export interface Prediction {
   correct_tier?: number
 }
 
-//TODO create logic for when daily tierlist is being played
+//FOCUS create logic for when daily tierlist is being played
 //TODO animate tier list post-submit result animations
 //OPTIMIZABLE create sections for tier-list (largest logic file)
 
@@ -86,17 +87,25 @@ export class TierListComponent implements OnChanges {
   changeDetector = inject(ChangeDetectorRef)
   _httpService = inject(HttpService)
   _activeRoute = inject(ActivatedRoute)
+  router = inject(Router)
 
-  @Input() dailyTierlist: boolean = false
+  @Input() isDailyTierlist: boolean = false
   @Input() tierlistItems: TierListItem[] = []
+  dailyTierlist?: TierList
 
   ngOnInit() {
-    if(this.dailyTierlist) {
+    if(this.isDailyTierlist) {
+      //OPTIMIZABLE if we would do a single HTTP call instead of two
       this._httpService.fetchDailyTierlist().subscribe((res: any) => {
-        this._httpService.fetchTierlist(res[0].id).subscribe((res: any) => {
-          this.tierlistItems = res as TierListItem[]
-          this.calcRows()
-        })
+        if (res.length == 0) {
+          this.router.navigate(['unauthorized/400'])
+        } else {
+          this.dailyTierlist = res[0] as TierList
+          this._httpService.fetchTierlist(res[0].id).subscribe((res: any) => {
+            this.tierlistItems = res as TierListItem[]
+            this.calcRows()
+          })
+        }
       })
     }
   }
@@ -205,13 +214,11 @@ export class TierListComponent implements OnChanges {
   finish() {
     this.finished = true
     this.changeDetector.detectChanges()
-    const topicID = this._activeRoute.snapshot.paramMap.get('topicID')
     const predictionData = this.getPrediction()
+    const topicID = this.isDailyTierlist ? this.dailyTierlist?.topic_ID : this._activeRoute.snapshot.paramMap.get('topicID')
     if (topicID) {
       this._httpService.calculatePoints(Number(topicID), this.tierlistItems[0].tierlist_ID, predictionData).subscribe((res: any) => {
         if (this.numOfRows) {
-          console.log(res.predictions)
-          console.log(this.tierData)
           res.predictions.forEach((prediction: Prediction) => {
             for (let i = 0; i < this.tierData.length; i++) {
               for (let j = 0; j < this.tierData[i].length; j++) {

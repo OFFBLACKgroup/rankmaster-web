@@ -6,6 +6,8 @@ import { FeedbackComponent } from './feedback/feedback.component';
 import { Location } from '@angular/common';
 
 // TODO Make header buttons work as inteded
+  //Buttons appear only when leaving landing
+  //Logo takes to main menu when logged in
 // TODO Make header stay on top or at least the navigation
 
 @Component({

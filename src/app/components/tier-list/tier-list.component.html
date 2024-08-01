@@ -75,7 +75,7 @@
   </div>
   <div class="progress-bar"></div>
   <p class="end-text">You placed in the top <span>{{56}}%</span><br> for {{dailyTierlist ? 'the daily' : 'this'}} tier list</p>
-  <p class="end-text">Check back tomorrow<br>or try a random level:</p>
+  <p class="end-text">{{dailyTierlist ? 'Check back tomorrow' : 'Want to try' }}<br>{{dailyTierlist ? 'or try a random level:' : 'a random level?' }}</p>
   <div class="next-action-buttons">
     <div class="random">
       <button aria-label="Play random level"></button>
