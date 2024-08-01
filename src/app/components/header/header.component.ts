@@ -1,6 +1,6 @@
 import { animate, animateChild, query, state, style, transition, trigger } from '@angular/animations';
 import { Component, inject } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router, RouterLink } from '@angular/router';
 import { ModalControllerService, ModalType } from '../../services/modalController/modal-controller.service';
 import { FeedbackComponent } from './feedback/feedback.component';
 import { Location } from '@angular/common';
@@ -58,10 +58,27 @@ import { Location } from '@angular/common';
 export class HeaderComponent {
   modalController = inject(ModalControllerService)
   location = inject(Location)
+  router = inject(Router)
 
   showFeedbackModal = false
   saleIconState = 'shrink'
   showMobileNav = false
+
+  ngOnInit() {
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        if (event.url == '/') {
+          if (this.showButtons == true) {
+            this.showButtons = false
+          }
+        } else {
+          if (this.showButtons == false) {
+            this.showButtons = true
+          }
+        }
+      }
+    });
+  }
 
   toggleMobileNav() {
     this.showMobileNav = !this.showMobileNav
@@ -106,7 +123,7 @@ export class HeaderComponent {
     this.modalController.showModal(ModalType.login_ON)
   }
   //#endregion
-  showButtons = true
+  showButtons = false
 
   toggleButtons() {
     this.showButtons = !this.showButtons
