@@ -1,6 +1,6 @@
 import { animate, animateChild, query, state, style, transition, trigger } from '@angular/animations';
 import { Component, inject } from '@angular/core';
-import { ActivatedRoute, NavigationEnd, Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, NavigationStart, Router, RouterLink } from '@angular/router';
 import { ModalControllerService, ModalType } from '../../services/modalController/modal-controller.service';
 import { FeedbackComponent } from './feedback/feedback.component';
 import { Location } from '@angular/common';
@@ -66,9 +66,30 @@ export class HeaderComponent {
 
   homeLink = ''
 
+  private history: string[] = []
+  private maxHistoryLength = 10
+
+  isBackButtonEnabled = false
+
   ngOnInit() {
     this.router.events.subscribe(event => {
-      if (event instanceof NavigationEnd) {
+      if (event instanceof NavigationStart) {
+        if (!this.backNavigation) {
+          this.history.push(event.url)
+        } else {
+          this.backNavigation = false
+        }
+        if (this.history.length > this.maxHistoryLength) {
+          this.history.shift()
+        }
+        if (this.history.at(-2) == '/') {
+          console.log('HSF')
+          this.isBackButtonEnabled = false
+        } else if (this.isBackButtonEnabled == false) {
+          this.isBackButtonEnabled = true
+        }
+      }
+      else if (event instanceof NavigationEnd) {
         if (event.url == '/') {
           if (this.showButtons == true) {
             this.showButtons = false
@@ -131,21 +152,18 @@ export class HeaderComponent {
     this.modalController.showModal(ModalType.login_ON)
   }
   //#endregion
+  
+  
   showButtons = false
-
-  toggleButtons() {
-    this.showButtons = !this.showButtons
-  }
+  backNavigation = false
 
   goBack(event: Event) {
     event.preventDefault()
+    if (this.history.at(-2) == '/') {
+      return
+    }
+    this.backNavigation = true
+    this.history.pop()
     this.location.back()
   }
-
-  goForward(event: Event) {
-    event.preventDefault()
-    this.location.forward()
-  }
-
-
 }

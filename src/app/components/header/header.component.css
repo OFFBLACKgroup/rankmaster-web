@@ -39,7 +39,7 @@ nav > a:nth-child(2) {
   color: black;
   font: 2.25rem 'Roboto Slab';
   margin-left: 1rem;
-  margin-right: 3rem;
+  margin-right: 1.5rem;
 }
 
 nav .buttons-container {
@@ -107,11 +107,21 @@ button.mobile-navigation {
   margin-left: auto;
   margin-right: 2.25rem;
   transition: all 0.3s ease-in-out;
+  cursor: pointer;
 }
 
 nav.mobile-nav-modal {
   display: none;
   transform-origin: top right;
+}
+
+.mobile-nav-modal button, .mobile-nav-modal a {
+  cursor: pointer;
+  transition: all 0.2s ease-out;
+}
+
+.mobile-nav-modal button:hover, .mobile-nav-modal a:hover {
+  transform: scale(1.05);
 }
 
 @media only screen and (max-width: 1280px) {

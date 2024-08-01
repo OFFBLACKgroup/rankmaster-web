@@ -3,13 +3,14 @@
   top: 50vh;
   left: 50%;
   counter-reset: li;
-  padding: 1.5rem 0;
-  background: linear-gradient(to bottom, #89D0FF, #37AFFF);
-  border-radius: 1.5rem;
   transform: translate(-50%, max(-50%, -50vh + 8rem));
+  padding-bottom: 2rem;
 }
 
 article {
+  padding: 1.5rem 0;
+  background: linear-gradient(to bottom, #89D0FF, #37AFFF);
+  border-radius: 1.5rem;
   position: relative;
 }
 

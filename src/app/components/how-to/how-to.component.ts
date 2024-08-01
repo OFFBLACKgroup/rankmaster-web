@@ -3,7 +3,7 @@ import { ChangeDetectorRef, Component, ElementRef, HostBinding, ViewChild, injec
 import { ModalControllerService, ModalType } from '../../services/modalController/modal-controller.service';
 
 // TODO Make How-To responsive (468-320) 
-// TODO Add padding to bottom of How-To
+// TINY Add padding to bottom of How-To
 @Component({
   selector: 'app-how-to',
   standalone: true,
