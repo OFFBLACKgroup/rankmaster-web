@@ -1,2 +1,2 @@
-<app-headline [title]="'Daily Challenge'"></app-headline>
-<app-tier-list [isDailyTierlist]="true"></app-tier-list>
+<app-headline [title]="title || 'Daily Challenge'"></app-headline>
+<app-tier-list (tierlistTitle)="setTitle($event)" [isDailyTierlist]="true"></app-tier-list>

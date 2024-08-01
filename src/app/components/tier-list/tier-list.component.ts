@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, ElementRef, Input, OnChanges, ViewChild, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnChanges, Output, ViewChild, inject } from '@angular/core';
 import { DndModule, DndDropEvent } from 'ngx-drag-drop';
 import { animate, keyframes, query, stagger, state, style, transition, trigger } from '@angular/animations';
 import { TierListItem } from '../../routes/main-menu/topics/topic-tierlists/play-tierlist/play-tierlist.component';
@@ -92,6 +92,7 @@ export class TierListComponent implements OnChanges {
   @Input() isDailyTierlist: boolean = false
   @Input() tierlistItems: TierListItem[] = []
   dailyTierlist?: TierList
+  @Output() tierlistTitle = new EventEmitter
 
   ngOnInit() {
     if(this.isDailyTierlist) {
@@ -101,6 +102,7 @@ export class TierListComponent implements OnChanges {
           this.router.navigate(['unauthorized/400'])
         } else {
           this.dailyTierlist = res[0] as TierList
+          this.tierlistTitle.emit(res[0].name)
           this._httpService.fetchTierlist(res[0].id).subscribe((res: any) => {
             this.tierlistItems = res as TierListItem[]
             this.calcRows()
