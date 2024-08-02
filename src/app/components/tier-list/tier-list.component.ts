@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnChanges, Output, ViewChild, inject } from '@angular/core';
 import { DndModule, DndDropEvent } from 'ngx-drag-drop';
-import { animate, keyframes, query, stagger, state, style, transition, trigger } from '@angular/animations';
+import { animate, animateChild, keyframes, query, sequence, stagger, state, style, transition, trigger } from '@angular/animations';
 import { TierListItem } from '../../routes/main-menu/topics/topic-tierlists/play-tierlist/play-tierlist.component';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import {MatTooltipModule} from '@angular/material/tooltip';
@@ -23,9 +23,10 @@ export interface Prediction {
   correct_tier?: number
 }
 
-//TODO animate tier list post-submit result animations
-//OPTIMIZABLE create sections for tier-list (largest logic file)
-
+//OPTIMIZABLE create code sections for tier-list (largest logic file)
+//BUG there is a bug with coins having to jump from end of animation to their final position
+//TINY tierlist title flashes when not yet loaded
+//TODO connect animations to leaderboard data
 @Component({
   selector: 'app-tier-list',
   standalone: true,
@@ -78,6 +79,36 @@ export interface Prediction {
       transition(':enter', [
         style({ transform: 'rotateX(80deg)', opacity: 0 }),
         animate('0.5s 1s cubic-bezier(0.250, 0.460, 0.450, 0.940)', style({ transform: 'rotateX(0)', opacity: 1 }))
+      ])
+    ]),
+    trigger('progressBarAnimation', [
+      state('false', style({ opacity: 0 })),
+      transition('* => true', [
+        sequence([
+          animate('0.3s ease-out', style({ opacity: 1})),
+          query('@fillPosition, @markerPosition', animateChild())
+        ])
+      ])
+    ]),
+    // TODO add paramater to loadanimation
+    trigger('fillPosition', [
+      transition('* => true', [
+        style({ transform: 'scaleX(0%)'}),
+        animate('0.8s ease-in-out', style({ transform: 'scaleX(100%)'}))
+      ])
+    ]),
+    trigger('markerPosition', [
+      state('true', style({ left: '56%'})),
+      transition('* => true', [
+        style({ left: '0%' }),
+        animate('0.8s ease-in-out', style({ left: '56%' }))
+      ])
+    ]),
+    trigger('fadeIn', [
+      state('false', style({ opacity: 0 })),
+      transition('* => true', [
+        style({ opacity: 0 }),
+        animate('0.3s 0.5s ease-out', style({ opacity: 1 }))
       ])
     ])
   ]
@@ -234,8 +265,9 @@ export class TierListComponent implements OnChanges {
           })
           this.numOfPoints = res.points
           const maxPoint = (this.numOfRows == 3 ? 2 : this.numOfRows == 5 ? 3 : 4) * this.tierlistItems.length
-          const numOfCoins = Math.round( (res / maxPoint) * 7 )
+          const numOfCoins = Math.round( (this.numOfPoints / maxPoint) * 7 )
           this.coins = Array.from({ length: numOfCoins + 1 }, (_, i) => i);
+          this.changeCoinsWidth(numOfCoins + 1)
           this.showCoins = true
           if (this.coinsContainer) {
             setTimeout(() => {
@@ -335,4 +367,32 @@ export class TierListComponent implements OnChanges {
       .then(()=>this.router.navigate(['/topics/' + res.topic_ID + '/tierlists/' + res.id, { title: res.name }], { onSameUrlNavigation: 'reload' }));
     })
   }
+
+  //#region End Animations
+  animateProgressbar = false
+  showText1 = false
+  showText2 = false
+  showToTopButton = false
+
+
+  //OPTIMIZABLE tierlist submit animations can be unified easily
+  startAnimatingProgressbar(e: any) {
+    this.animateProgressbar = true
+  }
+  startAnimatingText1(e: any) {
+    if (e.toState == true) {
+      this.showText1 = true
+    }
+  }
+  startAnimatingText2(e: any) {
+    if (e.toState == true) {
+      this.showText2 = true
+    }
+  }
+  startAnimatingToTopButton(e: any) {
+    if (e.toState == true) {
+      this.showToTopButton = true
+    }
+  }
+  //#endregion
 }

@@ -80,7 +80,6 @@ export class HeaderComponent {
           this.history.shift()
         }
         if (this.history.at(-2) == '/') {
-          console.log('HSF')
           this.isBackButtonEnabled = false
         } else if (this.isBackButtonEnabled == false) {
           this.isBackButtonEnabled = true

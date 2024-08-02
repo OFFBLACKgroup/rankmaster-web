@@ -266,11 +266,10 @@ p.points span {
   border-radius: 0.5rem;
 }
 
-.progress-bar::after {
+.progress-bar .triangle-marker {
   content: '';
   position: absolute;
   top: calc(100% + 0.5rem);
-  left: 56%;
   border-left: 7px solid transparent;
   border-right: 7px solid transparent;
   
@@ -278,8 +277,7 @@ p.points span {
 }
 
 /* TODO Don't forget to redo the calculation! */
-.progress-bar::before {
-  content: '';
+.progress-bar .fill {
   position: absolute;
   top: calc(50% - .3125rem);
   left: .5rem;
@@ -287,6 +285,7 @@ p.points span {
   width: calc(56%);
   background-color: #27DEBF;
   border-radius: 0.5rem;
+  transform-origin: left;
 }
 
 p.end-text {
@@ -312,7 +311,7 @@ p.end-text:last-of-type {
 div.random {
   position: relative;
   margin-bottom: 1.5rem;
-  transition: all 0.3s ease-in-out;
+  transition: transform 0.3s ease-in-out;
 }
 
 div.random:hover {

@@ -24,8 +24,6 @@ export interface CompletedTierlist {
   collected_points: number
 }
 
-
-// TODO exclude dailies from showing up before their add date
 @Component({
   selector: 'app-topic-tierlists',
   standalone: true,

@@ -65,23 +65,26 @@
   <ul [@coinsAnimation]="coins.length" class="coins" [style.width]="coinsWidth">
     @for (coin of coins; track $index) {
       <li [style.transform]="$index == 0 ? '' : 'translateX(' + (-50  * $index) + '%)'" [style.zIndex]="$index * -1">
-        <img src="../../../assets/coin.png" alt="Coin">
+        <img src="../../../assets/coin.png" alt="Coin icon">
       </li>
     }
   </ul>
-  <div @rotateScaleIn class="points-container">
+  <div @rotateScaleIn (@rotateScaleIn.done)="startAnimatingProgressbar($event)" class="points-container">
     <p class="points">
       <span>+{{ numOfPoints }}</span> points</p>
   </div>
-  <div class="progress-bar"></div>
-  <p class="end-text">You placed in the top <span>{{56}}%</span><br> for {{dailyTierlist ? 'the daily' : 'this'}} tier list</p>
-  <p class="end-text">{{dailyTierlist ? 'Check back tomorrow' : 'Want to try' }}<br>{{dailyTierlist ? 'or try a random level:' : 'a random level?' }}</p>
+  <div [@progressBarAnimation]="animateProgressbar" class="progress-bar">
+    <div [@markerPosition]="animateProgressbar" (@markerPosition.done)="startAnimatingText1($event)" class="triangle-marker"></div>
+    <div [@fillPosition]="animateProgressbar" class="fill"></div>
+  </div>
+  <p [@fadeIn]="showText1" (@fadeIn.done)="startAnimatingText2($event)" class="end-text">You placed in the top <span>{{56}}%</span><br> for {{dailyTierlist ? 'the daily' : 'this'}} tier list</p>
+  <!-- <p [@fadeIn]="showText2" class="end-text">{{dailyTierlist ? 'Check back tomorrow' : 'Want to try' }}<br>{{dailyTierlist ? 'or try a random level:' : 'a random level?' }}</p> -->
   <div class="next-action-buttons">
-    <div class="random">
+    <div [@fadeIn]="showText2" (@fadeIn.done)="startAnimatingToTopButton($event)" class="random">
       <button (click)="playRandomLevel()" aria-label="Play random level"></button>
       <img src="../../../assets/dice.png" alt="Dice icon">
     </div>
-    <button (click)="scrollToTop()" class="scroll-up">
+    <button [@fadeIn]="showToTopButton" (click)="scrollToTop()" class="scroll-up">
       <img src="../../../assets/arrow up.svg" alt="Arrow up icon">
       <span>TO TOP</span>
     </button>
