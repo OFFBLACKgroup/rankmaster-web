@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { HeadlineComponent } from '../../../components/headline/headline.component';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';

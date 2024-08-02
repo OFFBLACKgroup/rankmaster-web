@@ -1,26 +1,27 @@
 import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnChanges, Output, ViewChild, inject } from '@angular/core';
 import { DndModule, DndDropEvent } from 'ngx-drag-drop';
-import { animate, animateChild, keyframes, query, sequence, stagger, state, style, transition, trigger } from '@angular/animations';
+import { animate, animateChild, query, sequence, stagger, state, style, transition, trigger } from '@angular/animations';
 import { TierListItem } from '../../routes/main-menu/topics/topic-tierlists/play-tierlist/play-tierlist.component';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
-import {MatTooltipModule} from '@angular/material/tooltip';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { preloadImages } from '../../routes/main-menu/topics/topics.component';
 import { HttpService } from '../../services/http-service.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TierList } from '../../routes/main-menu/topics/topic-tierlists/topic-tierlists.component';
+import { UserDataService } from '../../services/userData/user-data.service';
 
 export enum MarkerColor {
   red = 'red',
   yellow = 'yellow',
   green = '#32CD32',
-  perfect = ''
+  perfect = '',
 }
 
 export interface Prediction {
-  tierlist_item_id: number,
-  predicted_tier: number,
-  points_for_item?: number,
-  correct_tier?: number
+  tierlist_item_id: number;
+  predicted_tier: number;
+  points_for_item?: number;
+  correct_tier?: number;
 }
 
 //OPTIMIZABLE create code sections for tier-list (largest logic file)
@@ -37,162 +38,181 @@ export interface Prediction {
     trigger('shrink', [
       state('initial', style({ transform: 'scaleX(100%)' })),
       state('shrink', style({ transform: 'scaleX(0%)' })),
-      transition('initial => shrink', [animate('0.4s 0.1s ease-in')])
+      transition('initial => shrink', [animate('0.4s 0.1s ease-in')]),
     ]),
     trigger('slideInFromLeft', [
       transition(':enter', [
         style({ transform: 'translateX(-15rem)' }),
-        animate('0.25s ease-out', style({ transform: 'translateX(0)' }))
-      ])
+        animate('0.25s ease-out', style({ transform: 'translateX(0)' })),
+      ]),
     ]),
     trigger('slideInFromRight', [
       transition(':enter', [
         style({ transform: 'translateX(15rem)' }),
-        animate('0.25s ease-out', style({ transform: 'translateX(0)' }))
-      ])
+        animate('0.25s ease-out', style({ transform: 'translateX(0)' })),
+      ]),
     ]),
     trigger('scaleOut', [
       transition(':leave', [
-        style({ }),
-        animate('0.3s ease-in', style({ height: '0', transform: 'scale(0)' }))
-      ])
+        style({}),
+        animate('0.3s ease-in', style({ height: '0', transform: 'scale(0)' })),
+      ]),
     ]),
     trigger('scaleIn', [
       transition(':enter', [
         style({ transform: 'scale(0.3)', opacity: 0.4 }),
-        animate('0.3s ease-in', style({ transform: 'scale(1)', opacity: 1 }))
-      ])
+        animate('0.3s ease-in', style({ transform: 'scale(1)', opacity: 1 })),
+      ]),
     ]),
     trigger('coinsAnimation', [
       transition('* <=> *', [
-        query(':enter', [
-          style({ opacity: 0, transform: 'translateX(200px)' }),
-          stagger('100ms', 
-            animate('701ms 200ms ease-out', 
-              style({ opacity: 1, transform: '' })
-            )
-          )
-        ], { optional: true })
-      ])
+        query(
+          ':enter',
+          [
+            style({ opacity: 0, transform: 'translateX(200px)' }),
+            stagger(
+              '100ms',
+              animate(
+                '701ms 200ms ease-out',
+                style({ opacity: 1, transform: '' })
+              )
+            ),
+          ],
+          { optional: true }
+        ),
+      ]),
     ]),
     trigger('rotateScaleIn', [
       transition(':enter', [
         style({ transform: 'rotateX(80deg)', opacity: 0 }),
-        animate('0.5s 1s cubic-bezier(0.250, 0.460, 0.450, 0.940)', style({ transform: 'rotateX(0)', opacity: 1 }))
-      ])
+        animate(
+          '0.5s 1s cubic-bezier(0.250, 0.460, 0.450, 0.940)',
+          style({ transform: 'rotateX(0)', opacity: 1 })
+        ),
+      ]),
     ]),
     trigger('progressBarAnimation', [
       state('false', style({ opacity: 0 })),
       transition('* => true', [
         sequence([
-          animate('0.3s ease-out', style({ opacity: 1})),
-          query('@fillPosition, @markerPosition', animateChild())
-        ])
-      ])
+          animate('0.3s ease-out', style({ opacity: 1 })),
+          query('@fillPosition, @markerPosition', animateChild()),
+        ]),
+      ]),
     ]),
     // TODO add paramater to loadanimation
     trigger('fillPosition', [
       transition('* => true', [
-        style({ transform: 'scaleX(0%)'}),
-        animate('0.8s ease-in-out', style({ transform: 'scaleX(100%)'}))
-      ])
+        style({ transform: 'scaleX(0%)' }),
+        animate('0.8s ease-in-out', style({ transform: 'scaleX(100%)' })),
+      ]),
     ]),
     trigger('markerPosition', [
-      state('true', style({ left: '56%'})),
+      state('true', style({ left: '56%' })),
       transition('* => true', [
         style({ left: '0%' }),
-        animate('0.8s ease-in-out', style({ left: '56%' }))
-      ])
+        animate('0.8s ease-in-out', style({ left: '56%' })),
+      ]),
     ]),
     trigger('fadeIn', [
       state('false', style({ opacity: 0 })),
       transition('* => true', [
         style({ opacity: 0 }),
-        animate('0.3s 0.5s ease-out', style({ opacity: 1 }))
-      ])
-    ])
-  ]
+        animate('0.3s 0.5s ease-out', style({ opacity: 1 })),
+      ]),
+    ]),
+  ],
 })
 export class TierListComponent implements OnChanges {
-  changeDetector = inject(ChangeDetectorRef)
-  _httpService = inject(HttpService)
-  _activeRoute = inject(ActivatedRoute)
-  router = inject(Router)
+  changeDetector = inject(ChangeDetectorRef);
+  _httpService = inject(HttpService);
+  _activeRoute = inject(ActivatedRoute);
+  router = inject(Router);
+  _userDataService = inject(UserDataService)
 
-  @Input() isDailyTierlist: boolean = false
-  @Input() tierlistItems: TierListItem[] = []
-  dailyTierlist?: TierList
-  @Output() tierlistTitle = new EventEmitter
+  @Input() isDailyTierlist: boolean = false;
+  @Input() tierlistItems: TierListItem[] = [];
+  dailyTierlist?: TierList;
+  @Output() tierlistTitle = new EventEmitter();
+  @Output() completeTierlist = new EventEmitter()
 
   ngOnInit() {
-    if(this.isDailyTierlist) {
+    if (this.isDailyTierlist) {
       //OPTIMIZABLE if we would do a single HTTP call instead of two
       this._httpService.fetchDailyTierlist().subscribe((res: any) => {
         if (res.length == 0) {
-          this.router.navigate(['unauthorized/400'])
+          this.router.navigate(['unauthorized/400']);
         } else {
-          this.dailyTierlist = res[0] as TierList
-          this.tierlistTitle.emit(res[0].name)
+          this.dailyTierlist = res[0] as TierList;
+          this.tierlistTitle.emit(res[0].name);
           this._httpService.fetchTierlist(res[0].id).subscribe((res: any) => {
-            this.tierlistItems = res as TierListItem[]
-            this.calcRows()
-          })
+            this.tierlistItems = res as TierListItem[];
+            this.calcRows();
+          });
         }
-      })
+      });
     }
   }
 
-  numOfRows?: number
+  numOfRows?: number;
 
   calcRows() {
-    this.numOfRows = this.tierlistItems.length <= 5 ? 3 : this.tierlistItems.length <= 8 ? 5 : 7
-      preloadImages(this.tierlistItems.map(item => item.file_path), this.loadData)
+    this.numOfRows =
+      this.tierlistItems.length <= 5
+        ? 3
+        : this.tierlistItems.length <= 8
+          ? 5
+          : 7;
+    preloadImages(
+      this.tierlistItems.map((item) => item.file_path),
+      this.loadData
+    );
   }
 
   ngOnChanges() {
     if (!this.numOfRows && this.tierlistItems.length != 0) {
-      this.calcRows()
+      this.calcRows();
     }
   }
 
   array(n: number) {
-    return Array(n)
+    return Array(n);
   }
 
   loadData = {
     areImagesLoaded: false,
-    numOfLoaded: 0
-  }
+    numOfLoaded: 0,
+  };
 
-  placedAll = false
-  finished = false
+  placedAll = false;
+  finished = false;
 
   getPrediction() {
-    const prediction: Prediction[] = []
+    const prediction: Prediction[] = [];
 
     this.tierData.forEach((row, i) => {
       row.forEach((item, j) => {
         if (item) {
           prediction.push({
             tierlist_item_id: item.id,
-            predicted_tier: i
-          })
+            predicted_tier: i,
+          });
         }
       });
     });
-    
-    return prediction
+
+    return prediction;
   }
 
-  @ViewChild ('coinscontainer', { static: false }) coinsContainer?: ElementRef
+  @ViewChild('coinscontainer', { static: false }) coinsContainer?: ElementRef;
 
-  coinsWidth = '268px'
+  coinsWidth = '268px';
   coins: number[] = [];
-  showCoins = false
-  numOfPoints: number = 0
+  showCoins = false;
+  numOfPoints: number = 0;
 
   changeCoinsWidth(coins: number) {
-    this.coinsWidth = 67 + (coins - 1) * 33.5 + 'px'
+    this.coinsWidth = 67 + (coins - 1) * 33.5 + 'px';
   }
 
   calculateMarkerColor(pointsReceived: number): MarkerColor {
@@ -201,158 +221,200 @@ export class TierListComponent implements OnChanges {
         case 3:
           switch (pointsReceived) {
             case 0:
-              return MarkerColor.red
+              return MarkerColor.red;
             case 1:
-              return MarkerColor.yellow
+              return MarkerColor.yellow;
             case 2:
-              return MarkerColor.perfect
+              return MarkerColor.perfect;
             default:
-              return MarkerColor.red
+              return MarkerColor.red;
           }
         case 5:
           switch (pointsReceived) {
             case 0:
-              return MarkerColor.red
+              return MarkerColor.red;
             case 1:
-              return MarkerColor.yellow
+              return MarkerColor.yellow;
             case 2:
-              return MarkerColor.green
+              return MarkerColor.green;
             case 3:
-              return MarkerColor.perfect
+              return MarkerColor.perfect;
             default:
-              return MarkerColor.red
+              return MarkerColor.red;
           }
         case 7:
           switch (pointsReceived) {
             case 1:
-              return MarkerColor.red
+              return MarkerColor.red;
             case 2:
-              return MarkerColor.yellow
+              return MarkerColor.yellow;
             case 3:
-              return MarkerColor.green
+              return MarkerColor.green;
             case 4:
-              return MarkerColor.perfect
+              return MarkerColor.perfect;
             default:
-              return MarkerColor.red
+              return MarkerColor.red;
           }
         default:
-          return MarkerColor.red
+          return MarkerColor.red;
       }
     } else {
-      return MarkerColor.red
+      return MarkerColor.red;
     }
   }
 
   finish() {
-    this.finished = true
-    this.changeDetector.detectChanges()
-    const predictionData = this.getPrediction()
-    const topicID = this.isDailyTierlist ? this.dailyTierlist?.topic_ID : this._activeRoute.snapshot.paramMap.get('topicID')
+    this.finished = true;
+    this.changeDetector.detectChanges();
+    const predictionData = this.getPrediction();
+    const topicID = this.isDailyTierlist
+      ? this.dailyTierlist?.topic_ID
+      : this._activeRoute.snapshot.paramMap.get('topicID');
     if (topicID) {
-      this._httpService.calculatePoints(Number(topicID), this.tierlistItems[0].tierlist_ID, predictionData).subscribe((res: any) => {
-        if (this.numOfRows) {
-          res.predictions.forEach((prediction: Prediction) => {
-            for (let i = 0; i < this.tierData.length; i++) {
-              for (let j = 0; j < this.tierData[i].length; j++) {
-                if (this.tierData[i][j].id == prediction.tierlist_item_id) {
-                  if (prediction.points_for_item != undefined && prediction.correct_tier != undefined) {
-                    this.tierData[i][j].result_marker_color = this.calculateMarkerColor(prediction.points_for_item)
-                    this.tierData[i][j].flip_marker = prediction.correct_tier < prediction.predicted_tier
+      this._httpService
+        .calculatePoints(
+          Number(topicID),
+          this.tierlistItems[0].tierlist_ID,
+          predictionData
+        )
+        .subscribe((res: any) => {
+          if (this.numOfRows) {
+            res.predictions.forEach((prediction: Prediction) => {
+              for (let i = 0; i < this.tierData.length; i++) {
+                for (let j = 0; j < this.tierData[i].length; j++) {
+                  if (this.tierData[i][j].id == prediction.tierlist_item_id) {
+                    if (
+                      prediction.points_for_item != undefined &&
+                      prediction.correct_tier != undefined
+                    ) {
+                      this.tierData[i][j].result_marker_color =
+                        this.calculateMarkerColor(prediction.points_for_item);
+                      this.tierData[i][j].flip_marker =
+                        prediction.correct_tier < prediction.predicted_tier;
+                    }
                   }
                 }
               }
+            })
+            this.numOfPoints = res.points;
+            this._httpService.getUserData().subscribe((res: any) => this._userDataService.userData = res.data)
+            const maxPoint =
+              (this.numOfRows == 3 ? 2 : this.numOfRows == 5 ? 3 : 4) *
+              this.tierlistItems.length;
+            const numOfCoins = Math.round((this.numOfPoints / maxPoint) * 7);
+            this.coins = Array.from({ length: numOfCoins + 1 }, (_, i) => i);
+            this.changeCoinsWidth(numOfCoins + 1);
+            this.showCoins = true;
+            if (this.coinsContainer) {
+              setTimeout(() => {
+                if (this.coinsContainer) {
+                  this.coinsContainer.nativeElement.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'end',
+                  });
+                }
+              }, 50);
             }
-          })
-          this.numOfPoints = res.points
-          const maxPoint = (this.numOfRows == 3 ? 2 : this.numOfRows == 5 ? 3 : 4) * this.tierlistItems.length
-          const numOfCoins = Math.round( (this.numOfPoints / maxPoint) * 7 )
-          this.coins = Array.from({ length: numOfCoins + 1 }, (_, i) => i);
-          this.changeCoinsWidth(numOfCoins + 1)
-          this.showCoins = true
-          if (this.coinsContainer) {
-            setTimeout(() => {
-              if (this.coinsContainer) {
-                this.coinsContainer.nativeElement.scrollIntoView({ behavior: "smooth", block: "end" });
-              }
-            }, 50)
           }
-        }
-      })
+        });
     }
   }
 
-  maxItems?: number
+  maxItems?: number;
 
-  calculateMaxItems(rowWidth: number, rowId: number) {
+  calculateMaxItems(rowWidth: number) {
     if (!this.maxItems) {
-      this.maxItems = Math.floor(rowWidth / 104)
+      this.maxItems = Math.floor(rowWidth / 104);
     }
   }
 
   getTooltip(rowIndex: number, index: number) {
-    const tooltip = this.tierlistItems.find(el => el.file_path == this.tierData[rowIndex][index].file_path)
+    const tooltip = this.tierlistItems.find(
+      (el) => el.file_path == this.tierData[rowIndex][index].file_path
+    );
     if (tooltip) {
-      return tooltip.name
+      return tooltip.name;
     } else {
-      return 'Item'
+      return 'Item';
     }
   }
 
-  currentItem = 0
-  currentPlaceholder = 0
+  currentItem = 0;
+  currentPlaceholder = 0;
 
-  tiers = ['S', 'A', 'B', 'C', 'D', 'E', 'F']
-  backgroundColors = ['#FF3131', '#FF7518', '#FFBF00', '#32CD32', '#00FFFF', '#1F51FF', '#DA70D6']
+  tiers = ['S', 'A', 'B', 'C', 'D', 'E', 'F'];
+  backgroundColors = [
+    '#FF3131',
+    '#FF7518',
+    '#FFBF00',
+    '#32CD32',
+    '#00FFFF',
+    '#1F51FF',
+    '#DA70D6',
+  ];
 
-  tierData: TierListItem[][] = Array.from({ length: 7 }, () => [])
+  tierData: TierListItem[][] = Array.from({ length: 7 }, () => []);
 
   draggedFromRow?: number;
   draggedIndex?: number;
 
   onDragStart(rowIndex: number, index: number) {
-    this.draggedFromRow = rowIndex
+    this.draggedFromRow = rowIndex;
     this.draggedIndex = index;
-    this.currentPlaceholder = this.tierlistItems.findIndex(item => item.file_path == this.tierData[rowIndex][index].file_path)
+    this.currentPlaceholder = this.tierlistItems.findIndex(
+      (item) => item.file_path == this.tierData[rowIndex][index].file_path
+    );
   }
 
-  showFiller: string[] = ['block', 'block', 'block', 'block', 'block', 'block', 'block']
+  showFiller: string[] = [
+    'block',
+    'block',
+    'block',
+    'block',
+    'block',
+    'block',
+    'block',
+  ];
 
   onDrop(e: DndDropEvent, rowIndex: number) {
     if (e.index != undefined) {
       if (e.type == 'import') {
-        this.tierData[rowIndex].splice(e.index, 0, e.data)
-        this.nextUp()
+        this.tierData[rowIndex].splice(e.index, 0, e.data);
+        this.nextUp();
       } else {
         if (this.currentItem != this.currentPlaceholder) {
-          this.currentPlaceholder = this.currentItem
+          this.currentPlaceholder = this.currentItem;
         }
-        if (this.draggedFromRow != undefined && this.draggedIndex != undefined) {
-          this.tierData[this.draggedFromRow].splice(this.draggedIndex, 1)
-          this.tierData[rowIndex].splice(e.index, 0, e.data)
+        if (
+          this.draggedFromRow != undefined &&
+          this.draggedIndex != undefined
+        ) {
+          this.tierData[this.draggedFromRow].splice(this.draggedIndex, 1);
+          this.tierData[rowIndex].splice(e.index, 0, e.data);
         }
       }
-      this.calcShowFiller()
+      this.calcShowFiller();
     }
     if (this.draggedFromRow != undefined) {
-      this.draggedFromRow = undefined
+      this.draggedFromRow = undefined;
     }
   }
 
   nextUp() {
     if (this.currentItem == this.tierlistItems.length - 1) {
-      this.placedAll = true
+      this.placedAll = true;
     } else {
-      this.currentItem += 1
-      this.currentPlaceholder += 1
+      this.currentItem += 1;
+      this.currentPlaceholder += 1;
     }
   }
 
   calcShowFiller() {
     for (let i = 0; i < this.showFiller.length; i++) {
       if (this.tierData[i].length % 4 == 0 && this.tierData[i].length != 0) {
-        this.showFiller[i] = 'none'
+        this.showFiller[i] = 'none';
       } else {
-        this.showFiller[i] = 'block'
+        this.showFiller[i] = 'block';
       }
     }
   }
@@ -363,35 +425,43 @@ export class TierListComponent implements OnChanges {
 
   playRandomLevel() {
     this._httpService.fetchRandomTierlist().subscribe((res: any) => {
-      this.router.navigateByUrl('/', {skipLocationChange: true})
-      .then(()=>this.router.navigate(['/topics/' + res.topic_ID + '/tierlists/' + res.id, { title: res.name }], { onSameUrlNavigation: 'reload' }));
-    })
+      this.router
+        .navigateByUrl('/', { skipLocationChange: true })
+        .then(() =>
+          this.router.navigate(
+            [
+              '/topics/' + res.topic_ID + '/tierlists/' + res.id,
+              { title: res.name },
+            ],
+            { onSameUrlNavigation: 'reload' }
+          )
+        );
+    });
   }
 
   //#region End Animations
-  animateProgressbar = false
-  showText1 = false
-  showText2 = false
-  showToTopButton = false
-
+  animateProgressbar = false;
+  showText1 = false;
+  showText2 = false;
+  showToTopButton = false;
 
   //OPTIMIZABLE tierlist submit animations can be unified easily
   startAnimatingProgressbar(e: any) {
-    this.animateProgressbar = true
+    this.animateProgressbar = true;
   }
   startAnimatingText1(e: any) {
     if (e.toState == true) {
-      this.showText1 = true
+      this.showText1 = true;
     }
   }
   startAnimatingText2(e: any) {
     if (e.toState == true) {
-      this.showText2 = true
+      this.showText2 = true;
     }
   }
   startAnimatingToTopButton(e: any) {
     if (e.toState == true) {
-      this.showToTopButton = true
+      this.showToTopButton = true;
     }
   }
   //#endregion

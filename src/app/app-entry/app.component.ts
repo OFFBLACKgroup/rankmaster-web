@@ -1,12 +1,12 @@
 import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { BeforeLaunchComponent } from './routes/before-launch/before-launch.component';
-import { HeaderComponent } from './components/header/header.component';
+import { BeforeLaunchComponent } from '../routes/before-launch/before-launch.component';
+import { HeaderComponent } from '../components/header/header.component';
 import { animate, animateChild, keyframes, query, stagger, state, style, transition, trigger } from '@angular/animations';
-import { LoginFormComponent } from './components/login-form/login-form.component';
-import { HowToComponent } from './components/how-to/how-to.component';
-import { PricingModalComponent } from './components/pricing-modal/pricing-modal.component';
-import { ModalControllerService } from './services/modalController/modal-controller.service';
+import { LoginFormComponent } from '../components/login-form/login-form.component';
+import { HowToComponent } from '../components/how-to/how-to.component';
+import { PricingModalComponent } from '../components/pricing-modal/pricing-modal.component';
+import { ModalControllerService } from '../services/modalController/modal-controller.service';
 
 @Component({
   selector: 'app-root',
