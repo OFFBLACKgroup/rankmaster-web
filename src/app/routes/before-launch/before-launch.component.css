@@ -1,7 +1,7 @@
 main {
   max-width: 1024px;
   width: 100%;
-  min-height: calc(100vh - clamp(3.75rem, 2.75rem + 5vw, 8.75rem));
+  min-height: calc(100vh - 8rem);
   height: max-content;
   display: flex;
   align-items: center;
@@ -36,5 +36,11 @@ app-login-form {
   main {
     flex-direction: column;
     padding-bottom: 3rem;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  main {
+    min-height: calc(100vh - 4rem);
   }
 }

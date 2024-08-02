@@ -1,5 +1,7 @@
 :host {
   position: absolute;
+  max-width: calc(100% - 1rem);
+  width: max-content;
   top: 50vh;
   left: 50%;
   counter-reset: li;
@@ -130,3 +132,40 @@ ul.tier-names {
   font: 3.03125rem 'Roboto Slab'
 }
 
+@media screen and (max-width: 1024px) {
+  li h3 {
+    font-size: 1.25rem;
+    margin-right: 1rem;
+  }
+
+  .tier-names li {
+    width: 3.9375rem;
+    height: 3rem;
+    font-size: 2.4375rem;
+  }
+}
+
+@media screen and (max-width: 432px) {
+  h2 {
+    font-size: 1.9531rem;
+  }
+
+  li h3 {
+    font-size: 1rem;
+  }
+
+  .container {
+    width: 17.5rem;
+  }
+
+  ul.tier-names {
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+  }
+
+  .tier-names li {
+    width: 3.375rem;
+    height: 2.5rem;
+    font-size: 1.5625rem;
+  }
+}

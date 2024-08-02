@@ -134,7 +134,8 @@ nav.mobile-nav-modal {
   }
 
   button.mobile-navigation {
-    display: block
+    display: flex;
+    align-items: center;
   }
 
   nav.mobile-nav-modal {
