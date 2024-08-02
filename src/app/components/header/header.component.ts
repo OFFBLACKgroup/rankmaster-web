@@ -1,11 +1,11 @@
 import { animate, animateChild, query, state, style, transition, trigger } from '@angular/animations';
 import { Component, inject } from '@angular/core';
-import { ActivatedRoute, NavigationEnd, NavigationStart, Router, RouterLink } from '@angular/router';
+import { NavigationEnd, NavigationStart, Router, RouterLink } from '@angular/router';
 import { ModalControllerService, ModalType } from '../../services/modalController/modal-controller.service';
 import { FeedbackComponent } from './feedback/feedback.component';
 import { Location } from '@angular/common';
 
-// TODO Make header stay on top or at least the navigation
+// FOCUS Make header stay on top or at least the navigation
 
 @Component({
   selector: 'app-header',
@@ -156,6 +156,7 @@ export class HeaderComponent {
 
   goBack(event: Event) {
     event.preventDefault()
+    if (!this.showButtons) return
     if (this.history.at(-2) == '/') {
       return
     }

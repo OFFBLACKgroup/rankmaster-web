@@ -25,6 +25,12 @@ nav {
   overflow: hidden;
 }
 
+nav.navigation {
+  position: fixed;
+  top: 2rem;
+  z-index: 1000;
+}
+
 nav a {
   display: flex;
   align-content: center;
@@ -56,10 +62,12 @@ nav .buttons-container {
 }
 
 section.modal-buttons {
-  margin: auto;
+  width: calc(100% - 7.75rem);
+  padding-left: 28rem;
   display: flex;
   gap: 5rem;
   align-items: center;
+  justify-content: center;
 }
 
 .modal-buttons button {
@@ -183,6 +191,10 @@ nav.mobile-nav-modal {
     margin-left: 1rem;
     padding: 0;
     border-radius: 0;
+  }
+
+  nav.navigation {
+    position: static;
   }
 
   nav a:first-child {

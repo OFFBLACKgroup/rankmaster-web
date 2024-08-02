@@ -8,7 +8,7 @@
     </a>
     <div [@buttonState]="showButtons ? 'show' : 'hide'" class="buttons-container">
       <a aria-label="Navigate back" (click)="goBack($event)">
-        <img [style.cursor]="isBackButtonEnabled ? 'pointer' : 'auto'" [style.opacity]="isBackButtonEnabled ? '1' : '0.35'" src="../../../assets/arrow-right.svg" alt="Left arrow">
+        <img [style.cursor]="isBackButtonEnabled && showButtons ? 'pointer' : 'auto'" [style.opacity]="isBackButtonEnabled ? '1' : '0.35'" src="../../../assets/arrow-right.svg" alt="Left arrow">
       </a>
       <!-- <a (click)="goForward($event)">
         <img src="../../../assets/arrow-right.svg" alt="Right arrow">

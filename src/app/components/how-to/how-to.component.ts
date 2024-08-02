@@ -2,7 +2,6 @@ import { animate, animateChild, query, state, style, transition, trigger } from 
 import { ChangeDetectorRef, Component, ElementRef, HostBinding, ViewChild, inject } from '@angular/core';
 import { ModalControllerService, ModalType } from '../../services/modalController/modal-controller.service';
 
-// TODO Make How-To responsive (468-320) 
 @Component({
   selector: 'app-how-to',
   standalone: true,
