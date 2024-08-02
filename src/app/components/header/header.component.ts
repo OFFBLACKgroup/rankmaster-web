@@ -5,7 +5,7 @@ import { ModalControllerService, ModalType } from '../../services/modalControlle
 import { FeedbackComponent } from './feedback/feedback.component';
 import { Location } from '@angular/common';
 
-// FOCUS Make header stay on top or at least the navigation
+// MAYBE Header mobile-nav button, user settings button stay on top
 
 @Component({
   selector: 'app-header',

@@ -7,6 +7,7 @@
 section {
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 
 h1 {
@@ -118,4 +119,36 @@ a::after {
   background: #F50001;
   border-radius: 0.75rem 1.5rem 0.75rem 1.25rem;
   transform: translate(5px, 7.5px) translateZ(-1px);
+}
+
+@media screen and (max-width: 768px) {
+  h1 {
+    font-size: 1.9531rem;
+  }
+
+  .texts {
+    display: flex;
+    justify-content: center;
+    max-width: calc(100vw - 1rem);
+    margin: auto;
+  }
+  
+  p.text-1, p.text-2 {
+    font-size: 1.25rem;
+    width: max-content;
+  }
+
+  div.divider, .question-text, div.arrow-down {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 432px) {
+  h1 {
+    font-size: 1.5625rem;
+  }
+
+  p.text-1, p.text-2 {
+    font-size: 1rem;
+  }
 }

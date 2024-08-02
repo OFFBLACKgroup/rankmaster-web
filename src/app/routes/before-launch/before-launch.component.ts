@@ -5,7 +5,6 @@ import { LoginFormComponent } from '../../components/login-form/login-form.compo
 import { PlayInvitationComponent } from './components/play-invitation/play-invitation.component';
 
 
-// TODO scalability issue
 @Component({
   selector: 'app-before-launch',
   standalone: true,

@@ -1,5 +1,9 @@
-.example-slider .slider {
+:host {
   width: 100%;
+  max-width: 100vw;
+}
+
+.example-slider .slider {
   height: max-content;
   max-height: calc(100% - 3.25rem);
   list-style: none;
