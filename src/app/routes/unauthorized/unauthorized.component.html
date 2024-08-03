@@ -1,5 +1,5 @@
 <main>
-  <div [style.filter]="showLogin || showPricing ? 'blur(0.5rem)' : ''">
+  <div [style.filter]="showingModal ? 'blur(0.5rem)' : ''">
     <img src="../../assets/error.svg" alt="">
     <section>
       <h2>{{ errorText[0] }}<br>{{ errorText[1] }}</h2>

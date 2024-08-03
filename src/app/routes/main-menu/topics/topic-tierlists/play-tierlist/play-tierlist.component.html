@@ -1,2 +1,4 @@
-<app-headline [title]="title || 'Tier List'"></app-headline>
+@if (title) {
+  <app-headline @fadeIn [title]="title"></app-headline>
+}
 <app-tier-list [tierlistItems]="tierlistItems" ></app-tier-list>

@@ -1,14 +1,15 @@
 import { animate, animateChild, keyframes, query, style, transition, trigger } from '@angular/animations';
-import { CUSTOM_ELEMENTS_SCHEMA, Component } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, Component, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { RouterLink } from '@angular/router';
 import { LoginFormComponent } from '../../components/login-form/login-form.component';
 import { PricingModalComponent } from '../../components/pricing-modal/pricing-modal.component';
+import { ModalControllerService, ModalType } from '../../services/modalController/modal-controller.service';
 
 @Component({
   selector: 'app-unauthorized',
   standalone: true,
-  imports: [RouterLink, LoginFormComponent, PricingModalComponent],
+  imports: [RouterLink],
   templateUrl: './unauthorized.component.html',
   styleUrl: './unauthorized.component.css',
   animations: [
@@ -33,7 +34,8 @@ import { PricingModalComponent } from '../../components/pricing-modal/pricing-mo
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class UnauthorizedComponent {
-  constructor(private route: ActivatedRoute) { }
+  route = inject(ActivatedRoute)
+  modalController = inject(ModalControllerService)
 
   routeId?: string | null
 
@@ -42,9 +44,7 @@ export class UnauthorizedComponent {
   buttonText = 'Return'
   buttonUppercase = true
   linkTo = ''
-  showLogin = false
-  showPricing = false
-  hideAnimation = false
+  showingModal = false
 
   ngOnInit() {
     this.routeId = this.route.snapshot.paramMap.get('id');
@@ -55,13 +55,11 @@ export class UnauthorizedComponent {
           this.buttonText = 'Log In'
           this.buttonUppercase = false
           this.navigation = false
-          this.clickFunction = this.showLoginModal
           break
         case '403':
           this.errorText = ['Sorry, you do not have', 'access to this page...']
           this.buttonText = 'Go Premium'
           this.navigation = false
-          this.clickFunction = this.showPricingModal
           break
       } 
     }
@@ -69,26 +67,9 @@ export class UnauthorizedComponent {
 
   clickFunction() {
     if (this.routeId == '401') {
-      this.showLoginModal()
+      this.modalController.showModal(ModalType.login_ON)
     } else if (this.routeId == '403') {
-      this.showPricingModal()
+      this.modalController.showModal(ModalType.pricing_ON)
     }
-    this.hideAnimation = true
-  }
-
-  hideLoginModal() {
-    this.showLogin = false
-  }
-
-  showLoginModal() {
-    this.showLogin = true
-  }
-
-  hidePricingModal() {
-    this.showPricing = false
-  }
-
-  showPricingModal() {
-    this.showPricing = true
   }
 }

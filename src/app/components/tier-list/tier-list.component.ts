@@ -26,9 +26,25 @@ export interface Prediction {
 
 //OPTIMIZABLE create code sections for tier-list (largest logic file)
 //BUG there is a bug with coins having to jump from end of animation to their final position
-//TINY tierlist title flashes when not yet loaded
 //TODO connect animations to leaderboard data
 //BUG To top button flashes for a second
+
+//TODO implement leaderboard / Make it REALTIME
+  //TINY collect user icons
+  //TINY leaderboard appear animation
+  //TODO allow users to select icons
+//TODO add footer / Attribution / Legals
+//TODO create long landing
+//TODO change user menu after login
+//TINY update socials
+//TODO Hardcore test payment subscription flow
+//TODO daily challenge should disappear once completed
+
+//TODO prompt anon users to sign up
+//TODO prompt users to buy premium
+
+//FOCUS on unauthorized logo should lead home
+
 @Component({
   selector: 'app-tier-list',
   standalone: true,
@@ -101,7 +117,6 @@ export interface Prediction {
         ]),
       ]),
     ]),
-    // TODO add paramater to loadanimation
     trigger('fillPosition', [
       transition('* => true', [
         style({ transform: 'scaleX(0%)' }),

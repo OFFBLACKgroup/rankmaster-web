@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { TierlistManagerService } from '../../../../../services/tierlistManager/tierlist-manager.service';
 import { Subscription } from 'rxjs';
 import { TierListComponent, MarkerColor } from '../../../../../components/tier-list/tier-list.component';
+import { animate, style, transition, trigger } from '@angular/animations';
 
 export interface TierListItem {
   id: number,
@@ -23,7 +24,15 @@ export interface TierListItem {
   standalone: true,
   imports: [HeadlineComponent, TierListComponent],
   templateUrl: './play-tierlist.component.html',
-  styleUrl: './play-tierlist.component.css'
+  styleUrl: './play-tierlist.component.css',
+  animations: [
+    trigger('fadeIn', [
+      transition(':enter', [
+        style({ opacity: 0 }),
+        animate(500, style({ opacity: 1 }))
+      ])
+    ])
+  ]
 })
 export class PlayTierlistComponent {
   constructor(
@@ -33,7 +42,7 @@ export class PlayTierlistComponent {
 
   private sub: Subscription | any
   id: string | any
-  title: string | null = 'Tier List'
+  title: string | null = null
 
   ngOnInit(): void {
     this.sub = this._route.params.subscribe(params => {
