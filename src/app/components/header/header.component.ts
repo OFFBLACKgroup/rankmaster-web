@@ -68,6 +68,8 @@ export class HeaderComponent {
 
   isBackButtonEnabled = false
 
+  //MAYBE have to optimize on back button functionality at unauthorized
+
   ngOnInit() {
     this.router.events.subscribe(event => {
       if (event instanceof NavigationStart) {
@@ -89,6 +91,13 @@ export class HeaderComponent {
         if (event.url == '/') {
           if (this.showButtons == true) {
             this.showButtons = false
+          }
+          if (this.homeLink != '') {
+            this.homeLink = ''
+          }
+        } else if (event.url == '/unauthorized/403' || event.url == '/unauthorized/401') {
+          if (this.showButtons == false) {
+            this.showButtons = true
           }
           if (this.homeLink != '') {
             this.homeLink = ''
