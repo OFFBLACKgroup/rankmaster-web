@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { HeadlineComponent } from '../../../../components/headline/headline.component';
-import { HttpService } from '../../../../services/http-service.service';
+import { TierlistManagerService } from '../../../../services/tierlistManager/tierlist-manager.service';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { animate, style, transition, trigger } from '@angular/animations';
-import { UserDataService } from '../../../../services/userData/user-data.service';
+import { UserManagerService } from '../../../../services/userManager/user-manager.service';
 
 export interface TierList {
   created_at: Date,
@@ -42,12 +42,12 @@ export interface CompletedTierlist {
 export class TopicTierlistsComponent implements OnInit {
   constructor(
     private _route: ActivatedRoute,
-    private _httpService: HttpService,
-    private _userDataService: UserDataService
+    private tierlistManager: TierlistManagerService,
+    private _userManager: UserManagerService
   ) 
   { 
-    this.isPremiumUser = this._userDataService.isPremiumUser
-    this.completedTierlists = this._userDataService.userData as CompletedTierlist[]
+    this.isPremiumUser = this._userManager.isPremiumUser
+    this.completedTierlists = this._userManager.userData as CompletedTierlist[]
   }
 
   completedTierlists
@@ -61,7 +61,7 @@ export class TopicTierlistsComponent implements OnInit {
     this.sub = this._route.params.subscribe(params => {
       this.id = params['id'];
 
-      this._httpService.fetchTopic(Number(params['id'])).subscribe(res=> {
+      this.tierlistManager.fetchTopic(Number(params['id'])).subscribe(res=> {
         this.topicTierlists = res as TierList[]
         this.topicTierlists.map((tierlist) => {
           this.completedTierlists.forEach((el) => {
@@ -71,7 +71,7 @@ export class TopicTierlistsComponent implements OnInit {
             }
           })
         })
-        this._userDataService.getCurrentPremiumTierlists(this.topicTierlists)
+        this._userManager.getCurrentPremiumTierlists(this.topicTierlists)
         this.topicTierlists.sort(this.compareFn)
       });
     });
@@ -79,7 +79,7 @@ export class TopicTierlistsComponent implements OnInit {
   
 
   compareFn = (a: TierList, b: TierList) => {
-    if (this._userDataService.isPremiumUser) {
+    if (this._userManager.isPremiumUser) {
       return a.tierlist_items[0].count - b.tierlist_items[0].count
     } else {
       if (a.is_premium && !b.is_premium) {

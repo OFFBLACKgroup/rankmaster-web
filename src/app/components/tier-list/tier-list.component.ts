@@ -5,10 +5,10 @@ import { TierListItem } from '../../routes/main-menu/topics/topic-tierlists/play
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { preloadImages } from '../../routes/main-menu/topics/topics.component';
-import { HttpService } from '../../services/http-service.service';
+import { TierlistManagerService } from '../../services/tierlistManager/tierlist-manager.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TierList } from '../../routes/main-menu/topics/topic-tierlists/topic-tierlists.component';
-import { UserDataService } from '../../services/userData/user-data.service';
+import { UserManagerService } from '../../services/userManager/user-manager.service';
 
 export enum MarkerColor {
   red = 'red',
@@ -28,6 +28,7 @@ export interface Prediction {
 //BUG there is a bug with coins having to jump from end of animation to their final position
 //TINY tierlist title flashes when not yet loaded
 //TODO connect animations to leaderboard data
+//BUG To top button flashes for a second
 @Component({
   selector: 'app-tier-list',
   standalone: true,
@@ -125,10 +126,10 @@ export interface Prediction {
 })
 export class TierListComponent implements OnChanges {
   changeDetector = inject(ChangeDetectorRef);
-  _httpService = inject(HttpService);
+  tierlistManager = inject(TierlistManagerService);
+  _userManager = inject(UserManagerService);
   _activeRoute = inject(ActivatedRoute);
   router = inject(Router);
-  _userDataService = inject(UserDataService)
 
   @Input() isDailyTierlist: boolean = false;
   @Input() tierlistItems: TierListItem[] = [];
@@ -139,13 +140,13 @@ export class TierListComponent implements OnChanges {
   ngOnInit() {
     if (this.isDailyTierlist) {
       //OPTIMIZABLE if we would do a single HTTP call instead of two
-      this._httpService.fetchDailyTierlist().subscribe((res: any) => {
+      this.tierlistManager.fetchDailyTierlist().subscribe((res: any) => {
         if (res.length == 0) {
           this.router.navigate(['unauthorized/400']);
         } else {
           this.dailyTierlist = res[0] as TierList;
           this.tierlistTitle.emit(res[0].name);
-          this._httpService.fetchTierlist(res[0].id).subscribe((res: any) => {
+          this.tierlistManager.fetchTierlist(res[0].id).subscribe((res: any) => {
             this.tierlistItems = res as TierListItem[];
             this.calcRows();
           });
@@ -271,7 +272,7 @@ export class TierListComponent implements OnChanges {
       ? this.dailyTierlist?.topic_ID
       : this._activeRoute.snapshot.paramMap.get('topicID');
     if (topicID) {
-      this._httpService
+      this.tierlistManager
         .calculatePoints(
           Number(topicID),
           this.tierlistItems[0].tierlist_ID,
@@ -297,10 +298,10 @@ export class TierListComponent implements OnChanges {
               }
             })
             this.numOfPoints = res.points;
-            if (!this._userDataService.isAnonymousUser) {
-              this._httpService.getUserData().subscribe((res: any) => this._userDataService.userData = res.data)
+            if (!this._userManager.isAnonymousUser) {
+              this._userManager.getUserData().subscribe((res: any) => this._userManager.userData = res.data)
             } else {
-              this._userDataService.userData.push({ tierlist_ID: this.tierlistItems[0].tierlist_ID, collected_points: res.points, topic_ID: Number(topicID) })
+              this._userManager.userData.push({ tierlist_ID: this.tierlistItems[0].tierlist_ID, collected_points: res.points, topic_ID: Number(topicID) })
             }
             const maxPoint =
               (this.numOfRows == 3 ? 2 : this.numOfRows == 5 ? 3 : 4) *
@@ -428,7 +429,7 @@ export class TierListComponent implements OnChanges {
   }
 
   playRandomLevel() {
-    this._httpService.fetchRandomTierlist().subscribe((res: any) => {
+    this.tierlistManager.fetchRandomTierlist().subscribe((res: any) => {
       this.router
         .navigateByUrl('/', { skipLocationChange: true })
         .then(() =>

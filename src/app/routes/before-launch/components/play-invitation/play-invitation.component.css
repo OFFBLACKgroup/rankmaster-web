@@ -45,13 +45,13 @@ div.divider {
 }
 
 p.text-1 {
-  background-color: #E1E1E7;
+  background-color: white;
   border-radius: 1.5rem 1.5rem 1.5rem 2px;
   color: black;
   margin-top: 8rem;
   height: max-content;
   transform-origin: 10%;
-  width: 13.625rem;  
+  width: 13.625rem;
 }
 
 p.question-text {

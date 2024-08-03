@@ -3,8 +3,8 @@ import { RouterLink } from '@angular/router';
 import { HeadlineComponent } from '../../../components/headline/headline.component';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { trigger, animate, transition, style } from '@angular/animations';
-import { UserDataService } from '../../../services/userData/user-data.service';
-import { HttpService } from '../../../services/http-service.service';
+import { UserManagerService } from '../../../services/userManager/user-manager.service';
+import { TierlistManagerService } from '../../../services/tierlistManager/tierlist-manager.service';
 
 export function preloadImages(imageSources: string[], loadingData: {areImagesLoaded: boolean, numOfLoaded: number}) {
   for (const source of imageSources) {
@@ -44,12 +44,12 @@ export interface Topic {
 
 })
 export class TopicsComponent {
-  constructor(_userDataService: UserDataService, _httpService: HttpService) {
-    _httpService.fetchMenu().subscribe( (res: any) => {
+  constructor(_userManager: UserManagerService, tierlistManager: TierlistManagerService) {
+    tierlistManager.fetchMenu().subscribe( (res: any) => {
         res.map( (item: any) => item.completedTierlists = 0)
         this.topics = res as Topic[]
         preloadImages(this.topics.map(item => item.coverImagePath), this.loadingData)
-        _userDataService.getCompletedTierlists(this.topics)
+        _userManager.getCompletedTierlists(this.topics)
       }
     )
   }

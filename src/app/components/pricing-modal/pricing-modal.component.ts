@@ -1,7 +1,8 @@
 import { animate, animateChild, query, style, transition, trigger } from '@angular/animations';
 import { Component, EventEmitter, Output, inject } from '@angular/core';
-import { HttpService } from '../../services/http-service.service';
+import { TierlistManagerService } from '../../services/tierlistManager/tierlist-manager.service';
 import { ModalControllerService, ModalType } from '../../services/modalController/modal-controller.service';
+import { UserManagerService } from '../../services/userManager/user-manager.service';
 
 @Component({
   selector: 'app-pricing-modal',
@@ -19,13 +20,13 @@ import { ModalControllerService, ModalType } from '../../services/modalControlle
   ]
 })
 export class PricingModalComponent {
-  private _httpService = inject(HttpService)
+  private userManager = inject(UserManagerService)
   modalController = inject(ModalControllerService)
 
   userId?: string
 
   ngOnInit() {
-    this._httpService.getUserID().subscribe( (res) => {
+    this.userManager.getUserID().subscribe( (res) => {
       this.userId = res as string
     })
   }

@@ -1,10 +1,10 @@
 import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpService } from '../../services/http-service.service';
+import { TierlistManagerService } from '../../services/tierlistManager/tierlist-manager.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { Router } from '@angular/router';
-import { UserDataService } from '../../services/userData/user-data.service';
+import { UserManagerService } from '../../services/userManager/user-manager.service';
 import { ModalControllerService, ModalType } from '../../services/modalController/modal-controller.service';
 
 @Component({
@@ -15,7 +15,10 @@ import { ModalControllerService, ModalType } from '../../services/modalControlle
   styleUrl: './login-form.component.css',
 })
 export class LoginFormComponent {
-  constructor(private _httpService: HttpService, private _snackBar: MatSnackBar, private router: Router, private _userDataService: UserDataService) {}
+  private tierlistManager = inject(TierlistManagerService);
+  private _snackBar = inject(MatSnackBar);
+  private router = inject(Router);
+  private _userManager = inject(UserManagerService);
   modalController = inject(ModalControllerService)
 
   closeModal() {
@@ -36,7 +39,7 @@ export class LoginFormComponent {
     event.preventDefault()
     if (isEmailValid && isPasswordValid) {
       this.tryingToLog = true
-      this._httpService.signUp(this.emailValue, this.passwordValue).subscribe({
+      this._userManager.signUp(this.emailValue, this.passwordValue).subscribe({
         next: () => {
           this.openSnackbar('Successful Sign Up', '🎉🎉');
           this.router.navigate(['/menu']);
@@ -62,12 +65,12 @@ export class LoginFormComponent {
     event.preventDefault()
     if (isEmailValid && isPasswordValid) {
       this.tryingToLog = true
-      this._httpService.signIn(this.emailValue, this.passwordValue).subscribe({
+      this._userManager.signIn(this.emailValue, this.passwordValue).subscribe({
         next: () => {
-          this._httpService.getUserData().subscribe({
+          this._userManager.getUserData().subscribe({
             next: (res: any ) => {
-              this._userDataService.userData = res.data
-              this._userDataService.isPremiumUser = res.isPremium.is_premium ? true : false
+              this._userManager.userData = res.data
+              this._userManager.isPremiumUser = res.isPremium.is_premium ? true : false
               this.openSnackbar('Successful Sign In', '🎉🎉');
               this.router.navigate(['/menu']);
               this.tryingToLog = false;

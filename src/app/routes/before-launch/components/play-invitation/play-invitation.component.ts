@@ -1,7 +1,7 @@
 import { trigger, animate, transition, style, keyframes, state } from '@angular/animations';
 import { Component, inject } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
-import { UserDataService } from '../../../../services/userData/user-data.service';
+import { UserManagerService } from '../../../../services/userManager/user-manager.service';
 
 @Component({
   selector: 'app-play-invitation',
@@ -53,8 +53,9 @@ import { UserDataService } from '../../../../services/userData/user-data.service
     ]),
     trigger('buttonPulse', [
       state('pulse', style({ transform: 'rotate(2deg) translateX(-1.5rem) scale(1)', opacity: 1 })),
-      transition('* => pulse', animate('1s', keyframes([
-        style({ transform: 'rotate(2deg) translateX(-1.5rem) scale(1)', offset: 0}),
+      transition('* => pulse', animate('1.5s', keyframes([
+        style({ transform: 'rotate(2deg) translateX(-1.5rem) scale(0.6)', offset: 0}),
+        style({ transform: 'rotate(2deg) translateX(-1.5rem) scale(1)', offset: 0.25}),
         style({ transform: 'rotate(2deg) translateX(-1.5rem) scale(0.92)', offset: 0.5}),
         style({ transform: 'rotate(2deg) translateX(-1.5rem) scale(1.04)', offset: 0.75}),
         style({ transform: 'rotate(2deg) translateX(-1.5rem) scale(1)', offset: 1}),
@@ -63,16 +64,16 @@ import { UserDataService } from '../../../../services/userData/user-data.service
   ]
 })
 export class PlayInvitationComponent {
-  userDataService = inject(UserDataService)
+  userManager = inject(UserManagerService)
   router = inject(Router)
 
   currentMessageID = 0
   chatMessages = [
-    ['Messi is the GOAT!', 'Ronaldo better'],
-    ['LeBron is still playing!', '*MJ puts on jersey again*'],
-    ['Just started reading HP...', 'LOTR is better. (Dobby dies)'],
-    ['Like my new Android?', 'Stop sending green msgs 😡'],
-    ["Xbox or PlayStation?", "Nintendo..."]
+    [['Messi is the GOAT!'], ['Ronaldo better']],
+    [['LeBron just keeps on playing!'], ['*MJ putting jersey on RN*']],
+    [['Just started to read Harry Potter'], ['LOTR is better. (Dobby dies)']],
+    [['How you like my new Android?'], ['Stop sending green msgs 😡']],
+    [['Xbox clears PSP?'], ['Nintendo 💯💯']]
   ]
   messageState = 'visible'
   showLine = false
@@ -124,11 +125,11 @@ export class PlayInvitationComponent {
 
   playDaily(e: Event) {
     e.preventDefault()
-    if (this.userDataService.userData != undefined) { this.router.navigate(['/daily']) }
+    if (this.userManager.userData != undefined) { this.router.navigate(['/daily']) }
     else {
-      this.userDataService.signInAnonymous().subscribe((_res) => {
-        this.userDataService.userData = []
-        this.userDataService.isAnonymousUser = true
+      this.userManager.signInAnonymous().subscribe((_res) => {
+        this.userManager.userData = []
+        this.userManager.isAnonymousUser = true
         this.router.navigate(['daily'])
       })
     }

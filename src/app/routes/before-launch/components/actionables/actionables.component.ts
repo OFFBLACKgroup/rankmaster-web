@@ -1,11 +1,12 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { SocialsComponent } from '../../../../components/socials/socials.component';
 import { FormsModule } from '@angular/forms';
 import {MatProgressSpinner } from '@angular/material/progress-spinner';
 import { trigger, transition, style, animate } from '@angular/animations';
-import { HttpService } from '../../../../services/http-service.service';
+import { TierlistManagerService } from '../../../../services/tierlistManager/tierlist-manager.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { LoginFormComponent } from '../../../../components/login-form/login-form.component';
+import { UserManagerService } from '../../../../services/userManager/user-manager.service';
 
 @Component({
   selector: 'app-actionables',
@@ -23,7 +24,8 @@ import { LoginFormComponent } from '../../../../components/login-form/login-form
   ]
 })
 export class ActionablesComponent {
-  constructor(private _httpService: HttpService, private _snackBar: MatSnackBar) {}
+  userManager = inject(UserManagerService) 
+  _snackBar = inject(MatSnackBar)
   @Output() showModal = new EventEmitter()
 
   emit() {
@@ -37,7 +39,7 @@ export class ActionablesComponent {
   sendEmail(event: Event, isEmailValid: boolean | null) {
     event.preventDefault()
     if (isEmailValid) {
-      this._httpService.sendEmail(this.emailValue)
+      this.userManager.sendEmail(this.emailValue)
       let snackBarRef = this._snackBar.open('Added to Waiting List!', '🎉🎉', {
         duration: 3000,
         panelClass: ['snackbar'],

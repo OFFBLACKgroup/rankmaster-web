@@ -1,9 +1,13 @@
 <section>
   <h1>Can you guess what the <br>community thinks?</h1>
   <div class="texts">
-    <p [@textEntryLeft]="messageState" (@textEntryLeft.done)="animationEnded('message', $event)" class="text-1">{{chatMessages[currentMessageID][1]}}</p>
+    <p [@textEntryLeft]="messageState" (@textEntryLeft.done)="animationEnded('message', $event)" class="text-1">
+      {{chatMessages[currentMessageID][1]}}
+    </p>
     <div [@lineEntry]="showLine ? 'enter' : 'hidden'" class="divider" (@lineEntry.done)="animationEnded('line', $event)"></div>
-    <p [style.backgroundColor]="currentMessageID == 3 ? '#00d259' : '#0097F4'" [@textEntryRight]="messageState" class="text-2">{{chatMessages[currentMessageID][0]}}</p>
+    <p [style.backgroundColor]="currentMessageID == 3 ? '#00d259' : '#0097F4'" [@textEntryRight]="messageState" class="text-2">
+      {{chatMessages[currentMessageID][0]}}
+    </p>
   </div>
   <p [@textEntry]="showText" class="question-text" (@textEntry.done)="animationEnded('arrow', $event)" >Who's right?</p>
   <div [@arrowEntry]="showArrow" (@arrowEntry.done)="animationEnded('nextMessage', $event)" aria-label="arrow-down" class="arrow-down">

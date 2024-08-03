@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { HeadlineComponent } from '../../../../../components/headline/headline.component';
 import { ActivatedRoute } from '@angular/router';
-import { HttpService } from '../../../../../services/http-service.service';
+import { TierlistManagerService } from '../../../../../services/tierlistManager/tierlist-manager.service';
 import { Subscription } from 'rxjs';
 import { TierListComponent, MarkerColor } from '../../../../../components/tier-list/tier-list.component';
 
@@ -28,7 +28,7 @@ export interface TierListItem {
 export class PlayTierlistComponent {
   constructor(
     private _route: ActivatedRoute,
-    private _httpService: HttpService
+    private tierlistManager: TierlistManagerService
   ) { }
 
   private sub: Subscription | any
@@ -38,7 +38,7 @@ export class PlayTierlistComponent {
   ngOnInit(): void {
     this.sub = this._route.params.subscribe(params => {
       this.id = params['id'];
-      this._httpService.fetchTierlist(Number(params['id'])).subscribe(config=> {
+      this.tierlistManager.fetchTierlist(Number(params['id'])).subscribe(config=> {
         this.tierlistItems = config as TierListItem[]
         this.tierlistItems.sort(() => Math.random() - 0.5)
         this.title = this._route.snapshot.paramMap.get('title')

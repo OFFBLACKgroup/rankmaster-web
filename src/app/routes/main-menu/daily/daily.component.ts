@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { HeadlineComponent } from '../../../components/headline/headline.component';
 import { TierListComponent } from '../../../components/tier-list/tier-list.component';
-import { UserDataService } from '../../../services/userData/user-data.service';
+import { UserManagerService } from '../../../services/userManager/user-manager.service';
 
 @Component({
   selector: 'app-daily',
@@ -11,12 +11,12 @@ import { UserDataService } from '../../../services/userData/user-data.service';
   styleUrl: './daily.component.css'
 })
 export class DailyComponent {
-  userDataService = inject(UserDataService)
+  userManager = inject(UserManagerService)
 
   ngOnInit() {
-    if (this.userDataService.userData != undefined) { return }
+    if (this.userManager.userData != undefined) { return }
     else {
-      // this.userDataService.signInAnonymous().subscribe((res) => )
+      // this.userManager.signInAnonymous().subscribe((res) => )
     }
   }
 
