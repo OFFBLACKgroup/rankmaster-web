@@ -1,6 +1,7 @@
 import { trigger, animate, transition, style, keyframes, state } from '@angular/animations';
-import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Component, inject } from '@angular/core';
+import { Router, RouterLink } from '@angular/router';
+import { UserDataService } from '../../../../services/userData/user-data.service';
 
 @Component({
   selector: 'app-play-invitation',
@@ -62,6 +63,9 @@ import { RouterLink } from '@angular/router';
   ]
 })
 export class PlayInvitationComponent {
+  userDataService = inject(UserDataService)
+  router = inject(Router)
+
   currentMessageID = 0
   chatMessages = [
     ['Messi is the GOAT!', 'Ronaldo better'],
@@ -117,6 +121,16 @@ export class PlayInvitationComponent {
       }, 500)
     }, 3000)
   }
-}
 
-// TODO PLAY! button functionality
+  playDaily(e: Event) {
+    e.preventDefault()
+    if (this.userDataService.userData != undefined) { this.router.navigate(['/daily']) }
+    else {
+      this.userDataService.signInAnonymous().subscribe((_res) => {
+        this.userDataService.userData = []
+        this.userDataService.isAnonymousUser = true
+        this.router.navigate(['daily'])
+      })
+    }
+  }
+}

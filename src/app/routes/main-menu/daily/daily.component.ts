@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { HeadlineComponent } from '../../../components/headline/headline.component';
 import { TierListComponent } from '../../../components/tier-list/tier-list.component';
+import { UserDataService } from '../../../services/userData/user-data.service';
 
 @Component({
   selector: 'app-daily',
@@ -10,7 +11,15 @@ import { TierListComponent } from '../../../components/tier-list/tier-list.compo
   styleUrl: './daily.component.css'
 })
 export class DailyComponent {
-  //MAYBE wait for title load before displaying
+  userDataService = inject(UserDataService)
+
+  ngOnInit() {
+    if (this.userDataService.userData != undefined) { return }
+    else {
+      // this.userDataService.signInAnonymous().subscribe((res) => )
+    }
+  }
+
   title = ''
   setTitle(title: string) {
     this.title = title

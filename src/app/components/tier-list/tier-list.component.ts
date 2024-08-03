@@ -297,7 +297,11 @@ export class TierListComponent implements OnChanges {
               }
             })
             this.numOfPoints = res.points;
-            this._httpService.getUserData().subscribe((res: any) => this._userDataService.userData = res.data)
+            if (!this._userDataService.isAnonymousUser) {
+              this._httpService.getUserData().subscribe((res: any) => this._userDataService.userData = res.data)
+            } else {
+              this._userDataService.userData.push({ tierlist_ID: this.tierlistItems[0].tierlist_ID, collected_points: res.points, topic_ID: Number(topicID) })
+            }
             const maxPoint =
               (this.numOfRows == 3 ? 2 : this.numOfRows == 5 ? 3 : 4) *
               this.tierlistItems.length;
@@ -439,7 +443,7 @@ export class TierListComponent implements OnChanges {
     });
   }
 
-  //#region End Animations
+  //#region SUBMIT Animations
   animateProgressbar = false;
   showText1 = false;
   showText2 = false;

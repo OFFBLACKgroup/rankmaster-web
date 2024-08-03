@@ -1,19 +1,19 @@
 import { Injectable } from '@angular/core';
-import { HttpService } from '../http-service.service';
 import { Topic } from '../../routes/main-menu/topics/topics.component';
 import { TierList } from '../../routes/main-menu/topics/topic-tierlists/topic-tierlists.component';
+import { HttpClient } from '@angular/common/http';
 
 
-// TODO userData has to correctly keep track of finished levels / loaded data / etc. 
 @Injectable({
   providedIn: 'root'
 })
 export class UserDataService {
 
-  constructor(private _httpService: HttpService) { }
+  constructor(private http: HttpClient) { }
 
   userData?: any
   isPremiumUser?: boolean
+  isAnonymousUser?: boolean
   currentPremiumTierlistIDs?: number[]
 
   getCompletedTierlists(topicData: Topic[]) {
@@ -22,7 +22,7 @@ export class UserDataService {
         const id = topicData.findIndex(el => el.id == tierlist.topic_ID)
         topicData[id].completedTierlists += 1
       })
-    } 
+    }
   }
 
   getCurrentPremiumTierlists(tierlists: TierList[]) {
@@ -32,5 +32,10 @@ export class UserDataService {
       }
       return newArr
     }, [])
+  }
+
+  //TODO fix random tier list fetching for anon
+  signInAnonymous() {
+    return this.http.get('https://www.api.rankmaster.click/signInAnonymous/')
   }
 }

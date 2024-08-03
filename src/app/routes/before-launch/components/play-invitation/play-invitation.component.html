@@ -10,5 +10,5 @@
     <div class="line"></div>
     <div class="triangle"></div>
   </div>
-  <a routerLink="/daily" [@buttonPulse]="buttonState" >Play!</a>
+  <a (click)="playDaily($event)" [@buttonPulse]="buttonState" >Play!</a>
 </section>
