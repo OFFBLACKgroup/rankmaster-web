@@ -363,6 +363,7 @@ div.random img {
   transition: all 0.1s ease-out;
   border: 1px solid rgb(178, 178, 178);
   width: max-content;
+  opacity: 0;
 }
 
 .next-action-buttons .scroll-up:hover {

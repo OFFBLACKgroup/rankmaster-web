@@ -26,9 +26,8 @@ export interface Prediction {
 }
 
 //OPTIMIZABLE create code sections for tier-list (largest logic file)
-//BUG there is a bug with coins having to jump from end of animation to their final position
+//BUG there is a bug with coins having to jump from end of animation to their final position (Does not reproduce)
 //TODO connect animations to leaderboard data
-//BUG To top button flashes for a second
 
 //TODO implement leaderboard / Make it REALTIME
   //TINY collect user icons
@@ -38,7 +37,8 @@ export interface Prediction {
 //TODO create long landing
 //TODO change user menu after login
 //TINY update socials
-//FOCUS daily challenge should disappear once completed (also in menu show completion)
+
+//TODO on load if daily is done already it probably won't get disabled by default
 
 //TODO Hardcore test payment subscription flow
 //TODO Pricing modal should handle when user is not signed in (for prompt especially)
@@ -132,6 +132,7 @@ export interface Prediction {
     ]),
     trigger('fadeIn', [
       state('false', style({ opacity: 0 })),
+      state('true', style({ opacity: 1 })),
       transition('* => true', [
         style({ opacity: 0 }),
         animate('0.3s 0.5s ease-out', style({ opacity: 1 })),
