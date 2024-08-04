@@ -7,11 +7,12 @@ import { LoginFormComponent } from '../components/login-form/login-form.componen
 import { HowToComponent } from '../components/how-to/how-to.component';
 import { PricingModalComponent } from '../components/pricing-modal/pricing-modal.component';
 import { ModalControllerService } from '../services/modalController/modal-controller.service';
+import { SignUpPromptComponent } from '../components/sign-up-prompt/sign-up-prompt.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, BeforeLaunchComponent, HeaderComponent, LoginFormComponent, HowToComponent, PricingModalComponent],
+  imports: [RouterOutlet, BeforeLaunchComponent, HeaderComponent, LoginFormComponent, HowToComponent, PricingModalComponent, SignUpPromptComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
   animations: [

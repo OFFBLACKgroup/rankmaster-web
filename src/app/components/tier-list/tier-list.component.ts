@@ -38,12 +38,11 @@ export interface Prediction {
 //TODO change user menu after login
 //TINY update socials
 //TODO Hardcore test payment subscription flow
-//TODO daily challenge should disappear once completed
+//TODO daily challenge should disappear once completed (also in menu show completion)
 
-//TODO prompt anon users to sign up
+//FOCUS prompt anon users to sign up
 //TODO prompt users to buy premium
 
-//FOCUS on unauthorized logo should lead home
 
 @Component({
   selector: 'app-tier-list',

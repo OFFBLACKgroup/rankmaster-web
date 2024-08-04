@@ -6,8 +6,13 @@ export enum ModalType {
   login_ON,
   login_OFF,
   pricing_ON,
-  pricing_OFF
+  pricing_OFF,
+  signUpPrompt_ON,
+  signUpPrompt_OFF
 }
+
+//OPTIMIZABLE terrible code, can create inclusion with a single variable with options of which modal is open
+ // WHAT A TERRIBLE CODE
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +24,7 @@ export class ModalControllerService {
   private _showHowTo = false
   private _showLogin = false
   private _showPricing = false
+  private _showSignUpPrompt = false
 
   public get showHowTo() {
     return this._showHowTo
@@ -29,13 +35,8 @@ export class ModalControllerService {
   public get showPricing() {
     return this._showPricing
   }
-
-  private _checkIfStandalone(selected: ModalType) {
-    switch (selected) {
-      case ModalType.howTo_ON: {
-
-      }
-    }
+  public get showSignUpPrompt() {
+    return this._showSignUpPrompt
   }
 
   showModal(modalType: ModalType) {
@@ -45,6 +46,8 @@ export class ModalControllerService {
           this._showLogin = false
         } else if (this._showPricing) {
           this._showPricing = false
+        } else if (this._showSignUpPrompt) {
+          this._showSignUpPrompt = false
         }
         this._showHowTo = true
         break
@@ -56,6 +59,8 @@ export class ModalControllerService {
           this._showHowTo = false
         } else if (this._showPricing) {
           this._showPricing = false
+        } else if (this._showSignUpPrompt) {
+          this._showSignUpPrompt = false
         }
         this._showLogin = true
         break
@@ -67,11 +72,26 @@ export class ModalControllerService {
           this._showLogin = false
         } else if (this._showHowTo) {
           this._showHowTo = false
+        } else if (this._showSignUpPrompt) {
+          this._showSignUpPrompt = false
         }
         this._showPricing = true
         break
       case ModalType.pricing_OFF:
         this._showPricing = false
+        break
+      case ModalType.signUpPrompt_ON:
+        if (this._showLogin) {
+          this._showLogin = false
+        } else if (this._showHowTo) {
+          this._showHowTo = false
+        } else if (this._showPricing) {
+          this._showPricing = false
+        }
+        this._showSignUpPrompt = true
+        break
+      case ModalType.signUpPrompt_OFF:
+        this._showSignUpPrompt = false
         break
     }
   }

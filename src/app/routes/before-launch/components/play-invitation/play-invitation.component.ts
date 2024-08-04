@@ -70,10 +70,10 @@ export class PlayInvitationComponent {
   currentMessageID = 0
   chatMessages = [
     [['Messi is the GOAT!'], ['Ronaldo better']],
-    [['LeBron just keeps on playing!'], ['*MJ putting jersey on RN*']],
     [['Just started to read Harry Potter'], ['LOTR is better. (Dobby dies)']],
+    [['LeBron just keeps on playing!'], ['MJ putting on jersey RN']],
     [['How you like my new Android?'], ['Stop sending green msgs 😡']],
-    [['Xbox clears PSP?'], ['Nintendo 💯💯']]
+    [['New Xbox or PSP?'], ['Nintendo 💯']]
   ]
   messageState = 'visible'
   showLine = false
