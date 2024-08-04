@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { HeadlineComponent } from '../../../components/headline/headline.component';
 import { TierListComponent } from '../../../components/tier-list/tier-list.component';
 import { UserManagerService } from '../../../services/userManager/user-manager.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-daily',
@@ -12,11 +13,11 @@ import { UserManagerService } from '../../../services/userManager/user-manager.s
 })
 export class DailyComponent {
   userManager = inject(UserManagerService)
+  router = inject(Router)
 
   ngOnInit() {
-    if (this.userManager.userData != undefined) { return }
-    else {
-      // this.userManager.signInAnonymous().subscribe((res) => )
+    if (this.userManager.isDailyComplete) {
+      this.router.navigate(['/menu'])
     }
   }
 

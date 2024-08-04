@@ -38,10 +38,11 @@ export interface Prediction {
 //TODO create long landing
 //TODO change user menu after login
 //TINY update socials
-//TODO Hardcore test payment subscription flow
-//TODO daily challenge should disappear once completed (also in menu show completion)
+//FOCUS daily challenge should disappear once completed (also in menu show completion)
 
-//FOCUS prompt users to buy premium
+//TODO Hardcore test payment subscription flow
+//TODO Pricing modal should handle when user is not signed in (for prompt especially)
+//BUG Third random (prompt) breaks random button (MAYBE: dependent on problem one before)
 
 
 @Component({
@@ -312,6 +313,9 @@ export class TierListComponent implements OnChanges {
                 }
               }
             })
+            if (this.isDailyTierlist) {
+              this._userManager.isDailyComplete = true
+            }
             this.numOfPoints = res.points;
             if (!this._userManager.isAnonymousUser) {
               this._userManager.getUserData().subscribe((res: any) => this._userManager.userData = res.data)

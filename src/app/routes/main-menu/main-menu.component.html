@@ -5,16 +5,21 @@
       <img src="../../assets/levels.svg" alt="">
       <h2>Levels</h2>
     </li>
-    <li routerLink="/daily">
-      <div class="calendar">
-        <div class="month">
-          {{ currentMonth }}
+    <li [class.hover]="isDailyComplete" [routerLink]="isDailyComplete ? '/menu' : '/daily'" [style.cursor]="isDailyComplete ? 'auto' : 'pointer'">
+      <div [style.filter]="isDailyComplete ? 'brightness(0.4)' : ''" class="daily-container" >
+        <div class="calendar">
+          <div class="month">
+            {{ currentMonth }}
+          </div>
+          <div class="day">
+            {{ currentDay }}
+          </div>
         </div>
-        <div class="day">
-          {{ currentDay }}
-        </div>
+        <h2>Daily Challenge</h2>
       </div>
-      <h2>Daily Challenge</h2>
+      @if (isDailyComplete) {
+        <img src="../../../assets/check.png" alt="checkmark icon">
+      }
     </li>
     <li routerLink="/leaderboard">
       <img src="../../assets/leaderboard.svg" alt="">

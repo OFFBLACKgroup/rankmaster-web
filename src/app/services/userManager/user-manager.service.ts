@@ -16,6 +16,7 @@ export class UserManagerService {
   sessionCompletedTierlists = 0
   isAnonymousUser?: boolean
   currentPremiumTierlistIDs?: number[]
+  isDailyComplete = false
 
   getCompletedTierlists(topicData: Topic[]) {
     if (this.userData != undefined) {
