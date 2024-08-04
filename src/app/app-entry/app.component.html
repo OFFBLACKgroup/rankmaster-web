@@ -1,6 +1,6 @@
 <app-header></app-header>
 <div class="main-screen">
-  <div class="blur" [style.filter]="(modalController.showHowTo || modalController.showLogin || modalController.showPricing) ? 'blur(0.75rem)' : '' ">
+  <div class="blur" [style.filter]="(modalController.showHowTo || modalController.showLogin || modalController.showPricing || modalController.showSignUpPrompt) ? 'blur(0.75rem)' : '' ">
     <router-outlet></router-outlet>
     <img src="../assets/palm tree.svg" alt="Palm tree">
     <img [@hotAirBalloon]="balloonState" (@hotAirBalloon.done)="startFloating()" src="../assets/luftballoon.svg" alt="Hot air balloon">

@@ -1,0 +1,73 @@
+:host {
+  width: 19.5rem;
+  position: fixed;
+  top: 50;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, max(-50vh + 8rem, -50%));
+}
+
+article {
+  background-color: white;
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+  padding: 3rem 1.5rem 2rem 1.5rem;
+  position: relative;
+}
+
+article h3 {
+  font: 1.5625rem 'Roboto Slab';
+  text-align: center;
+  margin-bottom: 4.5rem;
+}
+
+button:first-child {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  border-radius: 0.75rem;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+button:not(:first-child) {
+  font: 1rem 'Roboto Slab';
+  height: 3rem;
+  border-radius: 1.5rem;
+  border: none;
+  cursor: pointer;
+  color: white;
+}
+
+button:nth-of-type(2) {
+  background-color: rgba(0,0,0,0.2);
+  margin-bottom: 0.75rem;
+}
+button:nth-of-type(3) {
+  background-color: black;
+}
+
+button img {
+  width: 1.5rem;
+  height: 1.5rem;
+  object-fit: contain;
+}
+
+img.goat-outline {
+  position: absolute;
+  width: 5rem;
+  height: 5rem;
+  top: 4rem;
+  right: 0;
+}
+
+img.fairy {
+  width: 2rem;
+  height: 2rem;
+  position: absolute;
+  top: 4.5rem;
+  left: 2rem;
+}
+

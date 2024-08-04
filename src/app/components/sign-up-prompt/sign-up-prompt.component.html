@@ -1,8 +1,10 @@
 <article>
-  <button aria-label="Close Sign Up Prompt">
-    <img src="../../../assets/close.svg" alt="close" />
+  <button (click)="closeModal()" aria-label="Close Sign Up Prompt">
+    <img src="../../../assets/close.svg" alt="close icon" />
   </button>
   <h3>Sign Up?</h3>
-  <button>Maybe Later</button>
-  <button>Sign Up</button>
+  <button (click)="closeModal()" >Maybe Later</button>
+  <button (click)="openSignUp()">Sign Up</button>
+  <img class="goat-outline" src="../../../assets/goat-outline.svg" alt="outlined goat">
+  <img class="fairy" src="../../../assets/fairy.svg" alt="fairy">
 </article>

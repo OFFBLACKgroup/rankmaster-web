@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { ModalControllerService, ModalType } from '../../services/modalController/modal-controller.service';
 
 @Component({
   selector: 'app-sign-up-prompt',
@@ -8,5 +9,13 @@ import { Component } from '@angular/core';
   styleUrl: './sign-up-prompt.component.css'
 })
 export class SignUpPromptComponent {
+  modalController = inject(ModalControllerService);
 
+  closeModal() {
+    this.modalController.showModal(ModalType.signUpPrompt_OFF)
+  }
+
+  openSignUp() {
+    this.modalController.showModal(ModalType.login_ON)
+  }
 }
