@@ -41,8 +41,7 @@ export interface Prediction {
 //TODO Hardcore test payment subscription flow
 //TODO daily challenge should disappear once completed (also in menu show completion)
 
-//FOCUS prompt anon users to sign up
-//TODO prompt users to buy premium
+//FOCUS prompt users to buy premium
 
 
 @Component({
@@ -445,10 +444,16 @@ export class TierListComponent implements OnChanges {
   }
 
   playRandomLevel() {
-    if (this._userManager.isAnonymousUser && !this._userManager.promptedToSignUp) {
-      this._userManager.promptedToSignUp = true;
-      this.modalController.showModal(ModalType.signUpPrompt_ON)
-    }
+    if (this._userManager.isAnonymousUser) {
+      if (!this._userManager.promptedToSignUp) {
+        this._userManager.promptedToSignUp = true;
+        this.modalController.showModal(ModalType.signUpPrompt_ON)
+      }
+      if (this._userManager.sessionCompletedTierlists == 3) {
+        this.modalController.showModal(ModalType.pricing_ON)
+      }
+      this._userManager.sessionCompletedTierlists += 1
+    } 
 
     this.tierlistManager.fetchRandomTierlist().subscribe((res: any) => {
       this.router
