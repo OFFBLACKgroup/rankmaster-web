@@ -12,6 +12,7 @@ export class UserManagerService {
 
   userData?: any
   isPremiumUser?: boolean
+  promptedToSignUp = false
   isAnonymousUser?: boolean
   currentPremiumTierlistIDs?: number[]
 

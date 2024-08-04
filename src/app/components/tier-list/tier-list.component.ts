@@ -9,6 +9,7 @@ import { TierlistManagerService } from '../../services/tierlistManager/tierlist-
 import { ActivatedRoute, Router } from '@angular/router';
 import { TierList } from '../../routes/main-menu/topics/topic-tierlists/topic-tierlists.component';
 import { UserManagerService } from '../../services/userManager/user-manager.service';
+import { ModalControllerService, ModalType } from '../../services/modalController/modal-controller.service';
 
 export enum MarkerColor {
   red = 'red',
@@ -144,6 +145,7 @@ export class TierListComponent implements OnChanges {
   _userManager = inject(UserManagerService);
   _activeRoute = inject(ActivatedRoute);
   router = inject(Router);
+  modalController = inject(ModalControllerService);
 
   @Input() isDailyTierlist: boolean = false;
   @Input() tierlistItems: TierListItem[] = [];
@@ -443,6 +445,11 @@ export class TierListComponent implements OnChanges {
   }
 
   playRandomLevel() {
+    if (this._userManager.isAnonymousUser && !this._userManager.promptedToSignUp) {
+      this._userManager.promptedToSignUp = true;
+      this.modalController.showModal(ModalType.signUpPrompt_ON)
+    }
+
     this.tierlistManager.fetchRandomTierlist().subscribe((res: any) => {
       this.router
         .navigateByUrl('/', { skipLocationChange: true })
