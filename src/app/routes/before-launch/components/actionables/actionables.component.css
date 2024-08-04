@@ -4,6 +4,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
+  gap: 3rem;
 }
 
 h2 {
@@ -53,7 +54,7 @@ form {
 }
 
 form h3 {
-  font-size: clamp(1.25rem, 1.083rem + 0.348vw, 1.5rem);
+  font: clamp(1.25rem, 1.083rem + 0.348vw, 1.5rem) 'Roboto Slab';
   font-weight: 500;
   margin: 0
 }
@@ -102,7 +103,7 @@ app-socials {
 }
 
 .button-container button {
-  font: 1.5rem 'Indie Flower';
+  font: 1.5rem ' Roboto Slab';
   padding: 0.4rem 1.2rem;
   border-radius: 2rem;
   cursor: pointer;

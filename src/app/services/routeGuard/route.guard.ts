@@ -6,6 +6,10 @@ export const routeGuard: CanActivateFn = (route, state) => {
   const router: Router = inject(Router);
   const userManager = inject(UserManagerService)
 
+  const preLaunch = true
+
+  if (preLaunch) { return router.navigate(['unauthorized/400']) }
+
   if (!userManager.userData) {
     return router.navigate(['unauthorized/401'])
   } else if (route.data['isPremium'] == true) {

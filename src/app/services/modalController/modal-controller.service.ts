@@ -19,7 +19,7 @@ export enum ModalType {
 })
 export class ModalControllerService {
 
-  constructor() { }
+  preLaunch = true
 
   private _showHowTo = false
   private _showLogin = false
@@ -40,6 +40,7 @@ export class ModalControllerService {
   }
 
   showModal(modalType: ModalType) {
+    if (this.preLaunch) { return }
     switch (modalType) {
       case ModalType.howTo_ON:
         if (this._showLogin) {

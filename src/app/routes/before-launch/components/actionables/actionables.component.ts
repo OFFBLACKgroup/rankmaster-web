@@ -32,7 +32,7 @@ export class ActionablesComponent {
     this.showModal.emit()
   }
 
-  waitlist = false
+  waitlist = true
 
   emailValue = ''
 

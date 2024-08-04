@@ -67,6 +67,14 @@ export class ExampleSliderComponent {
   selectedNo = SelectionEnum.option2
   slideStates = ['hidden', 'slideInFromLeft', 'hidden']
 
+  intervalRef?: any
+
+  ngOnInit() {
+    this.intervalRef = setInterval(() => {
+      this.selectItem(this.selectedNo == 0 ? 2 : this.selectedNo - 1)
+    }, 5000)
+  }
+
   selectItem(id: SelectionEnum) {
     if (this.selectedNo == id) { return }
     const movingRight = this.isMovingRight(id)
@@ -85,5 +93,7 @@ export class ExampleSliderComponent {
     (!(id == 2 && this.selectedNo == 0)) 
     ? true : false
   }
+
+
 
 }
