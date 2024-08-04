@@ -8,11 +8,12 @@ import { HowToComponent } from '../components/how-to/how-to.component';
 import { PricingModalComponent } from '../components/pricing-modal/pricing-modal.component';
 import { ModalControllerService } from '../services/modalController/modal-controller.service';
 import { SignUpPromptComponent } from '../components/sign-up-prompt/sign-up-prompt.component';
+import { inject as vercelInject } from '@vercel/analytics';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, BeforeLaunchComponent, HeaderComponent, LoginFormComponent, HowToComponent, PricingModalComponent, SignUpPromptComponent],
+  imports: [RouterOutlet, BeforeLaunchComponent, HeaderComponent, LoginFormComponent, HowToComponent, PricingModalComponent, SignUpPromptComponent ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
   animations: [
@@ -63,6 +64,10 @@ import { SignUpPromptComponent } from '../components/sign-up-prompt/sign-up-prom
   ]
 })
 export class AppComponent {
+  ngOnInit() {
+    vercelInject()
+  }
+  
   title = 'rankmaster';
   modalController = inject((ModalControllerService))
   
