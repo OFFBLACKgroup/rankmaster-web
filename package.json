@@ -22,7 +22,7 @@
     "@angular/router": "^18.0.5",
     "@supabase/supabase-js": "^2.44.2",
     "mobile-drag-drop": "^3.0.0-rc.0",
-    "ngx-drag-drop": "^17.0.0",
+    "ngx-drag-drop": "^18.0.2",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.3"
