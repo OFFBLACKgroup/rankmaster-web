@@ -69,10 +69,15 @@ export class ExampleSliderComponent {
 
   intervalRef?: any
 
-  ngOnInit() {
+  setupInterval() {
+    if (this.intervalRef) { clearInterval(this.intervalRef) }
     this.intervalRef = setInterval(() => {
       this.selectItem(this.selectedNo == 0 ? 2 : this.selectedNo - 1)
     }, 5000)
+  }
+
+  ngOnInit() {
+    this.setupInterval()
   }
 
   selectItem(id: SelectionEnum) {
@@ -80,6 +85,8 @@ export class ExampleSliderComponent {
     const movingRight = this.isMovingRight(id)
     this.move(id, movingRight)
     this.selectedNo = id
+    if (this.intervalRef) { clearInterval(this.intervalRef) }
+    this.setupInterval()
   }
 
   move(id: SelectionEnum, movingRight: boolean) {
@@ -94,6 +101,8 @@ export class ExampleSliderComponent {
     ? true : false
   }
 
-
+  ngOnDestroy() {
+    if (this.intervalRef) { clearInterval(this.intervalRef) }
+  }
 
 }
