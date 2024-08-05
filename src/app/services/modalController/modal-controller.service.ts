@@ -19,7 +19,7 @@ export enum ModalType {
 })
 export class ModalControllerService {
 
-  preLaunch = true
+  preLaunch = false
 
   private _showHowTo = false
   private _showLogin = false

@@ -43,7 +43,7 @@
     </li>
   </ul>
   <ul class="leaderboard">
-    @for (person of people; track person; let id = $index) {
+    @for (person of people; track $index; let id = $index) {
       <li>
         <h3>{{id + 4}}</h3>
         <div class="img-container">

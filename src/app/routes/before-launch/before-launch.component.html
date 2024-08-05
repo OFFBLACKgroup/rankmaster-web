@@ -1,5 +1,8 @@
 <main [style.filter]="showEntryModal ? 'blur(0.75rem)' : ''" >
   <app-example-slider></app-example-slider>
-  <!-- <app-play-invitation></app-play-invitation> -->
-   <app-actionables></app-actionables>
+  @if (preLaunch) {
+    <app-actionables></app-actionables>
+  } @else {
+    <app-play-invitation></app-play-invitation>
+  }
 </main>

@@ -65,7 +65,8 @@ import { inject as vercelInject } from '@vercel/analytics';
 })
 export class AppComponent {
   ngOnInit() {
-    vercelInject()
+    //TODO reenable this
+    // vercelInject()
   }
   
   title = 'rankmaster';
