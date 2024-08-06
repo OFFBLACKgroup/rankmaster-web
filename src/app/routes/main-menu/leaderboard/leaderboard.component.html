@@ -1,51 +1,51 @@
+<h3 (click)="testTopThree()" >ALL TIME</h3>
 <app-headline [title]="'Leaderboard'"></app-headline>
-<h3 (click)="test()" >ALL TIME</h3>
 <main @slideIn>
   <ul class="top-three">
-    <li class="second-place">
+    <li (click)="test()" class="second-place">
       <div class="profile-picture">
-        <img src="../../assets/profile icon 1.png" alt="">
+        <img @fade src="{{topThree[1].user_icon}}" alt="">
         <div class="rank-indicator">
           <h4>2</h4>
         </div>
       </div>
-      <h3>Jackson</h3>
-      <h4>
-        1847
+      <h3 @fade>{{topThree[1].username}}</h3>
+      <h4 @fade>
+        {{topThree[1].score}}
         <span>pts.</span>
       </h4>
     </li>
-    <li class="first-place">
+    <li (click)="addNew()" class="first-place">
       <div class="profile-picture">
-        <img src="../../assets/profile icon 2.png" alt="">
+        <img src="{{topThree[0].user_icon}}" alt="">
         <div class="rank-indicator">
           <h4>1</h4>
         </div>
-        <img src="../../assets/crown.svg" alt="">
+        <img [@float]="floatState" (@float.done)="floatReverse()" src="../../assets/crown.svg" alt="">
       </div>
-      <h3>Ratuki43</h3>
+      <h3>{{topThree[0].username}}</h3>
       <h4>
-        2430
+        {{topThree[0].score}}
         <span>pts.</span>
       </h4>
     </li>
     <li class="third-place">
       <div class="profile-picture">
-        <img src="../../assets/profile icon 3.png" alt="">
+        <img src="{{topThree[2].user_icon}}" alt="">
         <div class="rank-indicator">
           <h4>3</h4>
         </div>
       </div>
-      <h3>Bill77</h3>
+      <h3>{{topThree[2].username}}</h3>
       <h4>
-        1674
+        {{topThree[2].score}}
         <span>pts.</span>
       </h4>
     </li>
   </ul>
   <ol style.height="{{leaderboardData.length * 100}}px" class="leaderboard">
     @for (person of leaderboardData; track person.id) {
-      <li style.transform="translateY({{(person.rank - 1) * 100}}px)" [@moveAnimation]="{value: person.rank, params: {newOffset: (person.rank -  1) * 100}}">
+      <li [@scaleIn]="person.rank == newItemRank ? 'true' : 'false'" [style.transform]="'translateY(' + ((person.rank - 4) * 100) + 'px)'" [@moveAnimation]="{value: person.rank, params: {newOffset: (person.rank -  4) * 100}}">
         <h3>{{$index + 4}}</h3>
         <div class="img-container">
           <img src="../../assets/profile icon 1.png" alt="">
