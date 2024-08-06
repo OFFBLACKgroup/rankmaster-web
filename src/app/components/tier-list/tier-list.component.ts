@@ -28,10 +28,11 @@ export interface Prediction {
 //OPTIMIZABLE create code sections for tier-list (largest logic file)
 //BUG there is a bug with coins having to jump from end of animation to their final position (Does not reproduce)
 //TODO connect animations to leaderboard data
+//BUG Sign in appears at wrong place where page is more than 100vh
+//BUG snapping scrollbar
 
-//FOCUS implement leaderboard / Make it REALTIME
-  //TINY collect user icons
-  //TINY leaderboard appear animation
+//TODO implement leaderboard / Make it REALTIME
+  //FOCUS leaderboard appear animation
   //TODO allow users to select icons
 
 //TODO add footer / Attribution / Legals
@@ -143,12 +144,12 @@ export interface Prediction {
   ],
 })
 export class TierListComponent implements OnChanges {
-  changeDetector = inject(ChangeDetectorRef);
-  tierlistManager = inject(TierlistManagerService);
-  _userManager = inject(UserManagerService);
-  _activeRoute = inject(ActivatedRoute);
-  router = inject(Router);
-  modalController = inject(ModalControllerService);
+  changeDetector = inject(ChangeDetectorRef)
+  tierlistManager = inject(TierlistManagerService)
+  _userManager = inject(UserManagerService)
+  _activeRoute = inject(ActivatedRoute)
+  router = inject(Router)
+  modalController = inject(ModalControllerService)
 
   @Input() isDailyTierlist: boolean = false;
   @Input() tierlistItems: TierListItem[] = [];

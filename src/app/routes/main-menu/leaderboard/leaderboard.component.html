@@ -1,5 +1,6 @@
 <app-headline [title]="'Leaderboard'"></app-headline>
-<main>
+<h3 (click)="test()" >ALL TIME</h3>
+<main @slideIn>
   <ul class="top-three">
     <li class="second-place">
       <div class="profile-picture">
@@ -42,19 +43,19 @@
       </h4>
     </li>
   </ul>
-  <ul class="leaderboard">
-    @for (person of people; track $index; let id = $index) {
-      <li>
-        <h3>{{id + 4}}</h3>
+  <ol style.height="{{leaderboardData.length * 100}}px" class="leaderboard">
+    @for (person of leaderboardData; track person.id) {
+      <li style.transform="translateY({{(person.rank - 1) * 100}}px)" [@moveAnimation]="{value: person.rank, params: {newOffset: (person.rank -  1) * 100}}">
+        <h3>{{$index + 4}}</h3>
         <div class="img-container">
           <img src="../../assets/profile icon 1.png" alt="">
         </div>
-        <h3>RandomLoser</h3>
+        <h3>{{person.username}}</h3>
         <h4>
-          1124
+          {{person.score}}
           <span>pts.</span>
         </h4>
       </li>
     }
-  </ul>
+  </ol>
 </main>
