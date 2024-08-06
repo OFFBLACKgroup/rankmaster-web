@@ -51,7 +51,7 @@ export class ActionablesComponent {
     }
   }
 
-  launchDate = new Date("Aug 07, 2024 00:00:00").getTime()
+  launchDate = new Date("Aug 10, 2024 12:00:00").getTime()
 
   lessThan24 = false
   remainingDays = -1
