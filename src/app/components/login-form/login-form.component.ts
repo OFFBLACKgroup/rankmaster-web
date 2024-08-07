@@ -70,8 +70,18 @@ export class LoginFormComponent {
         next: () => {
           this._userManager.getUserData().subscribe({
             next: (res: any ) => {
-              this._userManager.userData = res.data
-              this._userManager.isPremiumUser = res.isPremium.is_premium ? true : false
+              console.log(res)
+              this._userManager.userData = res.completedTierlists
+              this._userManager.isPremiumUser = res.userData.is_premium
+              if (res.userData.username) {
+                if (res.userData.icon_id) {
+                  this._userManager.userIconID = res.userData.icon_id
+                } else {
+                  this._userManager.userIconID = -1
+                }
+              } else {
+                this.modalController.showModal(ModalType.username_select)
+              }
               this.openSnackbar('Successful Sign In', '🎉🎉');
               //TODO set user icon on login
               this.router.navigate(['/menu']);
