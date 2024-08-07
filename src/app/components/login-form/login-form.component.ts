@@ -74,8 +74,9 @@ export class LoginFormComponent {
               this._userManager.userData = res.completedTierlists
               this._userManager.isPremiumUser = res.userData.is_premium
               if (res.userData.username) {
-                if (res.userData.icon_id) {
-                  this._userManager.userIconID = res.userData.icon_id
+                this._userManager.userName = res.userData.username
+                if (res.userData.user_icon_ID) {
+                  this._userManager.userIconID = res.userData.user_icon_ID
                 } else {
                   this._userManager.userIconID = -1
                 }

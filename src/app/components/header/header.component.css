@@ -91,7 +91,7 @@ section.modal-buttons {
 }
 
 app-feedback {
-  transform-origin: top 90%;
+  transform-origin: top 80% 0;
 }
 
 button.user-settings {

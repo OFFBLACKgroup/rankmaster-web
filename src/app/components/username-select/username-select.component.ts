@@ -74,6 +74,7 @@ export class UsernameSelectComponent {
         this.isLoading = false
         if (res.message == "OK") {
           this.modalManager.hideModal()
+          this.userManager.userName = this.userName
           if (this.selectedIcon) {
           this.userManager.userIconID = this.selectedIcon + 1
         } else {

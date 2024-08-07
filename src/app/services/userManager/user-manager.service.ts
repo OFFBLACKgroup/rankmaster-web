@@ -18,6 +18,7 @@ export class UserManagerService {
   currentPremiumTierlistIDs?: number[]
   isDailyComplete = false
   userIconID?: number
+  userName?: string
 
   getCompletedTierlists(topicData: Topic[]) {
     if (this.userData != undefined) {
