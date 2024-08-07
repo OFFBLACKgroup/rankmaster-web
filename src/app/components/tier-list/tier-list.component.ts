@@ -32,8 +32,6 @@ export interface Prediction {
 //BUG snapping scrollbar
 
 //TODO implement leaderboard / Make it REALTIME
-  //TODO update based on realtime connection
-  //TODO plan animations including top-three
   //TODO allow users to select icons
 
 //TODO add footer / Attribution / Legals

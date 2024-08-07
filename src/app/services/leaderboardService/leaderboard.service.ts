@@ -21,11 +21,14 @@ export class LeaderboardService {
       {
         event: '*',
         schema: 'public',
+        table: 'leaderboard'
       },
-      (payload) => console.log(payload)
+      (payload) => this.leaderboardChanges.next(payload)
     )
     .subscribe()
-
   }
-  
+
+  fetchLeaderboard() {
+    return this.supabaseClient.from('leaderboard').select('*').order('total_points', { ascending: false })
+  }
 }

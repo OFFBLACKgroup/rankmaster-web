@@ -1,61 +1,63 @@
-<h3 (click)="testTopThree()" >ALL TIME</h3>
+<h3 (click)="testInsert()">ALL TIME</h3>
 <app-headline [title]="'Leaderboard'"></app-headline>
 <main @slideIn>
   <ul class="top-three">
     <li (click)="test()" class="second-place">
       <div class="profile-picture">
-        <img @fade src="{{topThree[1].user_icon}}" alt="">
+        <img @fade src="{{topThree[1] ? topThree[1].user_icon : '../../assets/profile icon 1.png'}}" alt="">
         <div class="rank-indicator">
           <h4>2</h4>
         </div>
       </div>
-      <h3 @fade>{{topThree[1].username}}</h3>
+      <h3 @fade>{{topThree[1] ? topThree[1].username : 'Could be you!'}}</h3>
       <h4 @fade>
-        {{topThree[1].score}}
+        {{topThree[1] ? topThree[1].score : '0'}}
         <span>pts.</span>
       </h4>
     </li>
-    <li (click)="addNew()" class="first-place">
+    <li class="first-place">
       <div class="profile-picture">
-        <img src="{{topThree[0].user_icon}}" alt="">
+        <img src="{{topThree[0] ? topThree[0].user_icon : '../../assets/profile icon 1.png'}}" alt="">
         <div class="rank-indicator">
           <h4>1</h4>
         </div>
         <img [@float]="floatState" (@float.done)="floatReverse()" src="../../assets/crown.svg" alt="">
       </div>
-      <h3>{{topThree[0].username}}</h3>
+      <h3>{{topThree[0] ? topThree[0].username : 'Could be you!'}}</h3>
       <h4>
-        {{topThree[0].score}}
+        {{topThree[0] ? topThree[0].score : '0'}}
         <span>pts.</span>
       </h4>
     </li>
     <li class="third-place">
       <div class="profile-picture">
-        <img src="{{topThree[2].user_icon}}" alt="">
+        <img src="{{topThree[2] ? topThree[2].user_icon : '../../assets/profile icon 1.png'}}" alt="">
         <div class="rank-indicator">
           <h4>3</h4>
         </div>
       </div>
-      <h3>{{topThree[2].username}}</h3>
+      <h3>{{topThree[2] ? topThree[2].username : 'Could be you!'}}</h3>
       <h4>
-        {{topThree[2].score}}
+        {{topThree[2] ? topThree[2].score : '0'}}
         <span>pts.</span>
       </h4>
     </li>
   </ul>
-  <ol style.height="{{leaderboardData.length * 100}}px" class="leaderboard">
-    @for (person of leaderboardData; track person.id) {
-      <li [@scaleIn]="person.rank == newItemRank ? 'true' : 'false'" [style.transform]="'translateY(' + ((person.rank - 4) * 100) + 'px)'" [@moveAnimation]="{value: person.rank, params: {newOffset: (person.rank -  4) * 100}}">
-        <h3>{{$index + 4}}</h3>
-        <div class="img-container">
-          <img src="../../assets/profile icon 1.png" alt="">
-        </div>
-        <h3>{{person.username}}</h3>
-        <h4>
-          {{person.score}}
-          <span>pts.</span>
-        </h4>
-      </li>
-    }
-  </ol>
+  @if (leaderboardData.length > 0) {
+    <ol style.height="{{leaderboardData.length * 100}}px" class="leaderboard">
+      @for (person of leaderboardData; track person.id) {
+        <li [@scaleIn]="person.rank == newItemRank ? 'true' : 'false'" [style.transform]="'translateY(' + ((person.rank - 4) * 100) + 'px)'" [@moveAnimation]="{value: person.rank, params: {newOffset: (person.rank -  4) * 100}}">
+          <h3>{{person.rank}}</h3>
+          <div class="img-container">
+            <img src="../../assets/profile icon 1.png" alt="">
+          </div>
+          <h3>{{person.username}}</h3>
+          <h4>
+            {{person.score}}
+            <span>pts.</span>
+          </h4>
+        </li>
+      }
+    </ol>
+  }
 </main>

@@ -31,7 +31,11 @@ interface LeaderboardLog {
       ], { params: { newOffset: '0px' }}),
       transition(':decrement', [
         animate('500ms ease', style({ transform: 'translateY({{newOffset}}px)' }))
-      ], { params: { newOffset: '0px' } })
+      ], { params: { newOffset: '0px' } }),
+      transition(':leave', [
+        style({ opacity: 1 }),
+        animate('300ms ease-out', style({ opacity: 0 }))
+      ]),
     ]),
     trigger('float', [
       transition('void => up', [
@@ -68,19 +72,65 @@ interface LeaderboardLog {
 export class LeaderboardComponent {
   leaderboardRef = inject(LeaderboardService)
 
-  testTopThree() {
-    const temp = this.topThree[0]
-    this.topThree[0] = this.topThree[1] 
-    this.topThree[1] = temp
+  //OPTIMIZABLE DSA on eval of new item's rank
+  evaluateNewItemRank(item: LeaderboardLog) {
+    let itemRank = 1
+    for (const row of this.topThree) {
+      if (row.score > item.score) {
+        itemRank++
+      } else {
+        break
+      }
+    }
+    if (itemRank == 4) {
+      for (const row of this.leaderboardData) {
+        if (row.score > item.score) {
+          itemRank++
+        } else {
+          break
+        }
+      }
+    }
+    item.rank = itemRank
   }
 
-  addNew() {
-    const newItem = { id: '10', rank: 6, username: 'John Doe', score: 100, user_icon: '../../assets/profile icon 1.png' }
+  sortLeaderboard() {
+    this.leaderboardData.sort((a, b) => b.score - a.score)
+    this.leaderboardData.map((item, index) => item.rank = index + 4)
+  }
 
-    this.leaderboardData.splice(newItem.rank - 4, 0, newItem)
-    for (let i = 3; i < this.leaderboardData.length; i++) {
-      this.leaderboardData[i].rank++
+  sortTopThree() {
+    this.topThree.sort((a, b) => b.score - a.score)
+    this.topThree.map((item, index) => item.rank = index + 1)
+  }
+
+  deleteInLeaderboard(rank: number) {
+    this.leaderboardData.splice(rank - 4, 1)
+    this.sortLeaderboard()
+  }
+
+  deleteInTopThree(rank: number) {
+    this.topThree.splice(rank - 1, 1)
+    this.sortTopThree()
+  }
+
+  insertIntoLeaderboard(rank: number, item: LeaderboardLog) {
+    this.leaderboardData.splice(rank - 4, 0, item)
+    this.sortLeaderboard()
+  }
+
+  insertIntoTopThree(rank: number, item: LeaderboardLog) {
+    if (this.topThree.length == 3) {
+      const deleted = this.topThree.splice(-1, 1)[0]
+      this.insertIntoLeaderboard(4, deleted)
     }
+    this.topThree.splice(rank - 1, 0, item)
+    this.sortTopThree()
+  }
+
+  testInsert() {
+    const newItem = { id: '10', rank: 2, username: 'John Doe', score: 100, user_icon: '../../assets/profile icon 1.png' }
+    this.insertIntoTopThree(newItem.rank, newItem)
   }
 
   newItemRank = 10
@@ -90,20 +140,9 @@ export class LeaderboardComponent {
     this.floatState = this.floatState === 'up' ? 'down' : 'up'
   }
 
-  topThree: LeaderboardLog[] = [
-    { id: '1', rank: 1, username: 'Ratuki 43', score: 2430, user_icon: '../../assets/profile icon 2.png' },
-    { id: '2', rank: 2, username: 'Jackson', score: 1847, user_icon: '../../assets/profile icon 1.png' },
-    { id: '3', rank: 3, username: 'Bill77', score: 1674, user_icon: '../../assets/profile icon 3.png' },
-  ]
+  topThree: LeaderboardLog[] = [ ]
 
-  public leaderboardData: LeaderboardLog[] = [
-      { id: '4', rank: 4, username: 'John Doe', score: 100, user_icon: '../../assets/profile icon 1.png' },
-      { id: '5', rank: 5, username: 'Jane Doe', score: 90, user_icon: '../../assets/profile icon 1.png' },
-      { id: '6', rank: 6, username: 'John Smith', score: 80, user_icon: '../../assets/profile icon 1.png' },
-      { id: '7', rank: 7, username: 'Jane Smith', score: 70, user_icon: '../../assets/profile icon 1.png' },
-      { id: '8', rank: 8, username: 'John Doe', score: 60, user_icon: '../../assets/profile icon 1.png' },
-      { id: '9', rank: 9, username: 'Jane Doe', score: 50, user_icon: '../../assets/profile icon 1.png' },
-  ]
+  public leaderboardData: LeaderboardLog[] = [ ]
 
   // new data arrives, might do the following:
     // a) make something in the leaderboard move to the topThree
@@ -125,8 +164,59 @@ export class LeaderboardComponent {
   
   ngOnInit() {
     this.subscription = this.leaderboardRef.leaderboardChanges.subscribe((payload) => {
-      console.log('Leaderboard update:', payload);
+      payload.rank = 0
+      const newItem = payload.new as LeaderboardLog
+      this.evaluateNewItemRank(newItem)
+      if (payload.eventType == "UPDATE") {
+        let oldItem = this.topThree.find(item => item.id == newItem.id) 
+        if (oldItem) {
+          if (newItem.rank <= 3) {
+            this.deleteInTopThree(oldItem.rank)
+            this.insertIntoTopThree(newItem.rank, newItem)
+          } else {
+            this.deleteInTopThree(oldItem.rank)
+            this.insertIntoTopThree(3, this.leaderboardData[0])
+            this.deleteInLeaderboard(this.leaderboardData[0].rank)
+            this.insertIntoLeaderboard(newItem.rank, newItem)
+          }
+        } else {
+          oldItem = this.leaderboardData.find(item => item.id == newItem.id)
+          if (oldItem) {
+            if (newItem.rank <= 3) {
+              this.insertIntoTopThree(newItem.rank, newItem)
+              this.deleteInLeaderboard(oldItem.rank)
+            } else {
+              this.deleteInLeaderboard(oldItem.rank)
+              this.insertIntoLeaderboard(newItem.rank, newItem)
+            }
+          }
+        }
+      } else if (payload.eventType == "INSERT") {
+        if (newItem.rank <= 3) {
+          this.insertIntoTopThree(newItem.rank, newItem)
+        } else {
+          this.insertIntoLeaderboard(newItem.rank, newItem)
+        }
+      }
     });
+
+    this.leaderboardRef.fetchLeaderboard().then((res: any) => {
+      let topThree: LeaderboardLog[] = []
+      if (res.data.length > 3) {
+        for (const item of res.data.slice(0, 3)) {
+          topThree.push({ id: item.id, rank: 0, username: item.username, score: item.total_points, user_icon: item.user_icon })
+        }
+        for (const item of res.data.slice(3, res.data.length)) {
+          this.leaderboardData.push({ id: item.id, rank: 0, username: item.username, score: item.total_points, user_icon: item.user_icon })
+        }
+      } else {
+        for (const item of res.data) {
+          this.topThree.push({ id: item.id, rank: 0, username: item.username, score: item.total_points, user_icon: item.user_icon })
+        }
+      }
+      this.sortTopThree()
+      this.sortLeaderboard()
+    })
   }
 
   ngOnDestroy() {
