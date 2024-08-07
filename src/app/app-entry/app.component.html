@@ -1,6 +1,6 @@
-<app-header (click)="test()"></app-header>
+<app-header></app-header>
 <div class="main-screen">
-  <div class="blur" [style.filter]="modalController.activeModal ? 'blur(0.75rem)' : '' ">
+  <div [style.pointerEvents]="modalController.activeModal ? 'none' : 'auto'" class="blur" [style.filter]="modalController.activeModal ? 'blur(0.75rem)' : '' ">
     <router-outlet></router-outlet>
     <img src="../assets/palm tree.svg" alt="Palm tree">
     <img [@hotAirBalloon]="balloonState" (@hotAirBalloon.done)="startFloating()" src="../assets/luftballoon.svg" alt="Hot air balloon">

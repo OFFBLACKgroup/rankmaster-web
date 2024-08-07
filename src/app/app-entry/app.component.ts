@@ -70,10 +70,6 @@ export class AppComponent {
     //TODO reenable this
     // vercelInject()
   }
-
-  test() {
-    this.modalController.showModal(ModalType.username_select)
-  }
   
   title = 'rankmaster';
   modalController = inject((ModalControllerService))
