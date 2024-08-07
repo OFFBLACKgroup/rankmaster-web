@@ -31,7 +31,7 @@ export class HowToComponent {
   modalController = inject(ModalControllerService)
 
   closeModal() {
-    this.modalController.showModal(ModalType.howTo_OFF)
+    this.modalController.hideModal()
   }
 
   @ViewChild('firstList') firstListRef?: ElementRef

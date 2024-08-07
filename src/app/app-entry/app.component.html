@@ -1,6 +1,6 @@
 <app-header></app-header>
 <div class="main-screen">
-  <div class="blur" [style.filter]="(modalController.showHowTo || modalController.showLogin || modalController.showPricing || modalController.showSignUpPrompt) ? 'blur(0.75rem)' : '' ">
+  <div class="blur" [style.filter]="modalController.activeModal ? 'blur(0.75rem)' : '' ">
     <router-outlet></router-outlet>
     <img src="../assets/palm tree.svg" alt="Palm tree">
     <img [@hotAirBalloon]="balloonState" (@hotAirBalloon.done)="startFloating()" src="../assets/luftballoon.svg" alt="Hot air balloon">
@@ -13,16 +13,16 @@
       </ul>
     </div>
   </div>
-  @if (modalController.showHowTo) {
+  @if (modalController.activeModal == ModalType.howTo) {
     <app-how-to @scaleIn></app-how-to>
   }
-  @if (modalController.showLogin) {
+  @if (modalController.activeModal == ModalType.login) {
     <app-login-form @scaleIn></app-login-form>
   }
-  @if (modalController.showPricing) {
+  @if (modalController.activeModal == ModalType.pricing) {
     <app-pricing-modal @scaleIn></app-pricing-modal>
   }
-  @if (modalController.showSignUpPrompt) {
+  @if (modalController.activeModal == ModalType.signUpPrompt) {
     <app-sign-up-prompt @scaleIn></app-sign-up-prompt>
   }
 </div>

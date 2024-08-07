@@ -28,10 +28,10 @@ export interface Prediction {
 //OPTIMIZABLE create code sections for tier-list (largest logic file)
 //BUG there is a bug with coins having to jump from end of animation to their final position (Does not reproduce)
 //TODO connect animations to leaderboard data
-//FOCUS Sign in appears at wrong place where page is more than 100vh
 //BUG snapping scrollbar
 
 //TODO implement leaderboard / Make it REALTIME
+  //FOCUS select username after sign up
   //TODO allow users to select icons
 
 //TODO add footer / Attribution / Legals
@@ -454,10 +454,10 @@ export class TierListComponent implements OnChanges {
     if (this._userManager.isAnonymousUser) {
       if (!this._userManager.promptedToSignUp) {
         this._userManager.promptedToSignUp = true;
-        this.modalController.showModal(ModalType.signUpPrompt_ON)
+        this.modalController.showModal(ModalType.signUpPrompt)
       }
       if (this._userManager.sessionCompletedTierlists == 3) {
-        this.modalController.showModal(ModalType.pricing_ON)
+        this.modalController.showModal(ModalType.pricing)
       }
       this._userManager.sessionCompletedTierlists += 1
     } 

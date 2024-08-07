@@ -22,7 +22,7 @@ export class LoginFormComponent {
   modalController = inject(ModalControllerService)
 
   closeModal() {
-    this.modalController.showModal(ModalType.login_OFF)
+    this.modalController.hideModal()
   }
 
   showSignUp = false
@@ -42,8 +42,9 @@ export class LoginFormComponent {
       this._userManager.signUp(this.emailValue, this.passwordValue).subscribe({
         next: () => {
           this.openSnackbar('Successful Sign Up', '🎉🎉');
-          this.router.navigate(['/menu']);
-          this.modalController.showModal(ModalType.login_OFF)
+          this.router.navigate(['/menu'])
+          this.modalController.hideModal()
+          this.modalController.showModal(ModalType.username_select)
         },
         error: (error) => {
           console.error('Sign in error:', error);
@@ -74,7 +75,7 @@ export class LoginFormComponent {
               this.openSnackbar('Successful Sign In', '🎉🎉');
               this.router.navigate(['/menu']);
               this.tryingToLog = false;
-              this.modalController.showModal(ModalType.login_OFF)
+              this.modalController.hideModal()
             },
             error: (error) => {
               console.error('Sign in error:', error);
@@ -92,10 +93,6 @@ export class LoginFormComponent {
         },
       })
     }
-  }
-
-  sendError() {
-
   }
 
   openSnackbar(message: string, action: string, error?: boolean) {

@@ -124,13 +124,13 @@ export class HeaderComponent {
 
   //#region MODAL CONTROLS 
   showHowTo() {
-    this.modalController.showModal(ModalType.howTo_ON)
+    this.modalController.showModal(ModalType.howTo)
   }
   showPricing() {
-    this.modalController.showModal(ModalType.pricing_ON)
+    this.modalController.showModal(ModalType.pricing)
   }
   showLogin() {
-    this.modalController.showModal(ModalType.login_ON)
+    this.modalController.showModal(ModalType.login)
   }
 
   showFeedback() {
@@ -146,15 +146,15 @@ export class HeaderComponent {
   //#region MOBILE MODALS
   mobileHowTo() {
     this.showMobileNav = false
-    this.modalController.showModal(ModalType.howTo_ON)
+    this.modalController.showModal(ModalType.howTo)
   }
   mobilePricing() {
     this.showMobileNav = false
-    this.modalController.showModal(ModalType.pricing_ON)
+    this.modalController.showModal(ModalType.pricing)  
   }
   mobileLogin() {
     this.showMobileNav = false
-    this.modalController.showModal(ModalType.login_ON)
+    this.modalController.showModal(ModalType.login)
   }
   //#endregion
   
