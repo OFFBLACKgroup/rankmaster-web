@@ -42,7 +42,7 @@ export class ActionablesComponent {
       this.userManager.sendEmail(this.emailValue)
       let snackBarRef = this._snackBar.open('Added to Waiting List!', '🎉🎉', {
         duration: 3000,
-        panelClass: ['snackbar'],
+        panelClass: ['green-snackbar'],
       });
       snackBarRef.onAction().subscribe(() => {
         snackBarRef.dismiss()
@@ -53,7 +53,7 @@ export class ActionablesComponent {
 
   launchDate = new Date("Aug 10, 2024 12:00:00").getTime()
 
-  lessThan24 = false
+  lessThan72 = true
   remainingDays = -1
   remainingHours = -1
   remainingMinutes = -1
@@ -63,9 +63,9 @@ export class ActionablesComponent {
     var now = new Date().getTime()
     var difference = this.launchDate - now
 
-    if (!this.lessThan24) {
-      if (difference < (1000 * 60 * 60 * 24)) {
-        this.lessThan24 = true
+    if (!this.lessThan72) {
+      if (difference < (1000 * 60 * 60 * 72)) {
+        this.lessThan72 = true
         this.remainingHours = Math.floor(difference / (1000 * 60 * 60))
         this.remainingMinutes = Math.floor(difference % (1000 * 60 * 60) / (1000 * 60))
         this.remainingSeconds = Math.floor(difference % (1000 * 60) / 1000)
