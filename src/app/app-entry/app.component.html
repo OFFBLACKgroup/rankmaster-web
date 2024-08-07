@@ -1,4 +1,4 @@
-<app-header></app-header>
+<app-header (click)="test()"></app-header>
 <div class="main-screen">
   <div class="blur" [style.filter]="modalController.activeModal ? 'blur(0.75rem)' : '' ">
     <router-outlet></router-outlet>
@@ -24,6 +24,9 @@
   }
   @if (modalController.activeModal == ModalType.signUpPrompt) {
     <app-sign-up-prompt @scaleIn></app-sign-up-prompt>
+  }
+  @if (modalController.activeModal == ModalType.username_select) {
+    <app-username-select @scaleIn></app-username-select>
   }
 </div>
 

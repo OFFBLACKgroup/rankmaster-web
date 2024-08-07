@@ -1,0 +1,163 @@
+:host {
+  max-width: 100%;
+  width: max-content;
+  height: max-content;
+  font: 'Roboto Slab';
+  padding: 1.5rem clamp(1rem, -0.429rem + 7.143vw, 3rem);
+  border-radius: 2rem;
+  background-color: white;
+  position: absolute;
+  top: 30vh;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+section {
+  position: relative;
+}
+
+h2 {
+  font: 600 clamp(1.563rem, 1.071rem + 2.455vw, 2.25rem) 'Roboto Slab';
+  margin-bottom: 0;
+}
+
+p {
+  font: 300 clamp(1rem, 0.821rem + 0.893vw, 1.25rem) 'Roboto Slab';
+  margin-bottom: 1.5rem;
+}
+
+input {
+  width: 19.5rem;
+  height: 3rem;
+  margin-bottom: 1.5rem;
+  background-color: #D9D9D9;
+  border-radius: .75rem;
+  font: 300 clamp(1.25rem, 1.027rem + 1.116vw, 1.563rem) 'Roboto Slab';
+  padding: 0.5rem 1rem;
+  border: none;
+  text-align: center;
+}
+
+input:focus::placeholder {
+  opacity: 0;
+}
+
+h3 {
+  font: 600 clamp(1rem, 0.821rem + 0.893vw, 1.25rem) 'Roboto Slab';
+}
+
+.user-icon-container {
+  position: relative;
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 50%;
+  border: 1px solid black;
+  margin: auto;
+}
+
+.user-icon-container img:first-child {
+  width: 3.5rem;
+  height: 3.5rem;
+  object-fit: contain;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.user-icon-container img:last-child {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+}
+
+.icon-selector-modal {
+  width: max-content;
+  display: grid;
+  grid-template-columns: repeat(6, minmax(3.5rem, 1fr));
+  column-gap: 0.75rem;
+  row-gap: 0.75rem;
+  position: absolute;
+  top: calc(100% + 2.5rem);
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: white;
+  border-radius: 1rem;
+  padding: 1rem 0.75rem;
+  transform-origin: top center;
+}
+
+.icon-selector-modal::before {
+  content: '';
+  position: absolute;
+  top: -0.75rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  border-bottom: .75rem solid white;
+  border-left: .75rem solid transparent;
+  border-right: .75rem solid transparent;
+}
+
+.icon-selector-modal img:first-child {
+  width: 3.5rem;
+  height: 3.5rem;
+  object-fit: contain;
+  cursor: pointer;
+}
+
+.icon-option {
+  position: relative;
+}
+
+.icon-option .check {
+  width: 3rem;
+  height: 3rem;
+  object-fit: contain;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+button {
+  font: 1.9531rem 'Bangers';
+  background-color: #FF007A;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.25rem 1rem;
+  border-radius: 0.75rem;
+  border: none;
+  cursor: pointer;
+  color: white;
+  position: absolute;
+  right: 0;
+  transform: translateX(75%);
+  bottom: 2rem;
+}
+
+button svg {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+button path {
+  stroke: white;
+}
+
+@media screen and (max-width: 768px) {
+  input {
+    width: 17.5rem;
+  }
+
+  .icon-selector-modal {
+    grid-template-columns: repeat(4, minmax(3.5rem, 1fr));
+  }
+
+  button {
+    bottom: 0.75rem !important;
+    right: 4rem !important;
+  }
+}

@@ -31,7 +31,7 @@ export interface Prediction {
 //BUG snapping scrollbar
 
 //TODO implement leaderboard / Make it REALTIME
-  //FOCUS select username after sign up
+  //TODO select username after sign up
   //TODO allow users to select icons
 
 //TODO add footer / Attribution / Legals
@@ -45,6 +45,7 @@ export interface Prediction {
 //TODO Hardcore test payment subscription flow
 //TODO Pricing modal should handle when user is not signed in (for prompt especially)
 //BUG Third random (prompt) breaks random button (MAYBE: dependent on problem one before)
+//FOCUS disable pointer events when modal is shown
 
 
 @Component({
