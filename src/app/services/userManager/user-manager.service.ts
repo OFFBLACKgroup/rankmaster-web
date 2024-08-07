@@ -63,7 +63,7 @@ export class UserManagerService {
   }
 
   sendEmail(email: string) {
-    this.http.post('http://localhost:3000/send', { email: email }, { responseType: 'text' }).subscribe(config => {
+    this.http.post('https://www.api.rankmaster.click/send', { email: email }, { responseType: 'text' }).subscribe(config => {
       console.log('Updated config:', config);
     });
   }
