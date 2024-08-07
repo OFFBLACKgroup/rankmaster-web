@@ -17,6 +17,10 @@ section {
   position: relative;
 }
 
+section > div {
+  transition: opacity 0.3s ease-in-out;
+}
+
 h2 {
   font: 600 clamp(1.563rem, 1.071rem + 2.455vw, 2.25rem) 'Roboto Slab';
   margin-bottom: 0;
@@ -136,6 +140,15 @@ button {
   right: 0;
   transform: translateX(75%);
   bottom: 2rem;
+  transition: transform 0.3s ease-in-out;
+}
+
+button:hover {
+  transform: translateX(75%) scale(1.05);
+}
+
+button:active {
+  transform: translateX(75%) scale(1);
 }
 
 button svg {
@@ -145,6 +158,13 @@ button svg {
 
 button path {
   stroke: white;
+}
+
+mat-progress-spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 @media screen and (max-width: 768px) {

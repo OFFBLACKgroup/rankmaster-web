@@ -42,7 +42,7 @@ export class ActionablesComponent {
       this.userManager.sendEmail(this.emailValue)
       let snackBarRef = this._snackBar.open('Added to Waiting List!', '🎉🎉', {
         duration: 3000,
-        panelClass: ['snackbar'],
+        panelClass: ['green-snackbar'],
       });
       snackBarRef.onAction().subscribe(() => {
         snackBarRef.dismiss()

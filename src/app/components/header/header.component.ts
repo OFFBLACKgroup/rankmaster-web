@@ -4,6 +4,7 @@ import { NavigationEnd, NavigationStart, Router, RouterLink } from '@angular/rou
 import { ModalControllerService, ModalType } from '../../services/modalController/modal-controller.service';
 import { FeedbackComponent } from './feedback/feedback.component';
 import { Location } from '@angular/common';
+import { UserManagerService } from '../../services/userManager/user-manager.service';
 
 // MAYBE Header mobile-nav button, user settings button stay on top
 
@@ -56,6 +57,7 @@ export class HeaderComponent {
   modalController = inject(ModalControllerService)
   location = inject(Location)
   router = inject(Router)
+  userManager = inject(UserManagerService)
 
   showFeedbackModal = false
   saleIconState = 'shrink'
@@ -130,6 +132,7 @@ export class HeaderComponent {
     this.modalController.showModal(ModalType.pricing)
   }
   showLogin() {
+    if (this.userManager.userIconID) { return }
     this.modalController.showModal(ModalType.login)
   }
 

@@ -28,7 +28,7 @@
     </button>
   </section>
   <button (click)="showLogin()" class="user-settings">
-    <img src="../../../assets/user-icon.svg" alt="User icon">
+    <img [src]="userManager.userIconID == -1 ? '../../../assets/user.png' : userManager.userIconID ? '../../../assets/user_icon' + userManager.userIconID + '.png' : '../../../assets/user-icon.svg'" alt="User icon">
   </button>
   <button aria-label="Mobile navigation button" (click)="toggleMobileNav()" [style.transform]="showMobileNav ? 'rotate(180deg)' : 'rotate(0)'" class="mobile-navigation">
     <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">

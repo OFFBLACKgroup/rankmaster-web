@@ -17,6 +17,7 @@ export class UserManagerService {
   isAnonymousUser?: boolean
   currentPremiumTierlistIDs?: number[]
   isDailyComplete = false
+  userIconID?: number
 
   getCompletedTierlists(topicData: Topic[]) {
     if (this.userData != undefined) {
@@ -52,6 +53,10 @@ export class UserManagerService {
       { email: email, password: password, anon: { fromAnon: this.isAnonymousUser, data: this.userData } },
       { observe: 'response' }
     )
+  }
+
+  updateUsername(userData: { username: string, user_icon_ID?: number }) {
+    return this.http.post('https://www.api.rankmaster.click/updateUser/', userData)
   }
 
   getUserData() {

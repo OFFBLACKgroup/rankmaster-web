@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TierlistManagerService } from '../../services/tierlistManager/tierlist-manager.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -73,6 +73,7 @@ export class LoginFormComponent {
               this._userManager.userData = res.data
               this._userManager.isPremiumUser = res.isPremium.is_premium ? true : false
               this.openSnackbar('Successful Sign In', '🎉🎉');
+              //TODO set user icon on login
               this.router.navigate(['/menu']);
               this.tryingToLog = false;
               this.modalController.hideModal()
@@ -98,7 +99,7 @@ export class LoginFormComponent {
   openSnackbar(message: string, action: string, error?: boolean) {
     let snackBarRef = this._snackBar.open(message, action, {
       duration: 3000,
-      panelClass: error ? ['red-snackbar'] : ['snackbar']
+      panelClass: error ? ['red-snackbar'] : ['green-snackbar']
     });
     snackBarRef.onAction().subscribe(() => {
       snackBarRef.dismiss()

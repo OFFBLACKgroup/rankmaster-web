@@ -97,17 +97,21 @@ app-feedback {
 button.user-settings {
   width: 3.75rem;
   height: 3.75rem;
-  border-radius: 2rem;
+  border-radius: 50%;
+  overflow: hidden;
   margin-right: 4rem;
   cursor: pointer;
   border: none;
   background-color: #E6F4FF;
+  border: 1px solid white;
 }
 
 .user-settings img {
   object-fit: contain;
   background-color: #E6F4FF;
   border-radius: 2rem;
+  max-width: 3.75rem;
+  max-height: 3.75rem;
 }
 
 button.mobile-navigation {

@@ -45,8 +45,10 @@ export interface Prediction {
 //TODO Hardcore test payment subscription flow
 //TODO Pricing modal should handle when user is not signed in (for prompt especially)
 //BUG Third random (prompt) breaks random button (MAYBE: dependent on problem one before)
-//FOCUS disable pointer events when modal is shown
+//TODO rethink how to handle pointer events on header when modal is shown
 
+
+//TODO correct error handling
 
 @Component({
   selector: 'app-tier-list',

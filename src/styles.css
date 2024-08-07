@@ -16,3 +16,7 @@ body {
 .red-snackbar {
   --mdc-snackbar-container-color: lightcoral;
 }
+
+.green-snackbar {
+  --mdc-snackbar-container-color: lightgreen;
+}
