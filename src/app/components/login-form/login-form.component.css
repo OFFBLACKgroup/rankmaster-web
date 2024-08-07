@@ -1,6 +1,6 @@
 :host {
   position: absolute;
-  top: 50%;
+  top: calc(50vh - 4rem);
   left: 50%;
   transform: translate(-50%, max(-50vh + 8rem, -50%));
   width: 20rem;

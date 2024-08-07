@@ -28,7 +28,7 @@ export interface Prediction {
 //OPTIMIZABLE create code sections for tier-list (largest logic file)
 //BUG there is a bug with coins having to jump from end of animation to their final position (Does not reproduce)
 //TODO connect animations to leaderboard data
-//BUG Sign in appears at wrong place where page is more than 100vh
+//FOCUS Sign in appears at wrong place where page is more than 100vh
 //BUG snapping scrollbar
 
 //TODO implement leaderboard / Make it REALTIME
