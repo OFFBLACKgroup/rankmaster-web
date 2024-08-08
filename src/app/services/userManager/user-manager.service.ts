@@ -60,6 +60,10 @@ export class UserManagerService {
     return this.http.post('https://www.api.rankmaster.click/updateUser/', userData)
   }
 
+  updateUserIcon(iconID: number) {
+    return this.http.post('https://www.api.rankmaster.click/updateUserIcon/', { user_icon_ID: iconID })
+  }
+
   getUserData() {
     return this.http.get('https://www.api.rankmaster.click/userData/')
   }

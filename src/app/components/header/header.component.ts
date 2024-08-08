@@ -5,8 +5,15 @@ import { ModalControllerService, ModalType } from '../../services/modalControlle
 import { FeedbackComponent } from './feedback/feedback.component';
 import { Location } from '@angular/common';
 import { UserManagerService } from '../../services/userManager/user-manager.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 // MAYBE Header mobile-nav button, user settings button stay on top
+
+enum SignInState {
+  initial,
+  iconSelector,
+  settings
+}
 
 @Component({
   selector: 'app-header',
@@ -30,7 +37,7 @@ import { UserManagerService } from '../../services/userManager/user-manager.serv
     ]),
     trigger('scaleIn', [
       transition(':enter', [
-        style({ transform: 'scale(0.6)' }),
+        style({ transform: 'scale(0.5)' }),
         animate('0.3s ease-out', style({ transform: 'scale(1)' }))
       ]),
       transition(':leave', [
@@ -58,10 +65,17 @@ export class HeaderComponent {
   location = inject(Location)
   router = inject(Router)
   userManager = inject(UserManagerService)
+  snackBar = inject(MatSnackBar)
+  SignInState = SignInState
+  selectedIcon = -1
 
   showFeedbackModal = false
+  signInState = SignInState.initial
   saleIconState = 'shrink'
   showMobileNav = false
+
+  userIconStrings = new Array(12).fill(0).map((_, i) => `user_icon${i + 1}.png`)
+
 
   homeLink = ''
 
@@ -131,9 +145,29 @@ export class HeaderComponent {
   showPricing() {
     this.modalController.showModal(ModalType.pricing)
   }
+
+  //OPTIMIZABLE user settings modals with enum probably
+  settingsTimeout: NodeJS.Timeout | undefined
+  
   showLogin() {
-    if (this.userManager.userIconID) { return }
-    this.modalController.showModal(ModalType.login)
+    if (this.userManager.userIconID != undefined) {
+      if (this.signInState == SignInState.initial) {
+        this.signInState = SignInState.settings
+        this.settingsTimeout = setTimeout(() => {
+          this.signInState = SignInState.initial
+        }, 3000)
+      } else if (this.signInState == SignInState.settings) {
+        if (this.settingsTimeout) {
+          clearTimeout(this.settingsTimeout)
+          console.log('settings timeout cleared')
+        }
+        this.signInState = SignInState.iconSelector
+      } else if (this.signInState == SignInState.iconSelector) {
+        this.signInState = SignInState.initial
+      }
+    } else {
+      this.modalController.showModal(ModalType.login)
+    }
   }
 
   showFeedback() {
@@ -175,4 +209,27 @@ export class HeaderComponent {
     this.history.pop()
     this.location.back()
   }
+
+  //#region ICON SELECTOR
+  iconSelectorTimeout: NodeJS.Timeout | undefined
+
+  hideIconSelector() {
+    this.iconSelectorTimeout = setTimeout(() => {
+      this.userManager.updateUserIcon(this.selectedIcon + 1).subscribe({
+        next: () => {
+        },
+        error: (error) => {
+          this.snackBar.open(`Error updating user icon: ${error.error}`, 'Dismiss', { duration: 3000 })
+        }
+      })
+      this.signInState = SignInState.initial
+    }, 1000)
+  }
+
+  reenterIconSelector() {
+    if (this.iconSelectorTimeout) {
+      clearTimeout(this.iconSelectorTimeout)
+    }
+  }
+  //#endregion
 }
