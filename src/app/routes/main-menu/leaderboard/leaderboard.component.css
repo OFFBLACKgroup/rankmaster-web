@@ -29,6 +29,12 @@ ul.top-three {
   display: flex;
 }
 
+.top-three h3 {
+  max-width: 100% !important;
+  text-wrap: nowrap;
+  text-overflow: ellipsis !important;
+}
+
 li.second-place, li.third-place {
   height: clamp(5.75rem, 3.964rem + 8.929vw, 8.25rem);
   width: clamp(5.625rem, 3.929rem + 8.482vw, 8rem);
@@ -230,7 +236,7 @@ ol.leaderboard {
   transition: all 0.5s ease-in-out;
 }
 
-.leaderboard li:not(:last-child)::after {
+.leaderboard li::after {
   content: '';
   width: 100%;
   height: 1.5px;
@@ -238,6 +244,11 @@ ol.leaderboard {
   position: absolute;
   bottom: 0;
   left: 0;
+  transition: all 0.2s ease-in-out;
+}
+
+.leaderboard li.last-rank::after {
+  opacity: 0;
 }
 
 @media only screen and (max-width: 768px) {

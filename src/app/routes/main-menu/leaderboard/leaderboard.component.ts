@@ -7,9 +7,9 @@ import { trigger, transition, style, animate } from '@angular/animations';
 interface LeaderboardLog {
   id: string
   username: string
-  score: number
-  rank: number,
-  user_icon: string
+  total_points: number
+  user_icon_ID: number
+  rank: number
 }
 
 @Component({
@@ -63,160 +63,109 @@ interface LeaderboardLog {
     ]),
     trigger('scaleIn', [
       transition(':enter', [
-        style({ opacity: 0 }),
-        animate('500ms ease', style({ opacity: 1 }))
-      ])
+        style({ opacity: 0, transform: 'translateY({{newOffset}}px) scale(0.5)' }),
+        animate('500ms ease', style({ opacity: 1, transform: 'translateY({{newOffset}}px) scale(1)' }))
+      ], { params: { newOffset: '0px' } })
     ])
   ]
 })
 export class LeaderboardComponent {
-  leaderboardRef = inject(LeaderboardService)
+  leaderboardManager = inject(LeaderboardService)
+  newItemRank = -1
+  leaderboardData: LeaderboardLog[] = []
+  get extendedLeaderboard(): LeaderboardLog[] {
+    return this.leaderboardData.filter(item => item.rank > 3)
+  }
+  get firstPlace(): LeaderboardLog {
+    return this.leaderboardData.filter(item => item.rank == 1)[0]
+  }
+  get secondPlace(): LeaderboardLog {
+    return this.leaderboardData.filter(item => item.rank == 2)[0]
+  }
+  get thirdPlace(): LeaderboardLog {
+    return this.leaderboardData.filter(item => item.rank == 3)[0]
+  }
 
-  //OPTIMIZABLE DSA on eval of new item's rank
-  evaluateNewItemRank(item: LeaderboardLog) {
-    let itemRank = 1
-    for (const row of this.topThree) {
-      if (row.score > item.score) {
-        itemRank++
+
+  evaluateNewItemPostion(item: LeaderboardLog) {
+    let rank = 1
+    const sortedData = this.leaderboardData.slice().sort((a, b) => a.rank - b.rank)
+    for (const row of sortedData) {
+      if (row.total_points > item.total_points) {
+        rank++
       } else {
         break
       }
     }
-    if (itemRank == 4) {
-      for (const row of this.leaderboardData) {
-        if (row.score > item.score) {
-          itemRank++
-        } else {
-          break
-        }
-      }
-    }
-    item.rank = itemRank
+    this.newItemRank = rank
+    item.rank = rank
   }
 
-  sortLeaderboard() {
-    this.leaderboardData.sort((a, b) => b.score - a.score)
-    this.leaderboardData.map((item, index) => item.rank = index + 4)
-  }
-
-  sortTopThree() {
-    this.topThree.sort((a, b) => b.score - a.score)
-    this.topThree.map((item, index) => item.rank = index + 1)
-  }
-
-  deleteInLeaderboard(rank: number) {
-    this.leaderboardData.splice(rank - 4, 1)
-    this.sortLeaderboard()
-  }
-
-  deleteInTopThree(rank: number) {
-    this.topThree.splice(rank - 1, 1)
-    this.sortTopThree()
-  }
-
-  insertIntoLeaderboard(rank: number, item: LeaderboardLog) {
-    this.leaderboardData.splice(rank - 4, 0, item)
-    this.sortLeaderboard()
-  }
-
-  insertIntoTopThree(rank: number, item: LeaderboardLog) {
-    if (this.topThree.length == 3) {
-      const deleted = this.topThree.splice(-1, 1)[0]
-      this.insertIntoLeaderboard(4, deleted)
-    }
-    this.topThree.splice(rank - 1, 0, item)
-    this.sortTopThree()
-  }
-
-  testInsert() {
-    const newItem = { id: '10', rank: 2, username: 'John Doe', score: 100, user_icon: '../../assets/profile icon 1.png' }
-    this.insertIntoTopThree(newItem.rank, newItem)
-  }
-
-  newItemRank = 10
-
+  //#region CROWN ANIMATION
   floatState = 'up'
   floatReverse() {
     this.floatState = this.floatState === 'up' ? 'down' : 'up'
   }
+  //#endregion
 
-  topThree: LeaderboardLog[] = [ ]
+  private subscription?: Subscription;
 
-  public leaderboardData: LeaderboardLog[] = [ ]
-
-  // new data arrives, might do the following:
-    // a) make something in the leaderboard move to the topThree
-    // b) make
-  // First, we check if the new value makes it into the topThree
-    // a) If it does
-
-  test() {
-    if (this.leaderboardData[0].rank == 4) {
-      this.leaderboardData[0].rank = 5
-      this.leaderboardData[1].rank = 4
-    } else {
-      this.leaderboardData[0].rank = 4
-      this.leaderboardData[1].rank = 5  
+  updateLeaderboard(newItem: LeaderboardLog) {
+    let oldItem = this.leaderboardData.find(item => item.id == newItem.id)
+    if (oldItem) {
+      if (oldItem.rank < newItem.rank) {
+        console.log("Error: Can't decrease points")
+        return
+      } else {
+        let lastID = ""
+        for (let i = newItem.rank; i < oldItem.rank; i++) {
+          const itemBetweenID = this.leaderboardData.findIndex(item => item.rank == i && item.id != lastID)
+          if (itemBetweenID != -1) {
+            lastID = this.leaderboardData[itemBetweenID].id
+            this.leaderboardData[itemBetweenID].rank += 1
+          }
+        }
+      } 
+      oldItem.rank = newItem.rank
+      oldItem.total_points = newItem.total_points
     }
   }
 
-  private subscription?: Subscription;
-  
-  ngOnInit() {
-    this.subscription = this.leaderboardRef.leaderboardChanges.subscribe((payload) => {
-      payload.rank = 0
-      const newItem = payload.new as LeaderboardLog
-      this.evaluateNewItemRank(newItem)
-      if (payload.eventType == "UPDATE") {
-        let oldItem = this.topThree.find(item => item.id == newItem.id) 
-        if (oldItem) {
-          if (newItem.rank <= 3) {
-            this.deleteInTopThree(oldItem.rank)
-            this.insertIntoTopThree(newItem.rank, newItem)
-          } else {
-            this.deleteInTopThree(oldItem.rank)
-            this.insertIntoTopThree(3, this.leaderboardData[0])
-            this.deleteInLeaderboard(this.leaderboardData[0].rank)
-            this.insertIntoLeaderboard(newItem.rank, newItem)
-          }
-        } else {
-          oldItem = this.leaderboardData.find(item => item.id == newItem.id)
-          if (oldItem) {
-            if (newItem.rank <= 3) {
-              this.insertIntoTopThree(newItem.rank, newItem)
-              this.deleteInLeaderboard(oldItem.rank)
-            } else {
-              this.deleteInLeaderboard(oldItem.rank)
-              this.insertIntoLeaderboard(newItem.rank, newItem)
-            }
-          }
-        }
-      } else if (payload.eventType == "INSERT") {
-        if (newItem.rank <= 3) {
-          this.insertIntoTopThree(newItem.rank, newItem)
-        } else {
-          this.insertIntoLeaderboard(newItem.rank, newItem)
-        }
+  insertIntoLeaderboard(item: LeaderboardLog) {
+    this.leaderboardData.push(item)
+    let lastID = ""
+    for (let i = item.rank; i < this.leaderboardData.length; i++) {
+      const itemToUpdate = this.leaderboardData.find(item => item.rank == i && item.id != lastID)
+      if (itemToUpdate) {
+        itemToUpdate.rank += 1
+        lastID = itemToUpdate.id
       }
-    });
+    }
+  }
 
-    this.leaderboardRef.fetchLeaderboard().then((res: any) => {
-      let topThree: LeaderboardLog[] = []
-      if (res.data.length > 3) {
-        for (const item of res.data.slice(0, 3)) {
-          topThree.push({ id: item.id, rank: 0, username: item.username, score: item.total_points, user_icon: item.user_icon })
-        }
-        for (const item of res.data.slice(3, res.data.length)) {
-          this.leaderboardData.push({ id: item.id, rank: 0, username: item.username, score: item.total_points, user_icon: item.user_icon })
-        }
-      } else {
-        for (const item of res.data) {
-          this.topThree.push({ id: item.id, rank: 0, username: item.username, score: item.total_points, user_icon: item.user_icon })
-        }
+  createRealtimeConnection() {
+    this.subscription = this.leaderboardManager.leaderboardChanges.subscribe((payload) => {
+      const newItem = payload.new as LeaderboardLog
+      this.evaluateNewItemPostion(newItem) 
+      if (payload.eventType == "UPDATE") {
+        this.updateLeaderboard(newItem)
+      } else if (payload.eventType == "INSERT") {
+        this.insertIntoLeaderboard(newItem)
       }
-      this.sortTopThree()
-      this.sortLeaderboard()
     })
+  }
+
+  async fetchInitialLeaderboard() {
+    const data = await this.leaderboardManager.fetchLeaderboard() as LeaderboardLog[]
+    data.forEach((item, index) => { item.rank = index + 1 })
+    data.forEach((item) => {
+      this.leaderboardData.push(item)
+    });
+  }
+  
+  async ngOnInit() {
+    this.fetchInitialLeaderboard()
+    this.createRealtimeConnection()
   }
 
   ngOnDestroy() {

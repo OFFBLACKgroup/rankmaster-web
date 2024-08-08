@@ -28,7 +28,14 @@ export class LeaderboardService {
     .subscribe()
   }
 
-  fetchLeaderboard() {
-    return this.supabaseClient.from('leaderboard').select('*').order('total_points', { ascending: false })
+  async fetchLeaderboard() {
+    try {
+      const { data, error } = await this.supabaseClient.from('leaderboard').select('*').order('total_points', { ascending: false })
+      if (error) { throw error }
+      return data
+    } catch (error) {
+      console.error(error)
+      return []
+    }
   }
 }
