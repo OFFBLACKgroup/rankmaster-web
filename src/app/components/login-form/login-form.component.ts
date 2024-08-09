@@ -72,6 +72,7 @@ export class LoginFormComponent {
             next: (res: any ) => {
               this._userManager.userData = res.completedTierlists
               this._userManager.isPremiumUser = res.userData.is_premium
+              this._userManager.isDailyComplete = res.isDailyComplete
               if (res.userData.username) {
                 this._userManager.userName = res.userData.username
                 if (res.userData.user_icon_ID) {
