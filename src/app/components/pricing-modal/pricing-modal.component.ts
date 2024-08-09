@@ -34,6 +34,6 @@ export class PricingModalComponent {
   linkDirection = 'https://buy.stripe.com/7sI4jq4feb1nfO8000?client_reference_id='
 
   closeModal() {
-    this.modalController.showModal(ModalType.pricing_OFF)
+    this.modalController.hideModal()
   }
 }

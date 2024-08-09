@@ -28,13 +28,15 @@ export interface Prediction {
 //OPTIMIZABLE create code sections for tier-list (largest logic file)
 //BUG there is a bug with coins having to jump from end of animation to their final position (Does not reproduce)
 //TODO connect animations to leaderboard data
+//BUG snapping scrollbar
 
 //TODO implement leaderboard / Make it REALTIME
-  //TINY collect user icons
-  //TINY leaderboard appear animation
+  //TODO select username after sign up
   //TODO allow users to select icons
+
 //TODO add footer / Attribution / Legals
 //TODO create long landing
+
 //TODO change user menu after login
 //TINY update socials
 
@@ -43,7 +45,10 @@ export interface Prediction {
 //TODO Hardcore test payment subscription flow
 //TODO Pricing modal should handle when user is not signed in (for prompt especially)
 //BUG Third random (prompt) breaks random button (MAYBE: dependent on problem one before)
+//TODO rethink how to handle pointer events on header when modal is shown
 
+
+//TODO correct error handling
 
 @Component({
   selector: 'app-tier-list',
@@ -141,12 +146,12 @@ export interface Prediction {
   ],
 })
 export class TierListComponent implements OnChanges {
-  changeDetector = inject(ChangeDetectorRef);
-  tierlistManager = inject(TierlistManagerService);
-  _userManager = inject(UserManagerService);
-  _activeRoute = inject(ActivatedRoute);
-  router = inject(Router);
-  modalController = inject(ModalControllerService);
+  changeDetector = inject(ChangeDetectorRef)
+  tierlistManager = inject(TierlistManagerService)
+  _userManager = inject(UserManagerService)
+  _activeRoute = inject(ActivatedRoute)
+  router = inject(Router)
+  modalController = inject(ModalControllerService)
 
   @Input() isDailyTierlist: boolean = false;
   @Input() tierlistItems: TierListItem[] = [];
@@ -452,10 +457,10 @@ export class TierListComponent implements OnChanges {
     if (this._userManager.isAnonymousUser) {
       if (!this._userManager.promptedToSignUp) {
         this._userManager.promptedToSignUp = true;
-        this.modalController.showModal(ModalType.signUpPrompt_ON)
+        this.modalController.showModal(ModalType.signUpPrompt)
       }
       if (this._userManager.sessionCompletedTierlists == 3) {
-        this.modalController.showModal(ModalType.pricing_ON)
+        this.modalController.showModal(ModalType.pricing)
       }
       this._userManager.sessionCompletedTierlists += 1
     } 

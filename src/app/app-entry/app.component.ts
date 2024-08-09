@@ -9,11 +9,13 @@ import { PricingModalComponent } from '../components/pricing-modal/pricing-modal
 import { ModalControllerService } from '../services/modalController/modal-controller.service';
 import { SignUpPromptComponent } from '../components/sign-up-prompt/sign-up-prompt.component';
 import { inject as vercelInject } from '@vercel/analytics';
+import { ModalType } from '../services/modalController/modal-controller.service';
+import { UsernameSelectComponent } from '../components/username-select/username-select.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, BeforeLaunchComponent, HeaderComponent, LoginFormComponent, HowToComponent, PricingModalComponent, SignUpPromptComponent ],
+  imports: [RouterOutlet, BeforeLaunchComponent, HeaderComponent, LoginFormComponent, HowToComponent, PricingModalComponent, SignUpPromptComponent, UsernameSelectComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
   animations: [
@@ -65,7 +67,8 @@ import { inject as vercelInject } from '@vercel/analytics';
 })
 export class AppComponent {
   ngOnInit() {
-    vercelInject()
+    //TODO reenable this
+    // vercelInject()
   }
   
   title = 'rankmaster';
@@ -76,6 +79,8 @@ export class AppComponent {
   firstEnd = true
 
   balloonState = 'top'
+
+  ModalType = ModalType
 
   startFloating() {
     if (this.firstEnd) {

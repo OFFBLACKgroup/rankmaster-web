@@ -67,9 +67,9 @@ export class UnauthorizedComponent {
 
   clickFunction() {
     if (this.routeId == '401') {
-      this.modalController.showModal(ModalType.login_ON)
+      this.modalController.showModal(ModalType.login)
     } else if (this.routeId == '403') {
-      this.modalController.showModal(ModalType.pricing_ON)
+      this.modalController.showModal(ModalType.pricing)
     }
   }
 }

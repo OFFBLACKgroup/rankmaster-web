@@ -12,10 +12,10 @@ export class SignUpPromptComponent {
   modalController = inject(ModalControllerService);
 
   closeModal() {
-    this.modalController.showModal(ModalType.signUpPrompt_OFF)
+    this.modalController.hideModal()
   }
 
   openSignUp() {
-    this.modalController.showModal(ModalType.login_ON)
+    this.modalController.showModal(ModalType.login)
   }
 }

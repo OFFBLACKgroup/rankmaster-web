@@ -17,6 +17,8 @@ export class UserManagerService {
   isAnonymousUser?: boolean
   currentPremiumTierlistIDs?: number[]
   isDailyComplete = false
+  userIconID?: number
+  userName?: string
 
   getCompletedTierlists(topicData: Topic[]) {
     if (this.userData != undefined) {
@@ -54,6 +56,14 @@ export class UserManagerService {
     )
   }
 
+  updateUsername(userData: { username: string, user_icon_ID?: number }) {
+    return this.http.post('https://www.api.rankmaster.click/updateUser/', userData)
+  }
+
+  updateUserIcon(iconID: number) {
+    return this.http.post('https://www.api.rankmaster.click/updateUserIcon/', { user_icon_ID: iconID })
+  }
+
   getUserData() {
     return this.http.get('https://www.api.rankmaster.click/userData/')
   }
@@ -65,6 +75,7 @@ export class UserManagerService {
   sendEmail(email: string) {
     this.http.post('https://www.api.rankmaster.click/send', { email: email }, { responseType: 'text' }).subscribe(config => {
       console.log('Updated config:', config);
+      //TODO update snackbar to handle rejections / etc.
     });
   }
 }

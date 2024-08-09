@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TierlistManagerService } from '../../services/tierlistManager/tierlist-manager.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -22,7 +22,7 @@ export class LoginFormComponent {
   modalController = inject(ModalControllerService)
 
   closeModal() {
-    this.modalController.showModal(ModalType.login_OFF)
+    this.modalController.hideModal()
   }
 
   showSignUp = false
@@ -42,8 +42,9 @@ export class LoginFormComponent {
       this._userManager.signUp(this.emailValue, this.passwordValue).subscribe({
         next: () => {
           this.openSnackbar('Successful Sign Up', '🎉🎉');
-          this.router.navigate(['/menu']);
-          this.modalController.showModal(ModalType.login_OFF)
+          this.router.navigate(['/menu'])
+          this.modalController.hideModal()
+          this.modalController.showModal(ModalType.username_select)
         },
         error: (error) => {
           console.error('Sign in error:', error);
@@ -69,12 +70,24 @@ export class LoginFormComponent {
         next: () => {
           this._userManager.getUserData().subscribe({
             next: (res: any ) => {
-              this._userManager.userData = res.data
-              this._userManager.isPremiumUser = res.isPremium.is_premium ? true : false
+              console.log(res)
+              this._userManager.userData = res.completedTierlists
+              this._userManager.isPremiumUser = res.userData.is_premium
+              if (res.userData.username) {
+                this._userManager.userName = res.userData.username
+                if (res.userData.user_icon_ID) {
+                  this._userManager.userIconID = res.userData.user_icon_ID
+                } else {
+                  this._userManager.userIconID = -1
+                }
+              } else {
+                this.modalController.showModal(ModalType.username_select)
+              }
               this.openSnackbar('Successful Sign In', '🎉🎉');
+              //TODO set user icon on login
               this.router.navigate(['/menu']);
               this.tryingToLog = false;
-              this.modalController.showModal(ModalType.login_OFF)
+              this.modalController.hideModal()
             },
             error: (error) => {
               console.error('Sign in error:', error);
@@ -94,14 +107,10 @@ export class LoginFormComponent {
     }
   }
 
-  sendError() {
-
-  }
-
   openSnackbar(message: string, action: string, error?: boolean) {
     let snackBarRef = this._snackBar.open(message, action, {
       duration: 3000,
-      panelClass: error ? ['red-snackbar'] : ['snackbar']
+      panelClass: error ? ['red-snackbar'] : ['green-snackbar']
     });
     snackBarRef.onAction().subscribe(() => {
       snackBarRef.dismiss()
