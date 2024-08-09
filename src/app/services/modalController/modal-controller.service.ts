@@ -16,7 +16,7 @@ export enum ModalType {
 })
 export class ModalControllerService {
 
-  preLaunch = false
+  preLaunch = true
 
   private _activeModal: ModalType | null = null
 

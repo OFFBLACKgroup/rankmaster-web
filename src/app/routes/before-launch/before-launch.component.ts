@@ -14,7 +14,7 @@ import { PlayInvitationComponent } from './components/play-invitation/play-invit
 })
 export class BeforeLaunchComponent {
   showEntryModal = false
-  preLaunch = false
+  preLaunch = true
 
   showModal() {
     this.showEntryModal = true
