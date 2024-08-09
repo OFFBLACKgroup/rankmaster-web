@@ -62,9 +62,9 @@
   <mat-progress-spinner diameter="48" mode="indeterminate"></mat-progress-spinner>
 }
 @if (showCoins) {
-  <ul [@coinsAnimation]="coins.length" class="coins" [style.width]="coinsWidth">
+  <ul class="coins" [style.width]="coinsWidth">
     @for (coin of coins; track $index) {
-      <li [style.transform]="$index == 0 ? '' : 'translateX(' + (-50  * $index) + '%)'" [style.zIndex]="$index * -1">
+      <li [@coin]="{value: true, params: {offset: $index * -50, delay: $index * 100}}" [style.transform]="'translateX(' + $index * -50 + '%)'" [style.zIndex]="$index * -1">
         <img src="../../../assets/coin.png" alt="Coin icon">
       </li>
     }
@@ -74,10 +74,10 @@
       <span>+{{ numOfPoints }}</span> points</p>
   </div>
   <div [@progressBarAnimation]="animateProgressbar" class="progress-bar">
-    <div [@markerPosition]="animateProgressbar" (@markerPosition.done)="startAnimatingText1($event)" class="triangle-marker"></div>
-    <div [@fillPosition]="animateProgressbar" class="fill"></div>
+    <div [@markerPosition]="{value: animateProgressbar, params: {left: percentile}}" (@markerPosition.done)="startAnimatingText1($event)" class="triangle-marker"></div>
+    <div [@fillPosition]="animateProgressbar" [style.width]="'calc(' + percentile + '% - 1rem)'" class="fill"></div>
   </div>
-  <p [@fadeIn]="showText1" (@fadeIn.done)="startAnimatingText2($event)" class="end-text">You placed in the top <span>{{56}}%</span><br> for {{dailyTierlist ? 'the daily' : 'this'}} tier list</p>
+  <p [@fadeIn]="showText1" (@fadeIn.done)="startAnimatingText2($event)" class="end-text">You placed in the top <span>{{percentile}}%</span><br> for {{dailyTierlist ? 'the daily' : 'this'}} tier list</p>
   <!-- <p [@fadeIn]="showText2" class="end-text">{{dailyTierlist ? 'Check back tomorrow' : 'Want to try' }}<br>{{dailyTierlist ? 'or try a random level:' : 'a random level?' }}</p> -->
   <div class="next-action-buttons">
     <div [@fadeIn]="showText2" (@fadeIn.done)="startAnimatingToTopButton($event)" class="random">

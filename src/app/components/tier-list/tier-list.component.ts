@@ -26,27 +26,14 @@ export interface Prediction {
 }
 
 //OPTIMIZABLE create code sections for tier-list (largest logic file)
-//BUG there is a bug with coins having to jump from end of animation to their final position (Does not reproduce)
-//TODO connect animations to leaderboard data
 //BUG snapping scrollbar
-
-//TODO implement leaderboard / Make it REALTIME
-  //TODO select username after sign up
-  //TODO allow users to select icons
 
 //TODO add footer / Attribution / Legals
 //TODO create long landing
 
-//TODO change user menu after login
-//TINY update socials
-
 //TODO on load if daily is done already it probably won't get disabled by default
 
 //TODO Hardcore test payment subscription flow
-//TODO Pricing modal should handle when user is not signed in (for prompt especially)
-//BUG Third random (prompt) breaks random button (MAYBE: dependent on problem one before)
-//TODO rethink how to handle pointer events on header when modal is shown
-
 
 //TODO correct error handling
 
@@ -86,23 +73,11 @@ export interface Prediction {
         animate('0.3s ease-in', style({ transform: 'scale(1)', opacity: 1 })),
       ]),
     ]),
-    trigger('coinsAnimation', [
-      transition('* <=> *', [
-        query(
-          ':enter',
-          [
-            style({ opacity: 0, transform: 'translateX(200px)' }),
-            stagger(
-              '100ms',
-              animate(
-                '701ms 200ms ease-out',
-                style({ opacity: 1, transform: '' })
-              )
-            ),
-          ],
-          { optional: true }
-        ),
-      ]),
+    trigger('coin', [
+      transition(':enter', [
+        style({ opacity: 0, transform: 'translateX(200px)' }),
+        animate('600ms {{delay}}ms ease-out', style({ opacity: 1, transform: 'translateX({{offset}}%)' })),
+      ], {params: {offset: 0, delay: 0}}),
     ]),
     trigger('rotateScaleIn', [
       transition(':enter', [
@@ -129,11 +104,11 @@ export interface Prediction {
       ]),
     ]),
     trigger('markerPosition', [
-      state('true', style({ left: '56%' })),
+      state('true', style({ left: '{{left}}%' }), {params: {left: 0}}),
       transition('* => true', [
         style({ left: '0%' }),
-        animate('0.8s ease-in-out', style({ left: '56%' })),
-      ]),
+        animate('0.8s ease-in-out', style({ left: '{{left}}%' })),
+      ], {params: {left: 0} }),
     ]),
     trigger('fadeIn', [
       state('false', style({ opacity: 0 })),
@@ -286,6 +261,7 @@ export class TierListComponent implements OnChanges {
     }
   }
 
+  percentile: number = 0;
   finish() {
     this.finished = true;
     this.changeDetector.detectChanges();
@@ -298,9 +274,11 @@ export class TierListComponent implements OnChanges {
         .calculatePoints(
           Number(topicID),
           this.tierlistItems[0].tierlist_ID,
+          this.isDailyTierlist,
           predictionData
         )
         .subscribe((res: any) => {
+          this.percentile = res.topPercentile
           if (this.numOfRows) {
             res.predictions.forEach((prediction: Prediction) => {
               for (let i = 0; i < this.tierData.length; i++) {
@@ -324,8 +302,8 @@ export class TierListComponent implements OnChanges {
             }
             this.numOfPoints = res.points;
             if (!this._userManager.isAnonymousUser) {
-              this._userManager.getUserData().subscribe((res: any) => this._userManager.userData = res.data)
-              this._userManager.updateLeaderboardStats(res.points).subscribe((res: any) => {console.log(res)})
+              this._userManager.getUserData().subscribe((res: any) => this._userManager.userData = res.completedTierlists)
+              this._userManager.updateLeaderboardStats(res.points)
             } else {
               this._userManager.userData.push({ tierlist_ID: this.tierlistItems[0].tierlist_ID, collected_points: res.points, topic_ID: Number(topicID) })
             }

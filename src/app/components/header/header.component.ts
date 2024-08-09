@@ -213,11 +213,15 @@ export class HeaderComponent {
   iconSelectorTimeout: NodeJS.Timeout | undefined
 
   hideIconSelector() {
-    if (this.selectedIcon == -1) { return }
+    if (this.selectedIcon == -1) {
+      this.iconSelectorTimeout = setTimeout(() => {
+        this.signInState = SignInState.initial
+      }, 1000)
+      return
+    }
     this.iconSelectorTimeout = setTimeout(() => {
       this.userManager.updateUserIcon(this.selectedIcon + 1).subscribe({
         next: () => {
-          this.selectedIcon = -1
         },
         error: (error) => {
           this.snackBar.open(`Error updating user icon: ${error.error}`, 'Dismiss', { duration: 3000 })

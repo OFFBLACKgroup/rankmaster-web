@@ -5,7 +5,7 @@
     <input (input)="checkValidity()" [(ngModel)]="userName" minlength="3" maxlength="16" placeholder="Username" type="text" name="" id="">
     <h3>OPTIONAL: Select an icon</h3>
     <div class="user-icon-container">
-      <img (click)="toggleIconSelector()" [style.opacity]="showIconSelector ? 1 : 0.4" [src]="selectedIcon ? '../../../assets/' + userIconStrings[selectedIcon] : '../../../assets/user.png'" alt="Default user icon">
+      <img (click)="toggleIconSelector()" [style.opacity]="showIconSelector ? 1 : 0.4" [src]="selectedIcon != undefined ? '../../../assets/' + userIconStrings[selectedIcon] : '../../../assets/user.png'" alt="Default user icon">
       @if (!showIconSelector) {
         <img src="../../../assets/edit.svg" alt="Edit icon" (click)="toggleIconSelector()">
       }

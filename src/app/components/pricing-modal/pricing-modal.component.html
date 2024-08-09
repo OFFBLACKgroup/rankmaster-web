@@ -36,7 +36,7 @@
             to new levels</p>
         </li>
       </ul>
-      <a [href]="userId ? linkDirection + userId : '/unauthorized/401'" [target]="userId ? '_blank' : '_self'">Unlock Now!</a>
+      <a (click)="unlockNow($event)" [target]="userId ? '_blank' : '_self'">Unlock Now!</a>
     </section>
     <section class="mascot">
       <img @rotateIn src="../../../assets/text-bubble.svg" alt="" class="text-bubble">

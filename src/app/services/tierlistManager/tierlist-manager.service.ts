@@ -21,10 +21,11 @@ export class TierlistManagerService {
     return this.http.get('https://www.api.rankmaster.click/fetchTierlist/' + id)
   }
 
-  calculatePoints(topicID: number, tierlistID: number, predictions: Prediction[]) {
+  calculatePoints(topicID: number, tierlistID: number, isDailyTierlist: boolean, predictions: Prediction[]) {
     const request = {
       topicID,
       tierlistID,
+      isDailyTierlist,
       predictions
     }
 
