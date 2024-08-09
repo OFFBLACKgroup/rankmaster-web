@@ -70,7 +70,6 @@ export class LoginFormComponent {
         next: () => {
           this._userManager.getUserData().subscribe({
             next: (res: any ) => {
-              console.log(res)
               this._userManager.userData = res.completedTierlists
               this._userManager.isPremiumUser = res.userData.is_premium
               if (res.userData.username) {
@@ -84,12 +83,11 @@ export class LoginFormComponent {
                 this.modalController.showModal(ModalType.username_select)
               }
               this.openSnackbar('Successful Sign In', '🎉🎉');
-              //TODO set user icon on login
               this.router.navigate(['/menu']);
               this.tryingToLog = false;
               this.modalController.hideModal()
             },
-            error: (error) => {
+            error: (error: any) => {
               console.error('Sign in error:', error);
               this.passwordValue = '';
               this.openSnackbar('Error getting user data', '', true);

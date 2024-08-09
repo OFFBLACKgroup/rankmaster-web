@@ -31,6 +31,15 @@ export class PricingModalComponent {
     })
   }
 
+  unlockNow(e: Event) {
+    e.preventDefault()
+    if (this.userId) {
+      window.open(this.linkDirection + this.userId, '_blank')
+    } else {
+      this.modalController.showModal(ModalType.login)
+    }
+  }
+
   linkDirection = 'https://buy.stripe.com/7sI4jq4feb1nfO8000?client_reference_id='
 
   closeModal() {

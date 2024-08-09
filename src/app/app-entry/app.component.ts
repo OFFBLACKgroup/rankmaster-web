@@ -67,8 +67,7 @@ import { UsernameSelectComponent } from '../components/username-select/username-
 })
 export class AppComponent {
   ngOnInit() {
-    //TODO reenable this
-    // vercelInject()
+    vercelInject()
   }
   
   title = 'rankmaster';

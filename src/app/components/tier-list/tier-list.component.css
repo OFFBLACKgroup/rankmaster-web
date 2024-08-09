@@ -272,17 +272,16 @@ p.points span {
   top: calc(100% + 0.5rem);
   border-left: 7px solid transparent;
   border-right: 7px solid transparent;
+  transform: translateX(-1rem);
   
   border-bottom: 12px solid white;
 }
 
-/* TODO Don't forget to redo the calculation! */
 .progress-bar .fill {
   position: absolute;
   top: calc(50% - .3125rem);
   left: .5rem;
   height: .625rem;
-  width: calc(56%);
   background-color: #27DEBF;
   border-radius: 0.5rem;
   transform-origin: left;
