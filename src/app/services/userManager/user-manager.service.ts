@@ -72,6 +72,10 @@ export class UserManagerService {
     return this.http.get('https://www.api.rankmaster.click/currentUserID/')
   }
 
+  updateLeaderboardStats(points: number) {
+    return this.http.post('https://www.api.rankmaster.click/leaderboardUpdate/', { points: points })
+  }
+
   sendEmail(email: string) {
     this.http.post('https://www.api.rankmaster.click/send', { email: email }, { responseType: 'text' }).subscribe(config => {
       console.log('Updated config:', config);
