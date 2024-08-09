@@ -159,7 +159,6 @@ export class HeaderComponent {
       } else if (this.signInState == SignInState.settings) {
         if (this.settingsTimeout) {
           clearTimeout(this.settingsTimeout)
-          console.log('settings timeout cleared')
         }
         this.signInState = SignInState.iconSelector
       } else if (this.signInState == SignInState.iconSelector) {
@@ -214,9 +213,11 @@ export class HeaderComponent {
   iconSelectorTimeout: NodeJS.Timeout | undefined
 
   hideIconSelector() {
+    if (this.selectedIcon == -1) { return }
     this.iconSelectorTimeout = setTimeout(() => {
       this.userManager.updateUserIcon(this.selectedIcon + 1).subscribe({
         next: () => {
+          this.selectedIcon = -1
         },
         error: (error) => {
           this.snackBar.open(`Error updating user icon: ${error.error}`, 'Dismiss', { duration: 3000 })

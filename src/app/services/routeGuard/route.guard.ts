@@ -6,7 +6,8 @@ export const routeGuard: CanActivateFn = (route, state) => {
   const router: Router = inject(Router);
   const userManager = inject(UserManagerService)
 
-  const preLaunch = true
+  const preLaunch = false
+  return true
 
   if (preLaunch) { return router.navigate(['unauthorized/400']) }
 

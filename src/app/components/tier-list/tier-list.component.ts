@@ -325,6 +325,7 @@ export class TierListComponent implements OnChanges {
             this.numOfPoints = res.points;
             if (!this._userManager.isAnonymousUser) {
               this._userManager.getUserData().subscribe((res: any) => this._userManager.userData = res.data)
+              this._userManager.updateLeaderboardStats(res.points).subscribe((res: any) => {console.log(res)})
             } else {
               this._userManager.userData.push({ tierlist_ID: this.tierlistItems[0].tierlist_ID, collected_points: res.points, topic_ID: Number(topicID) })
             }
