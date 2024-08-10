@@ -14,7 +14,7 @@ import { UserManagerService } from '../../../../services/userManager/user-manage
       state('hidden', style({ opacity: 0 })),
       transition('* => visible', [
         style({ opacity: 0}),
-        animate('0.3s 0.5s', keyframes([
+        animate('0.3s 1.5s', keyframes([
           style({ transform: 'scale(0.75) rotate(-10deg)', offset: 0, opacity: 1 }),
           style({ transform: 'scale(0.875) rotate(0deg)', offset: 0.33 }),
           style({ transform: 'scale(1) rotate(5deg)', offset: 0.66 }),
@@ -27,7 +27,7 @@ import { UserManagerService } from '../../../../services/userManager/user-manage
       state('hidden', style({ opacity: 0 })),
       transition('* => visible', [
         style({ opacity: 0}),
-        animate('0.3s 1.5s', keyframes([
+        animate('0.3s 2.5s', keyframes([
           style({ transform: 'scale(0.75) rotate(10deg)', offset: 0, opacity: 1 }),
           style({ transform: 'scale(0.875) rotate(0deg)', offset: 0.33 }),
           style({ transform: 'scale(1) rotate(-5deg)', offset: 0.66 }),
@@ -76,7 +76,7 @@ export class PlayInvitationComponent {
   chatMessages = [
     [['Messi is the GOAT!'], ['Ronaldo better']],
     [['Just started to read Harry Potter'], ['LOTR is better. (Dobby dies)']],
-    [['LeBron just keeps on playing!'], ['MJ putting on jersey RN']],
+    [['LeBron just keeps on playing!'], ['MJ putting on the jersey rn']],
     [['How you like my new Android?'], ['Stop sending green msgs 😡']],
     [['New Xbox or PSP?'], ['Nintendo 💯']]
   ]

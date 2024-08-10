@@ -1,7 +1,6 @@
 <div class="actionables">
   <h2>Guess the community's opinion with tier lists!</h2>
   <div class="countdown">
-    @if (lessThan72) {
       <div>
         <h3>
           @if (remainingHours == -1) {
@@ -38,44 +37,6 @@
         </h3>
         <p>{{ remainingSeconds == 1 ? 'Second' : 'Seconds' }}</p>
       </div>
-    } @else {
-      <div>
-        <h3>
-          @if (remainingDays == -1) {
-            <mat-progress-spinner mode="indeterminate" diameter="48"></mat-progress-spinner>
-          } @else {
-            <span @fadeIn>
-              {{ remainingDays }}
-            </span>
-          }
-        </h3>
-        <p>{{ remainingDays == 1 ? 'Day' : 'Days' }}</p>
-      </div>
-      <div>
-        <h3>
-          @if (remainingHours == -1) {
-            <mat-progress-spinner mode="indeterminate" diameter="48"></mat-progress-spinner>
-          } @else {
-            <span @fadeIn>
-              {{ remainingHours }}
-            </span>
-          }
-        </h3>
-        <p>{{ remainingHours == 1 ? 'Hour' : 'Hours' }}</p>
-      </div>
-      <div>
-        <h3>
-          @if (remainingMinutes == -1) {
-            <mat-progress-spinner mode="indeterminate" diameter="48"></mat-progress-spinner>
-          } @else {
-            <span @fadeIn>
-              {{ remainingMinutes }}
-            </span>
-          }
-        </h3>
-        <p>{{ remainingMinutes == 1 ? 'Minute' : 'Minutes' }}</p>
-      </div>
-    }
   </div>
   @if (waitlist) {
     <form>

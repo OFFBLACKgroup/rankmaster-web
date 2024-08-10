@@ -7,6 +7,7 @@ import { TierlistManagerService } from '../../../../services/tierlistManager/tie
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { LoginFormComponent } from '../../../../components/login-form/login-form.component';
 import { UserManagerService } from '../../../../services/userManager/user-manager.service';
+import confetti from 'canvas-confetti'
 
 @Component({
   selector: 'app-actionables',
@@ -26,10 +27,18 @@ import { UserManagerService } from '../../../../services/userManager/user-manage
 export class ActionablesComponent {
   userManager = inject(UserManagerService) 
   _snackBar = inject(MatSnackBar)
-  @Output() showModal = new EventEmitter()
+  @Output() launch = new EventEmitter()
 
   emit() {
-    this.showModal.emit()
+    this.launch.emit()
+  }
+
+  launchConfetti() {
+    confetti({
+      particleCount: 100,
+      spread: 100,
+      origin: { y: 0.6, x: 0.55 }
+    })
   }
 
   waitlist = true
@@ -51,33 +60,56 @@ export class ActionablesComponent {
     }
   }
 
-  launchDate = new Date("Aug 10, 2024 12:00:00").getTime()
+  launchDate = new Date("Aug 10, 2024 3:30:00").getTime()
 
-  lessThan72 = true
-  remainingDays = -1
+  constructor() {
+    this.now = new Date().getTime()
+    this.isLaunched = this.launchDate < this.now
+    if (this.isLaunched) {
+      this.remainingHours = 0
+      this.remainingMinutes = 0
+      this.remainingSeconds = 3
+    }
+  }
+
+  isLaunched = false
   remainingHours = -1
   remainingMinutes = -1
   remainingSeconds = -1
 
-  remainingTime = setInterval( () => { 
-    var now = new Date().getTime()
-    var difference = this.launchDate - now
-
-    if (!this.lessThan72) {
-      if (difference < (1000 * 60 * 60 * 72)) {
-        this.lessThan72 = true
-        this.remainingHours = Math.floor(difference / (1000 * 60 * 60))
-        this.remainingMinutes = Math.floor(difference % (1000 * 60 * 60) / (1000 * 60))
-        this.remainingSeconds = Math.floor(difference % (1000 * 60) / 1000)
-      } else {
-        this.remainingDays = Math.floor(difference / (1000 * 60 * 60 * 24))
-        this.remainingHours = Math.floor(difference % (1000 * 60 * 60 * 24) / (1000 * 60 * 60))
-        this.remainingMinutes = Math.floor(difference % (1000 * 60 * 60) / (1000 * 60))
+  now: number
+  HOUR_IN_MS = 1000 * 60 * 60
+  MINUTE_IN_MS = 1000 * 60
+  
+  remainingTime = setInterval( () => {
+    if (this.isLaunched) {
+      if (this.remainingSeconds == 0) {
+        this.launchConfetti()
+        clearInterval(this.remainingTime)
+        setTimeout(() => {
+          this.emit()
+        }, 3000)
+        return
       }
+      this.remainingSeconds -= 1
     } else {
-      this.remainingHours = Math.floor(difference / (1000 * 60 * 60))
-      this.remainingMinutes = Math.floor(difference % (1000 * 60 * 60) / (1000 * 60))
-      this.remainingSeconds = Math.floor(difference % (1000 * 60) / 1000)
+      this.now = new Date().getTime()
+      const difference = this.launchDate - this.now
+  
+      this.remainingHours = Math.floor(difference / (this.HOUR_IN_MS))
+      this.remainingMinutes = Math.floor(difference % (this.HOUR_IN_MS) / (this.MINUTE_IN_MS))
+      this.remainingSeconds = Math.floor(difference % (this.MINUTE_IN_MS) / 1000)
+  
+      if (difference < 0) {
+        clearInterval(this.remainingTime)
+      }
     }
+
   }, 1000)
+
+  ngOnDestroy() {
+    if (this.remainingTime) {
+      clearInterval(this.remainingTime)
+    }
+  }
 }
