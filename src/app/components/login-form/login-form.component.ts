@@ -45,6 +45,7 @@ export class LoginFormComponent {
           this._userManager.userData = []
           this._userManager.isPremiumUser = false
           this._userManager.isDailyComplete = false
+          this._userManager.isAnonymousUser = false
           this.router.navigate(['/menu'])
           this.modalController.hideModal()
           this.modalController.showModal(ModalType.username_select)
@@ -76,6 +77,7 @@ export class LoginFormComponent {
               this._userManager.userData = res.completedTierlists
               this._userManager.isPremiumUser = res.userData.is_premium
               this._userManager.isDailyComplete = res.isDailyComplete
+              this._userManager.isAnonymousUser = false
               if (res.userData.username) {
                 this._userManager.userName = res.userData.username
                 if (res.userData.user_icon_ID) {
