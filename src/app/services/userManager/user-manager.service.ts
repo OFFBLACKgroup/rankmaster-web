@@ -65,7 +65,6 @@ export class UserManagerService {
   }
 
   getUserData() {
-    //TODO CHECK BACK ON THIS ONE
     return this.http.get('https://www.api.rankmaster.click/userData/')
   }
 

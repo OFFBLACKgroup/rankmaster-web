@@ -31,8 +31,6 @@ export interface Prediction {
 //TODO add footer / Attribution / Legals
 //TODO create long landing
 
-//TODO on load if daily is done already it probably won't get disabled by default
-
 //TODO Hardcore test payment subscription flow
 
 //TODO correct error handling
