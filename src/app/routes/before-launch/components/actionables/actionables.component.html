@@ -7,7 +7,7 @@
             <mat-progress-spinner mode="indeterminate" diameter="48"></mat-progress-spinner>
           } @else {
             <span @fadeIn>
-              {{ remainingHours }}
+              {{ remainingHours.toString().padStart(2, '0') }}
             </span>
           }
         </h3>
@@ -19,7 +19,7 @@
             <mat-progress-spinner mode="indeterminate" diameter="48"></mat-progress-spinner>
           } @else {
             <span @fadeIn>
-              {{ remainingMinutes }}
+              {{ remainingMinutes.toString().padStart(2, '0') }}
             </span>
           }
         </h3>
@@ -31,7 +31,7 @@
             <mat-progress-spinner mode="indeterminate" diameter="48"></mat-progress-spinner>
           } @else {
             <span @fadeIn>
-              {{ remainingSeconds }}
+              {{ remainingSeconds.toString().padStart(2, '0') }}
             </span>
           }
         </h3>
