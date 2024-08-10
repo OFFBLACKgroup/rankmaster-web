@@ -3,11 +3,11 @@ import { SocialsComponent } from '../../../../components/socials/socials.compone
 import { FormsModule } from '@angular/forms';
 import {MatProgressSpinner } from '@angular/material/progress-spinner';
 import { trigger, transition, style, animate } from '@angular/animations';
-import { TierlistManagerService } from '../../../../services/tierlistManager/tierlist-manager.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { LoginFormComponent } from '../../../../components/login-form/login-form.component';
 import { UserManagerService } from '../../../../services/userManager/user-manager.service';
 import confetti from 'canvas-confetti'
+import { ModalControllerService } from '../../../../services/modalController/modal-controller.service';
 
 @Component({
   selector: 'app-actionables',
@@ -27,6 +27,7 @@ import confetti from 'canvas-confetti'
 export class ActionablesComponent {
   userManager = inject(UserManagerService) 
   _snackBar = inject(MatSnackBar)
+  modalController = inject(ModalControllerService)
   @Output() launch = new EventEmitter()
 
   emit() {
@@ -60,7 +61,7 @@ export class ActionablesComponent {
     }
   }
 
-  launchDate = new Date("Aug 10, 2024 3:30:00").getTime()
+  launchDate = new Date("Aug 10, 2024 12:00:00").getTime()
 
   constructor() {
     this.now = new Date().getTime()
@@ -88,6 +89,7 @@ export class ActionablesComponent {
         clearInterval(this.remainingTime)
         setTimeout(() => {
           this.emit()
+          this.modalController.preLaunch = false
         }, 3000)
         return
       }
@@ -96,12 +98,18 @@ export class ActionablesComponent {
       this.now = new Date().getTime()
       const difference = this.launchDate - this.now
   
-      this.remainingHours = Math.floor(difference / (this.HOUR_IN_MS))
-      this.remainingMinutes = Math.floor(difference % (this.HOUR_IN_MS) / (this.MINUTE_IN_MS))
-      this.remainingSeconds = Math.floor(difference % (this.MINUTE_IN_MS) / 1000)
+      this.remainingHours = Math.max(0, Math.floor(difference / (this.HOUR_IN_MS)))
+      this.remainingMinutes = Math.max(0, Math.floor(difference % (this.HOUR_IN_MS) / (this.MINUTE_IN_MS)))
+      this.remainingSeconds = Math.max(0, Math.floor(difference % (this.MINUTE_IN_MS) / 1000))
   
+
       if (difference < 0) {
+        this.launchConfetti()
         clearInterval(this.remainingTime)
+        setTimeout(() => {
+          this.modalController.preLaunch = false
+          this.launch.emit()
+        }, 3000)
       }
     }
 

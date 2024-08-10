@@ -42,6 +42,9 @@ export class LoginFormComponent {
       this._userManager.signUp(this.emailValue, this.passwordValue).subscribe({
         next: () => {
           this.openSnackbar('Successful Sign Up', '🎉🎉');
+          this._userManager.userData = []
+          this._userManager.isPremiumUser = false
+          this._userManager.isDailyComplete = false
           this.router.navigate(['/menu'])
           this.modalController.hideModal()
           this.modalController.showModal(ModalType.username_select)
