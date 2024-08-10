@@ -52,8 +52,9 @@ import { UserManagerService } from '../../../../services/userManager/user-manage
       transition('hidden => enter', animate('0.3s 0.4s'))
     ]),
     trigger('buttonPulse', [
-      state('pulse', style({ transform: 'rotate(2deg) translateX(-1.5rem) scale(1)', opacity: 1 })),
-      transition('* => pulse', animate('1.5s', keyframes([
+      state('false', style({ transform: 'rotate(2deg) translateX(-1.5rem) scale(0)' })),
+      state('true', style({ transform: 'rotate(2deg) translateX(-1.5rem) scale(1)' })),
+      transition('false => true', animate('1.5s', keyframes([
         style({ transform: 'rotate(2deg) translateX(-1.5rem) scale(0.6)', offset: 0}),
         style({ transform: 'rotate(2deg) translateX(-1.5rem) scale(1)', offset: 0.25}),
         style({ transform: 'rotate(2deg) translateX(-1.5rem) scale(0.92)', offset: 0.5}),
@@ -66,6 +67,10 @@ import { UserManagerService } from '../../../../services/userManager/user-manage
 export class PlayInvitationComponent {
   userManager = inject(UserManagerService)
   router = inject(Router)
+
+  constructor() {
+    this.buttonStartPulse = false
+  }
 
   currentMessageID = 0
   chatMessages = [
@@ -80,7 +85,7 @@ export class PlayInvitationComponent {
   showText = 'hidden'
   showArrow = 'hidden'
   firstTime = true
-  buttonState = ''
+  buttonStartPulse = false
 
   animationEnded(type: string, event: any) {
     switch (type) {
@@ -106,7 +111,7 @@ export class PlayInvitationComponent {
       case 'nextMessage':
         if (event.fromState == 'hidden') {
           if (this.firstTime) {
-            this.buttonState = 'pulse'
+            this.buttonStartPulse = true
           }
           this.cycleNext()
         }
