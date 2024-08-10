@@ -359,10 +359,9 @@ div.random img {
   padding: 0.25rem 0.75rem;
   cursor: pointer;
   font: 1.9531rem 'Roboto Slab';
-  transition: all 0.1s ease-out;
+  transition: transform 0.1s ease-out;
   border: 1px solid rgb(178, 178, 178);
   width: max-content;
-  opacity: 0;
 }
 
 .next-action-buttons .scroll-up:hover {

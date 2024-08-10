@@ -113,7 +113,7 @@ export interface Prediction {
     trigger('fadeIn', [
       state('false', style({ opacity: 0 })),
       state('true', style({ opacity: 1 })),
-      transition('* => true', [
+      transition('false => true', [
         style({ opacity: 0 }),
         animate('0.3s 0.5s ease-out', style({ opacity: 1 })),
       ]),
@@ -133,6 +133,10 @@ export class TierListComponent implements OnChanges {
   dailyTierlist?: TierList;
   @Output() tierlistTitle = new EventEmitter();
   @Output() completeTierlist = new EventEmitter()
+
+  constructor() {
+    this.showToTopButton = false
+  }
 
   ngOnInit() {
     if (this.isDailyTierlist) {
@@ -463,7 +467,7 @@ export class TierListComponent implements OnChanges {
   animateProgressbar = false;
   showText1 = false;
   showText2 = false;
-  showToTopButton = false;
+  showToTopButton: boolean
 
   //OPTIMIZABLE tierlist submit animations can be unified easily
   startAnimatingProgressbar(e: any) {
