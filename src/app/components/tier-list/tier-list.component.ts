@@ -141,7 +141,7 @@ export class TierListComponent implements OnChanges {
       //OPTIMIZABLE if we would do a single HTTP call instead of two
       this.tierlistManager.fetchDailyTierlist().subscribe((res: any) => {
         if (res.length == 0) {
-          this.router.navigate(['unauthorized/400']);
+          this.router.navigate(['/menu']);
         } else {
           this.dailyTierlist = res[0] as TierList;
           this.tierlistTitle.emit(res[0].name);
@@ -444,7 +444,7 @@ export class TierListComponent implements OnChanges {
         this.modalController.showModal(ModalType.pricing)
       }
       this._userManager.sessionCompletedTierlists += 1
-    } 
+    }
 
     this.tierlistManager.fetchRandomTierlist().subscribe((res: any) => {
       this.router
